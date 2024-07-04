@@ -1,23 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:mansa_app/features/authentication/data/presentation/views/first_register_screen.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';
   static const kHomeLayout = '/HomeLayout';
 
-  static const kOnBoarding = '/OnBoardingScreen';
-  static const kRegistretion = '/RegistretionScreen';
-  static const kLogin = '/LoginScreen';
-  static const kForgotPassword = '/ForgotPasswordScreen';
-  static const kAddNewPassword = '/AddNEWPasswordScreen';
-  static const kVerifyEmail = '/VerifyEmailScreen';
-  static const kOtpView = '/OtpView';
-  static const kOtpForgetPass = '/OtpForgetPass';
-  static const kDonePassword = '/DonePassword';
-  static const kHomeScreen = '/HomeScreen';
-  static const kServicesScreen = '/ServicesScreen';
-  static const kSettingScreen = '/SettingScreen';
-  static const kResetPasswordScreen = '/ResetPasswordScreen';
-  static const kChooseRideScreen = '/ChooseRideScreen';
+  static const kFistRegisterScreen = '/FistRegisterScreen';
 
   static final router = GoRouter(
       initialLocation:
@@ -31,11 +19,11 @@ abstract class AppRouter {
           //             true
           //         ? kLogin
           //         :
-          kHomeLayout,
+          kFistRegisterScreen,
       routes: [
-        // GoRoute(
-        //   path: kHomeLayout,
-        //   builder: (context, state) => const HomeLayout(),
-        // ),
+        GoRoute(
+          path: kFistRegisterScreen,
+          builder: (context, state) => const FirstRegisterScreen(),
+        ),
       ]);
 }
