@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
+import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/features/authentication/data/presentation/manager/register/register_cubit.dart';
@@ -76,7 +77,45 @@ class FirstRegisterScreen extends StatelessWidget {
                     height: 130.h,
                   ),
                   CustomButtonLarge(
-                      text: 'ddd', textColor: Colors.white, function: () {})
+                      text: AppLocalizations.of(context)!.followSubscription,
+                      textColor: Colors.white,
+                      function: () {}),
+                  SizedBox(
+                    height: 90.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(AppLocalizations.of(context)!.alreadyHaveAccount,
+                          style:
+                              Styles.textStyle14.copyWith(color: Colors.black)),
+                      const SizedBox(
+                        width: 1,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return TermsAndConditionsScreen();
+                          // }));
+                        },
+                        child: Text(AppLocalizations.of(context)!.login,
+                            style: Styles.textStyle14),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Center(
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          AppLocalizations.of(context)!.contactUs,
+                          style:
+                              Styles.textStyle14.copyWith(color: Colors.blue),
+                        )),
+                  )
                 ],
               ),
             ),

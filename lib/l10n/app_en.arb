@@ -6,6 +6,10 @@
 
     "name": "Name *",
     "phoneNumber": "Phone number *",
-    "tripleName":"The name is triple"
+    "tripleName":"The name is triple",
+    "followSubscription":"follow registaration",
+    "alreadyHaveAccount":"Already have an account?",
+    "login":"Login",
+    "contactUs":"Contact Us"
     
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +37,16 @@ class CustomButtonLarge extends StatelessWidget {
             children: [
               TextSpan(
                   text: text,
-                  style: const TextStyle(overflow: TextOverflow.ellipsis)),
+                  style: GoogleFonts.almarai(
+                    fontSize: 22,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                  )
+                  // const TextStyle(
+                  //   fontFamily: ,
+                  //   overflow: TextOverflow.ellipsis)
+
+                  ),
               WidgetSpan(
                   child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0.0),
