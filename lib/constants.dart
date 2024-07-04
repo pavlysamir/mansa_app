@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 const kProfileImage =
     'https://firebasestorage.googleapis.com/v0/b/yappy-app-ef720.appspot.com/o/posts%2FprofileImg.png?alt=media&token=1ad84aae-172b-4b68-b199-d59ab8e7107d';
-const kPrimaryKey = Color(0xffE01C40);
+const kPrimaryKey = Color(0xff8B8EDA);
 const kSecondaryKey = Color(0xffD35656);
 const kPinkKey = Color(0xffE4D0D4);
 const kBlackColor = Colors.black;

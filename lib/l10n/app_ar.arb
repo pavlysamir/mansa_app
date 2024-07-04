@@ -1,6 +1,6 @@
 {
-    "title": "مرحبا بالعالم",
-    "@title": {
-      "description": "The application title"
-    }
+    "createAccount": "انشاء حساب",
+     "name": "الاسم *",
+     "phoneNumber": "رقم الهاتف *",
+    "tripleName":"الاسم ثلاثي"
 }

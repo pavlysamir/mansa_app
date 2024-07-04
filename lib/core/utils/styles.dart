@@ -14,18 +14,22 @@ abstract class Styles {
     color: Colors.black,
   );
 
-  static TextStyle textStyle48Orange = GoogleFonts.poppins(
-    fontSize: 48,
+  static TextStyle textStyle18Black = GoogleFonts.almarai(
+    fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: kPrimaryKey,
+    color: kBlackColor,
   );
-
+  static TextStyle textStyle18White = GoogleFonts.almarai(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
   static TextStyle textStyle32White = GoogleFonts.poppins(
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
-  static TextStyle textStyle32Orange = GoogleFonts.poppins(
+  static TextStyle textStyle32Blue = GoogleFonts.almarai(
     fontSize: 32,
     fontWeight: FontWeight.bold,
     color: kPrimaryKey,

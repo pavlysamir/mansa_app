@@ -1,6 +1,11 @@
 {
-    "title": "Hello World",
-    "@title": {
-      "description": "The application title"
-    }
+    "createAccount": "create account",
+    "@createAccount": {
+      "description": "create account"
+    },
+
+    "name": "Name *",
+    "phoneNumber": "Phone number *",
+    "tripleName":"The name is triple"
+    
   }

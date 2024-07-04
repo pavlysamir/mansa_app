@@ -98,8 +98,8 @@ class AppTheme {
     // Change accent color as needed
     textTheme: TextTheme(
         bodySmall: Styles.textStyle12BlackBoldPoppings,
-        displayLarge: Styles.textStyle32Black,
-        displayMedium: Styles.textStyle32Orange,
+        displayLarge: Styles.textStyle32Blue,
+        displayMedium: Styles.textStyle18Black,
         bodyLarge: Styles.textStyle12Black,
         bodyMedium: Styles.textStyle12BoldGrey,
         titleMedium: const TextStyle(color: Colors.black),
@@ -117,12 +117,12 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.white,
       enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black),
+        borderSide: const BorderSide(color: Colors.grey),
         borderRadius: BorderRadius.circular(10.0),
       ),
       border: OutlineInputBorder(
-        borderSide: const BorderSide(
-            color: Colors.black), // Border color for light mode
+        borderSide:
+            const BorderSide(color: Colors.grey), // Border color for light mode
         borderRadius: BorderRadius.circular(10.0),
       ),
     ),
@@ -146,8 +146,8 @@ class AppTheme {
     primaryColor: kPrimaryKey, // Change primary color as needed
     textTheme: TextTheme(
         bodySmall: Styles.textStyle12WhiteBoldPoppings,
-        displayLarge: Styles.textStyle32White,
-        displayMedium: Styles.textStyle32Orange,
+        displayLarge: Styles.textStyle32Blue,
+        displayMedium: Styles.textStyle18White,
         bodyLarge: Styles.textStyle12White,
         bodyMedium: Styles.textStyle12BoldGrey,
         titleMedium: const TextStyle(color: Colors.white),
