@@ -95,8 +95,11 @@ abstract class Styles {
   static TextStyle textStyle14 = const TextStyle(
       fontSize: 14, fontWeight: FontWeight.bold, color: kPrimaryKey);
 
-  static TextStyle textStyle16Black = const TextStyle(
-      fontSize: 16, fontWeight: FontWeight.w400, color: kBlackColor);
+  static TextStyle textStyle16Black = GoogleFonts.almarai(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: kBlackColor,
+  );
   static TextStyle textStyle16White = const TextStyle(
       fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white);
 }

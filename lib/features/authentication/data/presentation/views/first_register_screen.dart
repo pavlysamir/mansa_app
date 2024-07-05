@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/data/presentation/manager/register/register_cubit.dart';
+import 'package:mansa_app/features/authentication/data/presentation/widgets/custom_smooth_indicaror.dart';
 
 class FirstRegisterScreen extends StatelessWidget {
   const FirstRegisterScreen({super.key});
@@ -46,6 +49,18 @@ class FirstRegisterScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.displayLarge,
                     ),
                   ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
+                  const Center(
+                    child: CustomSmoothIndicator(
+                      activeIndex: 0,
+                      count: 3,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 24.h,
+                  ),
                   Text(
                     AppLocalizations.of(context)!.name,
                     style: Theme.of(context).textTheme.displayMedium,
@@ -69,7 +84,7 @@ class FirstRegisterScreen extends StatelessWidget {
                     height: 18.h,
                   ),
                   CustomFormField(
-                      controller: RegisterCubit.get(context)!.nameController,
+                      controller: RegisterCubit.get(context)!.phoneController,
                       validationMassage: conditionOfValidationPhone,
                       hintText: '01000000000',
                       textInputType: TextInputType.phone),
@@ -79,7 +94,16 @@ class FirstRegisterScreen extends StatelessWidget {
                   CustomButtonLarge(
                       text: AppLocalizations.of(context)!.followSubscription,
                       textColor: Colors.white,
-                      function: () {}),
+                      function: () {
+                        if (RegisterCubit.get(context)!
+                            .formFirstScreenRegisterKey
+                            .currentState!
+                            .validate()) {
+                          customGoAndDeleteNavigate(
+                              context: context,
+                              path: AppRouter.kVerifyOtpPhoneScreen);
+                        }
+                      }),
                   SizedBox(
                     height: 90.h,
                   ),

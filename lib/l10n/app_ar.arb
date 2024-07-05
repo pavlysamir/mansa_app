@@ -6,6 +6,18 @@
     "followSubscription":"متابعة التسجيل",
     "alreadyHaveAccount":"بالفعل لديك حساب؟ ",
     "login":"تسجيل الدخول",
-    "contactUs":"تواصل معنا"
+    "contactUs":"تواصل معنا",
+    "phoneValidation":"الهاتف مطلوب",
+    "nameValidation":"اسم المستخدم مطلوب",
+    "confirmPhoneNum":"تأكيد رقم الموبيل",
+    "changePhoneNumber":"تغيير رقم الموبيل",
+    "enterOtp":"الرجاء ادخال OTP",
+    "kedDegree":"درجة القيد  *",
+    "kedNumber":"رقم القيد  *",
+    "password":"كلمة المرور  *",
+    "confirmPassword":"تأكيد كلمة المرور  *"
+    
+
+
     
 }

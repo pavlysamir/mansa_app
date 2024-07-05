@@ -10,6 +10,18 @@
     "followSubscription":"follow registaration",
     "alreadyHaveAccount":"Already have an account?",
     "login":"Login",
-    "contactUs":"Contact Us"
+    "contactUs":"Contact Us",
+    "phoneValidation":"phone is required",
+    "nameValidation":"username is required",
+    "confirmPhoneNum":"Confirm Mobile Number",
+    "changePhoneNumber":"Change Mobile Number",
+    "enterOtp":"Please enter OTP",
+    "kedDegree":"restriction degree is required",
+    "kedNumber":"restriction number is required",
+    "password":"Password  *",
+    "confirmPassword":"Confirm Password  *"
+
+
+
     
   }
