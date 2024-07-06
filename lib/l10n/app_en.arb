@@ -19,7 +19,14 @@
     "kedDegree":"restriction degree is required",
     "kedNumber":"restriction number is required",
     "password":"Password  *",
-    "confirmPassword":"Confirm Password  *"
+    "confirmPassword":"Confirm Password  *",
+    "hintKedDegree":"Example: High Degree of Restriction",
+    "cardImage":"Card Image",
+    "frontImage":"Front Image",
+    "backImage":"Back Image",
+    "hintCardImage":"A copy of the card is for documentation and is not visible to others",
+    "hostCode":"Hosting code"
+
 
 
 

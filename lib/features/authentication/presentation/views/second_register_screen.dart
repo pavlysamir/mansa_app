@@ -9,8 +9,8 @@ import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
-import 'package:mansa_app/features/authentication/data/presentation/manager/register/register_cubit.dart';
-import 'package:mansa_app/features/authentication/data/presentation/widgets/custom_smooth_indicaror.dart';
+import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
+import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 
 class SecondRegisterScreen extends StatelessWidget {
   const SecondRegisterScreen({super.key});
@@ -78,8 +78,8 @@ class SecondRegisterScreen extends StatelessWidget {
                               ),
                               CustomFormField(
                                   textInputType: TextInputType.text,
-                                  hintText:
-                                      AppLocalizations.of(context)!.kedDegree,
+                                  hintText: AppLocalizations.of(context)!
+                                      .hintKedDegree,
                                   controller: RegisterCubit.get(context)!
                                       .kedDegreeController,
                                   validationMassage: (value) {
@@ -106,8 +106,7 @@ class SecondRegisterScreen extends StatelessWidget {
                               ),
                               CustomFormField(
                                   textInputType: TextInputType.text,
-                                  hintText:
-                                      AppLocalizations.of(context)!.kedNumber,
+                                  hintText: '000000000000000',
                                   controller: RegisterCubit.get(context)!
                                       .kedNumberController,
                                   validationMassage: (value) {

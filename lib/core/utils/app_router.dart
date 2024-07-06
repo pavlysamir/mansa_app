@@ -1,7 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:mansa_app/features/authentication/data/presentation/views/first_register_screen.dart';
-import 'package:mansa_app/features/authentication/data/presentation/views/second_register_screen.dart';
-import 'package:mansa_app/features/authentication/data/presentation/views/verify_phone_otp.dart';
+import 'package:mansa_app/features/authentication/presentation/views/first_register_screen.dart';
+import 'package:mansa_app/features/authentication/presentation/views/second_register_screen.dart';
+import 'package:mansa_app/features/authentication/presentation/views/third_register_screen.dart';
+import 'package:mansa_app/features/authentication/presentation/views/verify_phone_otp.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';
@@ -12,6 +13,8 @@ abstract class AppRouter {
   static const kVerifyOtpPhoneScreen = '/VerifyOtpPhoneScreen';
 
   static const kSecondRegisterScreen = '/SecondRegisterScreen';
+
+  static const kThirdRegisterScreen = '/ThirdRegisterScreen';
 
   static final router = GoRouter(
       initialLocation:
@@ -38,6 +41,10 @@ abstract class AppRouter {
         GoRoute(
           path: kSecondRegisterScreen,
           builder: (context, state) => const SecondRegisterScreen(),
+        ),
+        GoRoute(
+          path: kThirdRegisterScreen,
+          builder: (context, state) => const ThirdRegisterScreen(),
         ),
       ]);
 }

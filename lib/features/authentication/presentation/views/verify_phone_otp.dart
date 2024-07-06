@@ -3,11 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
-import 'package:mansa_app/features/authentication/data/presentation/manager/register/register_cubit.dart';
-import 'package:mansa_app/features/authentication/data/presentation/widgets/custom_smooth_indicaror.dart';
+import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
+import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
@@ -52,7 +55,9 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                     ),
                     Center(
                       child: Text(
-                        RegisterCubit.get(context)!.phoneController.text,
+                        getIt
+                            .get<CashHelperSharedPreferences>()
+                            .getData(key: ApiKey.mobNumber),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!

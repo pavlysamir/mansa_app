@@ -38,6 +38,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   var formSecondScreenRegisterKey = GlobalKey<FormState>();
 
+  var formThirdScreenRegisterKey = GlobalKey<FormState>();
+
   void isVisiblePasswordEye() {
     ifPasswordVisible = !ifPasswordVisible;
     iconDataPassword =

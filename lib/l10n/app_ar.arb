@@ -15,7 +15,13 @@
     "kedDegree":"درجة القيد  *",
     "kedNumber":"رقم القيد  *",
     "password":"كلمة المرور  *",
-    "confirmPassword":"تأكيد كلمة المرور  *"
+    "confirmPassword":"تأكيد كلمة المرور  *",
+    "hintKedDegree":"مثال: محامي عام",
+    "cardImage":"صورة  الكارنيه",
+    "frontImage":"الصورة الأمامية",
+    "backImage":"الصورة الخلفية",
+    "hintCardImage":"صورة الكارنية للتوثيق ولا تظهر للغير",
+    "hostCode":"كود الأستضافة"
     
 
 
