@@ -3,11 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
+import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_add_photo_button.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
+import 'package:mansa_app/features/authentication/presentation/widgets/custom_view_photo_from_device.dart';
 
 class ThirdRegisterScreen extends StatelessWidget {
   const ThirdRegisterScreen({super.key});
@@ -62,61 +66,125 @@ class ThirdRegisterScreen extends StatelessWidget {
                     AppLocalizations.of(context)!.cardImage,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
+                  SizedBox(
+                    height: 8.h,
+                  ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.frontImage,
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontSize: 15.sp),
                               ),
                               SizedBox(
                                 height: 10.h,
                               ),
-                              CustomAddPhotoButton(
-                                function: () {},
-                              )
+                              RegisterCubit.get(context)!.fileFront == null
+                                  ? CustomAddPhotoButton(
+                                      function: () {
+                                        RegisterCubit.get(context)!
+                                            .pickCameraImage(1);
+                                      },
+                                    )
+                                  : CustomViewPhotoFromDevice(
+                                      file:
+                                          RegisterCubit.get(context)!.fileFront,
+                                      function: () {
+                                        RegisterCubit.get(context)!
+                                            .removePostImageFromDevice(1);
+                                      },
+                                    ),
                             ],
                           ),
                         ),
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 AppLocalizations.of(context)!.backImage,
-                                style:
-                                    Theme.of(context).textTheme.displayMedium,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(fontSize: 15.sp),
                               ),
                               SizedBox(
                                 height: 10.h,
                               ),
-                              CustomAddPhotoButton(
-                                function: () {},
-                              )
+                              RegisterCubit.get(context)!.fileBack == null
+                                  ? CustomAddPhotoButton(
+                                      function: () {
+                                        RegisterCubit.get(context)!
+                                            .pickCameraImage(2);
+                                      },
+                                    )
+                                  : CustomViewPhotoFromDevice(
+                                      file:
+                                          RegisterCubit.get(context)!.fileBack,
+                                      function: () {
+                                        RegisterCubit.get(context)!
+                                            .removePostImageFromDevice(2);
+                                      },
+                                    ),
                             ],
                           ),
                         )
                       ]),
                   SizedBox(
-                    height: 130.h,
+                    height: 8.h,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.hintCardImage,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall!
+                        .copyWith(fontWeight: FontWeight.w100),
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.hostCode,
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  CustomFormField(
+                      textInputType: TextInputType.text,
+                      hintText: 'MN111',
+                      controller:
+                          RegisterCubit.get(context)!.hostingCodeController,
+                      validationMassage: (value) {
+                        if (value.isEmpty) {
+                          return AppLocalizations.of(context)!.hostCode;
+                        }
+                      }),
+                  SizedBox(
+                    height: 30.h,
                   ),
                   CustomButtonLarge(
-                      text: AppLocalizations.of(context)!.followSubscription,
+                      text: AppLocalizations.of(context)!.signUp,
                       textColor: Colors.white,
                       function: () {
                         if (RegisterCubit.get(context)!
                             .formThirdScreenRegisterKey
                             .currentState!
-                            .validate()) {}
+                            .validate()) {
+                          customGoAndDeleteNavigate(
+                              context: context, path: AppRouter.kLoginScreen);
+                        }
                       }),
                   SizedBox(
-                    height: 90.h,
+                    height: 20.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

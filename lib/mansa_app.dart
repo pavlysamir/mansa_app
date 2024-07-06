@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/core/Theme/Teme_data.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
+import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
 import 'package:mansa_app/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,6 +18,9 @@ class MansaApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (context) => LoginCubit(),
         ),
       ],
       child: ScreenUtilInit(

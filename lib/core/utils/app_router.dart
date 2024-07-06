@@ -16,6 +16,8 @@ abstract class AppRouter {
 
   static const kThirdRegisterScreen = '/ThirdRegisterScreen';
 
+  static const kLoginScreen = '/LoginScreen ';
+
   static final router = GoRouter(
       initialLocation:
           //kHomeLayOut,

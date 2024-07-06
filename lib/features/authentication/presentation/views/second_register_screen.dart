@@ -106,7 +106,7 @@ class SecondRegisterScreen extends StatelessWidget {
                               ),
                               CustomFormField(
                                   textInputType: TextInputType.text,
-                                  hintText: '000000000000000',
+                                  hintText: '000000000',
                                   controller: RegisterCubit.get(context)!
                                       .kedNumberController,
                                   validationMassage: (value) {
@@ -179,7 +179,7 @@ class SecondRegisterScreen extends StatelessWidget {
                       hintText: '************',
                       textInputType: TextInputType.visiblePassword),
                   SizedBox(
-                    height: 130.h,
+                    height: 35.h,
                   ),
                   CustomButtonLarge(
                       text: AppLocalizations.of(context)!.followSubscription,
@@ -190,12 +190,13 @@ class SecondRegisterScreen extends StatelessWidget {
                             .currentState!
                             .validate()) {
                           customGoAndDeleteNavigate(
-                              context: context,
-                              path: AppRouter.kVerifyOtpPhoneScreen);
+                            context: context,
+                            path: AppRouter.kThirdRegisterScreen,
+                          );
                         }
                       }),
                   SizedBox(
-                    height: 90.h,
+                    height: 20.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

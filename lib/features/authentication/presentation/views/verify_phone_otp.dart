@@ -120,7 +120,7 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.4,
                     ),
                     CustomButtonLarge(
-                        text: AppLocalizations.of(context)!.followSubscription,
+                        text: AppLocalizations.of(context)!.submit,
                         textColor: Colors.white,
                         function: () {
                           if (RegisterCubit.get(context)!
