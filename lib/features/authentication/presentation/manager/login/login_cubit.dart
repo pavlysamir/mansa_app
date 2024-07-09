@@ -7,12 +7,36 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
+  IconData iconDataPassword = Icons.visibility_off;
+
+  bool ifPasswordVisible = true;
+
+  void isVisiblePasswordEye() {
+    ifPasswordVisible = !ifPasswordVisible;
+    iconDataPassword =
+        ifPasswordVisible ? Icons.visibility_off : Icons.remove_red_eye;
+    emit(LoginPasswordVisibleEye());
+  }
 
   static LoginCubit? get(context) => BlocProvider.of(context);
 
   TextEditingController emailController = TextEditingController();
 
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController resetPasswordController = TextEditingController();
+
+  TextEditingController verifyOtPhoneController = TextEditingController();
+
+  TextEditingController newPasswordController = TextEditingController();
+
+  TextEditingController confirmNewPasswordController = TextEditingController();
 
   var formScreenLoginrKey = GlobalKey<FormState>();
+
+  var formScreenResetPasswordKey = GlobalKey<FormState>();
+
+  var formVerifyOtpPhoneKey = GlobalKey<FormState>();
+
+  var formVerifyPhoneKey = GlobalKey<FormState>();
 }

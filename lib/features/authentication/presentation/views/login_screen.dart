@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
-import 'package:mansa_app/core/Assets/Assets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
-import 'package:mansa_app/core/utils/app_router.dart';
-import 'package:mansa_app/core/utils/service_locator.dart';
-import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
-import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
-import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -22,7 +16,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        // TODO: implement listener
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -57,32 +53,39 @@ class LoginScreen extends StatelessWidget {
                     height: 24.h,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.name,
+                    AppLocalizations.of(context)!.email,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                   SizedBox(
                     height: 18.h,
                   ),
                   CustomFormField(
-                      controller: RegisterCubit.get(context)!.nameController,
+                      controller: LoginCubit.get(context)!.emailController,
                       validationMassage: conditionOfValidationName,
-                      hintText: AppLocalizations.of(context)!.tripleName,
+                      hintText: 'S6P9v@example.com',
                       textInputType: TextInputType.text),
                   SizedBox(
                     height: 32.h,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.phoneNumber,
+                    AppLocalizations.of(context)!.password,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                   SizedBox(
                     height: 18.h,
                   ),
                   CustomFormField(
-                      controller: RegisterCubit.get(context)!.phoneController,
-                      validationMassage: conditionOfValidationPhone,
-                      hintText: '01000000000',
-                      textInputType: TextInputType.phone),
+                      isEyeTrue: LoginCubit.get(context)!.ifPasswordVisible,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          LoginCubit.get(context)!.isVisiblePasswordEye();
+                        },
+                        icon: Icon(LoginCubit.get(context)!.iconDataPassword),
+                      ),
+                      controller: LoginCubit.get(context)!.passwordController,
+                      validationMassage: conditionOfValidationPassWord,
+                      hintText: '************',
+                      textInputType: TextInputType.visiblePassword),
                   Center(
                       child: TextButton(
                     onPressed: () {},
@@ -94,32 +97,19 @@ class LoginScreen extends StatelessWidget {
                     ),
                   )),
                   SizedBox(
-                    height: 130.h,
+                    height: 100.h,
                   ),
                   CustomButtonLarge(
                       text: AppLocalizations.of(context)!.followSubscription,
                       textColor: Colors.white,
                       function: () async {
-                        if (RegisterCubit.get(context)!
-                            .formFirstScreenRegisterKey
+                        if (LoginCubit.get(context)!
+                            .formScreenLoginrKey
                             .currentState!
-                            .validate()) {
-                          await getIt
-                              .get<CashHelperSharedPreferences>()
-                              .saveData(
-                                  key: ApiKey.mobNumber,
-                                  value: RegisterCubit.get(context)!
-                                      .phoneController
-                                      .text)
-                              .then((value) {
-                            customGoAndDeleteNavigate(
-                                context: context,
-                                path: AppRouter.kVerifyOtpPhoneScreen);
-                          });
-                        }
+                            .validate()) {}
                       }),
                   SizedBox(
-                    height: 90.h,
+                    height: 70.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

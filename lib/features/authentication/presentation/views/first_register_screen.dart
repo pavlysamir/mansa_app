@@ -130,10 +130,8 @@ class FirstRegisterScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) {
-                          //   return TermsAndConditionsScreen();
-                          // }));
+                          customJustGoNavigate(
+                              context: context, path: AppRouter.kLoginScreen);
                         },
                         child: Text(AppLocalizations.of(context)!.login,
                             style: Styles.textStyle14),
