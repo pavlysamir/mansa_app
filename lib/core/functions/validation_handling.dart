@@ -14,11 +14,11 @@ String? conditionOfValidationPassWord(value) {
       RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
   var passNonNullValue = value ?? "";
   if (passNonNullValue.isEmpty) {
-    return ("Password is required");
+    return ("كلمة المرور مطلوبة");
   } else if (passNonNullValue.length < 8) {
-    return ("Password Must be more than 7 characters");
+    return ("كلمة المرور يجب أن تكون أكثر من 7 أحرف");
   } else if (!regex.hasMatch(passNonNullValue)) {
-    return ("Password should contain upper,lower,digit and Special character ");
+    return ("يجب أن تحتوي كلمة المرور على أرقام وعلوية وسفلية ورموز خاصة");
   }
   return null;
 }

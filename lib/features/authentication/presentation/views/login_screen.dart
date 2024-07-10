@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,9 +18,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -50,10 +50,10 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 24.h,
+                    height: 60.h,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.email,
+                    AppLocalizations.of(context)!.phoneNumber,
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                   SizedBox(
@@ -61,9 +61,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                   CustomFormField(
                       controller: LoginCubit.get(context)!.emailController,
-                      validationMassage: conditionOfValidationName,
-                      hintText: 'S6P9v@example.com',
-                      textInputType: TextInputType.text),
+                      validationMassage: conditionOfValidationPhone,
+                      hintText: '01000000000',
+                      textInputType: TextInputType.number),
                   SizedBox(
                     height: 32.h,
                   ),
@@ -88,16 +88,19 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.visiblePassword),
                   Center(
                       child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      customJustGoNavigate(
+                          context: context, path: AppRouter.kVerifyPhoneScreen);
+                    },
                     child: Text(
                       AppLocalizations.of(context)!.doUForgrtPassword,
-                      style: const TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: kDarktBlue),
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            decoration: TextDecoration.underline,
+                          ),
                     ),
                   )),
                   SizedBox(
-                    height: 100.h,
+                    height: 80.h,
                   ),
                   CustomButtonLarge(
                       text: AppLocalizations.of(context)!.followSubscription,
@@ -114,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppLocalizations.of(context)!.alreadyHaveAccount,
+                      Text(AppLocalizations.of(context)!.doUDoNotHaveAccount,
                           style:
                               Styles.textStyle14.copyWith(color: Colors.black)),
                       const SizedBox(
@@ -122,13 +125,14 @@ class LoginScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) {
-                          //   return TermsAndConditionsScreen();
-                          // }));
+                          customGoAndDeleteNavigate(
+                              context: context,
+                              path: AppRouter.kFistRegisterScreen);
                         },
-                        child: Text(AppLocalizations.of(context)!.login,
-                            style: Styles.textStyle14),
+                        child: Text(AppLocalizations.of(context)!.createAccount,
+                            style: Styles.textStyle14.copyWith(
+                              decoration: TextDecoration.underline,
+                            )),
                       ),
                     ],
                   ),
@@ -140,8 +144,10 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {},
                         child: Text(
                           AppLocalizations.of(context)!.contactUs,
-                          style:
-                              Styles.textStyle14.copyWith(color: Colors.blue),
+                          style: Styles.textStyle14.copyWith(
+                            color: kDarktBlue,
+                            decoration: TextDecoration.underline,
+                          ),
                         )),
                   )
                 ],

@@ -16,7 +16,7 @@ abstract class Styles {
 
   static TextStyle textStyle18Black = GoogleFonts.almarai(
     fontSize: 18,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.normal,
     color: kBlackColor,
   );
   static TextStyle textStyle18White = GoogleFonts.almarai(
@@ -49,8 +49,8 @@ abstract class Styles {
   static TextStyle textStyle12BoldGrey = const TextStyle(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey);
 
-  static TextStyle textStyle12BlackBoldPoppings = GoogleFonts.almarai(
-      fontSize: 12, fontWeight: FontWeight.normal, color: Colors.black);
+  static TextStyle textStyle12Blue = GoogleFonts.almarai(
+      fontSize: 12, fontWeight: FontWeight.bold, color: kDarktBlue);
 
   static TextStyle textStyle12WhiteBoldPoppings = GoogleFonts.poppins(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white);
@@ -92,8 +92,11 @@ abstract class Styles {
   static TextStyle textStyle14White = const TextStyle(
       fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white);
 
-  static TextStyle textStyle14 = const TextStyle(
-      fontSize: 14, fontWeight: FontWeight.bold, color: kPrimaryKey);
+  static TextStyle textStyle14 = GoogleFonts.almarai(
+      fontSize: 14, fontWeight: FontWeight.normal, color: kDarktBlue);
+
+  // const TextStyle(
+  //     fontSize: 14, fontWeight: FontWeight.bold, color: kPrimaryKey);
 
   static TextStyle textStyle16Black = GoogleFonts.almarai(
     fontSize: 16,

@@ -30,7 +30,11 @@
     "submit":"Submit",
     "email":"Email *",
     "emailValidation":"Email is required",
-    "doUForgrtPassword":" Do you forget your password?"
+    "doUForgrtPassword":" Do you forget your password?",
+    "resetPassword":"Reset Password",
+    "send":"Send",
+    "doUDoNotHaveAccount":"Do not have an account?"
+
 
     
 

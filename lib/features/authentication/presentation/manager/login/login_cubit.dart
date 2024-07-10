@@ -9,13 +9,24 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
   IconData iconDataPassword = Icons.visibility_off;
 
+  IconData iconDataConfirmPassword = Icons.visibility_off;
+
   bool ifPasswordVisible = true;
+
+  bool ifConfirmPasswordVisible = true;
 
   void isVisiblePasswordEye() {
     ifPasswordVisible = !ifPasswordVisible;
     iconDataPassword =
         ifPasswordVisible ? Icons.visibility_off : Icons.remove_red_eye;
     emit(LoginPasswordVisibleEye());
+  }
+
+  void isVisibleConformPasswordEye() {
+    ifConfirmPasswordVisible = !ifConfirmPasswordVisible;
+    iconDataConfirmPassword =
+        ifConfirmPasswordVisible ? Icons.visibility_off : Icons.remove_red_eye;
+    emit(LoginConfirmPasswordVisibleEye());
   }
 
   static LoginCubit? get(context) => BlocProvider.of(context);

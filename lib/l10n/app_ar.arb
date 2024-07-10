@@ -26,7 +26,10 @@
     "submit":"تأكيد",
       "email":"البريد الالكتروني *",
     "emailValidation":"البريد الالكتروني مطلوب",
-    "doUForgrtPassword":"هل نسيت كلمة المرور؟"
+    "doUForgrtPassword":"هل نسيت كلمة المرور؟",
+    "resetPassword":"اعادة تعيين كلمة المرور",
+    "send":"ارسال",
+    "doUDoNotHaveAccount":"ليس لديك حساب؟"
 
     
     

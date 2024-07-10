@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
@@ -92,7 +93,7 @@ class FirstRegisterScreen extends StatelessWidget {
                       hintText: '01000000000',
                       textInputType: TextInputType.phone),
                   SizedBox(
-                    height: 130.h,
+                    height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   CustomButtonLarge(
                       text: AppLocalizations.of(context)!.followSubscription,
@@ -117,7 +118,7 @@ class FirstRegisterScreen extends StatelessWidget {
                         }
                       }),
                   SizedBox(
-                    height: 90.h,
+                    height: 50.h,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -130,11 +131,13 @@ class FirstRegisterScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          customJustGoNavigate(
+                          customGoAndDeleteNavigate(
                               context: context, path: AppRouter.kLoginScreen);
                         },
                         child: Text(AppLocalizations.of(context)!.login,
-                            style: Styles.textStyle14),
+                            style: Styles.textStyle14.copyWith(
+                              decoration: TextDecoration.underline,
+                            )),
                       ),
                     ],
                   ),
@@ -146,8 +149,10 @@ class FirstRegisterScreen extends StatelessWidget {
                         onPressed: () {},
                         child: Text(
                           AppLocalizations.of(context)!.contactUs,
-                          style:
-                              Styles.textStyle14.copyWith(color: Colors.blue),
+                          style: Styles.textStyle14.copyWith(
+                            color: kDarktBlue,
+                            decoration: TextDecoration.underline,
+                          ),
                         )),
                   )
                 ],

@@ -161,8 +161,8 @@ class SecondRegisterScreen extends StatelessWidget {
                           RegisterCubit.get(context)!
                               .isVisibleConformPasswordEye();
                         },
-                        icon:
-                            Icon(RegisterCubit.get(context)!.iconDataPassword),
+                        icon: Icon(RegisterCubit.get(context)!
+                            .iconDataConfirmPassword),
                       ),
                       controller:
                           RegisterCubit.get(context)!.confirmPasswordController,
