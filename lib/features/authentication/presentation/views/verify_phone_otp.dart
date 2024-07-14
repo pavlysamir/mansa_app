@@ -77,35 +77,38 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                     SizedBox(
                       height: 24.h,
                     ),
-                    PinCodeTextField(
-                        keyboardType: TextInputType.number,
-                        cursorColor: Theme.of(context).indicatorColor,
-                        appContext: context,
-                        length: 6,
-                        controller:
-                            RegisterCubit.get(context)!.verifyOtPhoneController,
-                        onChanged: (value) {},
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return AppLocalizations.of(context)!.enterOtp;
-                          }
-                          return null;
-                        },
-                        pinTheme: PinTheme(
-                            shape: PinCodeFieldShape.box,
-                            borderRadius: BorderRadius.circular(5),
-                            fieldHeight: 40.h,
-                            fieldWidth: 32.w,
-                            activeColor: Colors.grey,
-                            selectedColor: Colors.grey,
-                            inactiveColor: Colors.grey,
-                            activeFillColor: Colors.white,
-                            selectedFillColor: Colors.grey[200],
-                            inactiveFillColor: Colors.grey[100],
-                            errorBorderColor: Colors.red),
-                        textStyle: TextStyle(
-                          color: Theme.of(context).indicatorColor,
-                        )),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: PinCodeTextField(
+                          keyboardType: TextInputType.number,
+                          cursorColor: Theme.of(context).indicatorColor,
+                          appContext: context,
+                          length: 6,
+                          controller: RegisterCubit.get(context)!
+                              .verifyOtPhoneController,
+                          onChanged: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!.enterOtp;
+                            }
+                            return null;
+                          },
+                          pinTheme: PinTheme(
+                              shape: PinCodeFieldShape.box,
+                              borderRadius: BorderRadius.circular(5),
+                              fieldHeight: 40.h,
+                              fieldWidth: 32.w,
+                              activeColor: Colors.grey,
+                              selectedColor: Colors.grey,
+                              inactiveColor: Colors.grey,
+                              activeFillColor: Colors.white,
+                              selectedFillColor: Colors.grey[200],
+                              inactiveFillColor: Colors.grey[100],
+                              errorBorderColor: Colors.red),
+                          textStyle: TextStyle(
+                            color: Theme.of(context).indicatorColor,
+                          )),
+                    ),
                     Center(
                         child: TextButton(
                       onPressed: () {},
@@ -122,14 +125,27 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                     CustomButtonLarge(
                         text: AppLocalizations.of(context)!.submit,
                         textColor: Colors.white,
-                        function: () {
+                        function: () async {
                           if (RegisterCubit.get(context)!
                               .formVerifyOtpPhoneKey
                               .currentState!
                               .validate()) {
-                            customGoAndDeleteNavigate(
-                                context: context,
-                                path: AppRouter.kSecondRegisterScreen);
+                            await getIt
+                                .get<CashHelperSharedPreferences>()
+                                .saveData(
+                                    key: ApiKey.otp,
+                                    value: RegisterCubit.get(context)!
+                                        .verifyOtPhoneController
+                                        .text)
+                                .then((value) {
+                              RegisterCubit.get(context)!
+                                  .getAllGradesRegistration()
+                                  .then((value) {
+                                customGoAndDeleteNavigate(
+                                    context: context,
+                                    path: AppRouter.kSecondRegisterScreen);
+                              });
+                            });
                           }
                         }),
                   ],

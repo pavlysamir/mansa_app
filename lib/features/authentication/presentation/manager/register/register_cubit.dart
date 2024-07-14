@@ -8,6 +8,9 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:meta/meta.dart';
@@ -151,5 +154,18 @@ class RegisterCubit extends Cubit<RegisterState> {
       print('${this.grade}  ${gradeId.toString()}');
     }
     emit(SelectedGradRegistration());
+  }
+
+  Future<void> cashedUserDataFirstScreen() async {
+    emit(CashedFirstRegisterUserDataLoading());
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: ApiKey.firstName, value: nameController.text);
+
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: ApiKey.mobNumber, value: phoneController.text);
+
+    emit(CashedFirstRegisterUserDataSuccess());
   }
 }

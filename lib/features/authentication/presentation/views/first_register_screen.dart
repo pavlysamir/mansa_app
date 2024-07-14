@@ -4,11 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
-import 'package:mansa_app/core/utils/service_locator.dart';
-import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
@@ -95,7 +92,7 @@ class FirstRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
-                  state is GetAllSubjectsRegistrationLoading
+                  state is CashedFirstRegisterUserDataLoading
                       ? const Center(
                           child: CircularProgressIndicator(
                           color: kPrimaryKey,
@@ -109,21 +106,29 @@ class FirstRegisterScreen extends StatelessWidget {
                                 .formFirstScreenRegisterKey
                                 .currentState!
                                 .validate()) {
-                              await getIt
-                                  .get<CashHelperSharedPreferences>()
-                                  .saveData(
-                                      key: ApiKey.mobNumber,
-                                      value: RegisterCubit.get(context)!
-                                          .phoneController
-                                          .text)
+                              // await getIt
+                              //     .get<CashHelperSharedPreferences>()
+                              //     .saveData(
+                              //         key: ApiKey.mobNumber,
+                              //         value: RegisterCubit.get(context)!
+                              //             .phoneController
+                              //             .text)
+                              //     .then((value) {
+                              //   RegisterCubit.get(context)!
+                              //       .getAllGradesRegistration()
+                              //       .then((value) {
+                              //     customGoAndDeleteNavigate(
+                              //         context: context,
+                              //         path: AppRouter.kVerifyOtpPhoneScreen);
+                              //   });
+                              // });
+
+                              RegisterCubit.get(context)!
+                                  .cashedUserDataFirstScreen()
                                   .then((value) {
-                                RegisterCubit.get(context)!
-                                    .getAllGradesRegistration()
-                                    .then((value) {
-                                  customGoAndDeleteNavigate(
-                                      context: context,
-                                      path: AppRouter.kVerifyOtpPhoneScreen);
-                                });
+                                customGoAndDeleteNavigate(
+                                    context: context,
+                                    path: AppRouter.kVerifyOtpPhoneScreen);
                               });
                             }
                           }),

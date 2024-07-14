@@ -26,3 +26,7 @@ final class GetAllGradesRegistrationFail extends RegisterState {
 final class GetAllSubjectsRegistrationLoading extends RegisterState {}
 
 final class SelectedGradRegistration extends RegisterState {}
+
+final class CashedFirstRegisterUserDataSuccess extends RegisterState {}
+
+final class CashedFirstRegisterUserDataLoading extends RegisterState {}
