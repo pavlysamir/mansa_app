@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mansa_app/core/Layouts/home_layout.dart';
 import 'package:mansa_app/features/authentication/presentation/views/first_register_screen.dart';
 import 'package:mansa_app/features/authentication/presentation/views/login_screen.dart';
 import 'package:mansa_app/features/authentication/presentation/views/reset_password_screen.dart';
@@ -40,8 +41,12 @@ abstract class AppRouter {
           //             true
           //         ? kLogin
           //         :
-          kFistRegisterScreen,
+          kHomeLayout,
       routes: [
+        GoRoute(
+          path: kHomeLayout,
+          builder: (context, state) => const HomeLayout(),
+        ),
         GoRoute(
           path: kFistRegisterScreen,
           builder: (context, state) => const FirstRegisterScreen(),

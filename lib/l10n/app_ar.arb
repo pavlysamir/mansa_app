@@ -29,7 +29,10 @@
     "doUForgrtPassword":"هل نسيت كلمة المرور؟",
     "resetPassword":"اعادة تعيين كلمة المرور",
     "send":"ارسال",
-    "doUDoNotHaveAccount":"ليس لديك حساب؟"
+    "doUDoNotHaveAccount":"ليس لديك حساب؟",
+    "home":"الصفحة الرئيسة",
+    "setting":"الاعدادات",
+    "profile":"البروفايل"
 
     
     

@@ -33,8 +33,10 @@
     "doUForgrtPassword":" Do you forget your password?",
     "resetPassword":"Reset Password",
     "send":"Send",
-    "doUDoNotHaveAccount":"Do not have an account?"
-
+    "doUDoNotHaveAccount":"Do not have an account?",
+    "home":"Home",
+    "setting":"Setting",
+    "profile":"Profile"
 
     
 
