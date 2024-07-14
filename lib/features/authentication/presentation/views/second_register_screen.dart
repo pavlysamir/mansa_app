@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
+import 'package:mansa_app/features/authentication/presentation/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 
 class SecondRegisterScreen extends StatelessWidget {
@@ -76,49 +78,14 @@ class SecondRegisterScreen extends StatelessWidget {
                               SizedBox(
                                 height: 10.h,
                               ),
-
-                              Container(
-                                width: 180.w,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey)),
-                                child: Center(
-                                  child: DropdownButton<String>(
-                                    elevation: 5,
-                                    value: RegisterCubit.get(context)!.grade,
-                                    hint: Text(RegisterCubit.get(context)!
-                                        .namesOfGrades
-                                        .first),
-                                    items: RegisterCubit.get(context)!
-                                        .namesOfGrades
-                                        .map((String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChanged: (String? newValue) {
-                                      print(newValue);
-                                      RegisterCubit.get(context)!
-                                          .selectGrade(newValue!);
-                                    },
-                                  ),
-                                ),
-                              ),
-
-                              // CustomFormField(
-                              //     textInputType: TextInputType.text,
-                              //     hintText: AppLocalizations.of(context)!
-                              //         .hintKedDegree,
-                              //     controller: RegisterCubit.get(context)!
-                              //         .kedDegreeController,
-                              //     validationMassage: (value) {
-                              //       if (value.isEmpty) {
-                              //         return AppLocalizations.of(context)!
-                              //             .kedDegree;
-                              //       }
-                              //     }),
+                              CustomDropDownMenu(
+                                list: RegisterCubit.get(context)!.namesOfGrades,
+                                value: RegisterCubit.get(context)!.grade!,
+                                onChanged: (String? newValue) {
+                                  RegisterCubit.get(context)!
+                                      .selectGrade(newValue!);
+                                },
+                              )
                             ],
                           ),
                         ),

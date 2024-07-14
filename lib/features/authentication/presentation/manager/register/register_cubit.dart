@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 
 import 'package:bloc/bloc.dart';
@@ -137,9 +138,18 @@ class RegisterCubit extends Cubit<RegisterState> {
   }
 
   String? grade;
+  int? gradeId;
 
   void selectGrade(String grade) {
     this.grade = grade;
+    for (var element in allGradesRegistration) {
+      if (element.nameAr == grade) {
+        gradeId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.grade}  ${gradeId.toString()}');
+    }
     emit(SelectedGradRegistration());
   }
 }

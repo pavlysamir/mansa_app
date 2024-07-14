@@ -27,7 +27,7 @@ void handleDioExceptions(DioException e) {
         throw ServerException(
             errModel: ErrorModel(
           errorMessage: 'Connection error',
-          errors: ['Connection error'],
+          //  errors: ['Connection error'],
         ));
       }
 
