@@ -1,5 +1,7 @@
 class EndPoint {
-  static String baseUrl = "https://iktsar.onrender.com/";
+  static String baseUrl = "http://16.171.141.127/api/";
+
+  static String getAllGradesRegistration = "BaseLookup/GetAllRegistrationGrade";
 
   static String login = "user/login";
   static String signUp = "user/";

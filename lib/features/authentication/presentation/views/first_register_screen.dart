@@ -95,28 +95,38 @@ class FirstRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
-                  CustomButtonLarge(
-                      text: AppLocalizations.of(context)!.followSubscription,
-                      textColor: Colors.white,
-                      function: () async {
-                        if (RegisterCubit.get(context)!
-                            .formFirstScreenRegisterKey
-                            .currentState!
-                            .validate()) {
-                          await getIt
-                              .get<CashHelperSharedPreferences>()
-                              .saveData(
-                                  key: ApiKey.mobNumber,
-                                  value: RegisterCubit.get(context)!
-                                      .phoneController
-                                      .text)
-                              .then((value) {
-                            customGoAndDeleteNavigate(
-                                context: context,
-                                path: AppRouter.kVerifyOtpPhoneScreen);
-                          });
-                        }
-                      }),
+                  state is GetAllSubjectsRegistrationLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: kPrimaryKey,
+                        ))
+                      : CustomButtonLarge(
+                          text:
+                              AppLocalizations.of(context)!.followSubscription,
+                          textColor: Colors.white,
+                          function: () async {
+                            if (RegisterCubit.get(context)!
+                                .formFirstScreenRegisterKey
+                                .currentState!
+                                .validate()) {
+                              await getIt
+                                  .get<CashHelperSharedPreferences>()
+                                  .saveData(
+                                      key: ApiKey.mobNumber,
+                                      value: RegisterCubit.get(context)!
+                                          .phoneController
+                                          .text)
+                                  .then((value) {
+                                RegisterCubit.get(context)!
+                                    .getAllGradesRegistration()
+                                    .then((value) {
+                                  customGoAndDeleteNavigate(
+                                      context: context,
+                                      path: AppRouter.kVerifyOtpPhoneScreen);
+                                });
+                              });
+                            }
+                          }),
                   SizedBox(
                     height: 50.h,
                   ),

@@ -7,12 +7,16 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo.dart';
+import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:meta/meta.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitial());
+  RegisterCubit(this.authRepository) : super(RegisterInitial());
+
+  final AuthRepo authRepository;
 
   IconData iconDataPassword = Icons.visibility_off;
 
@@ -112,5 +116,30 @@ class RegisterCubit extends Cubit<RegisterState> {
       fileBack = null;
       emit(RemovePostImagePickedState());
     }
+  }
+
+  List<GradesRegistrationModel> allGradesRegistration = [];
+  List<String> namesOfGrades = [];
+  getAllGradesRegistration() async {
+    emit(GetAllSubjectsRegistrationLoading());
+    final response = await authRepository.getAllGradesRegistration();
+
+    response.fold(
+      (errMessage) => emit(GetAllGradesRegistrationFail(errMessage)),
+      (allGrades) {
+        allGradesRegistration = allGrades;
+        for (var element in allGradesRegistration) {
+          namesOfGrades.add(element.nameAr);
+        }
+        emit(GetAllGradesRegistrationSuccess());
+      },
+    );
+  }
+
+  String? grade;
+
+  void selectGrade(String grade) {
+    this.grade = grade;
+    emit(SelectedGradRegistration());
   }
 }

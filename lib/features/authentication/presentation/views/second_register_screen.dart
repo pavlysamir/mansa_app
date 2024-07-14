@@ -76,18 +76,49 @@ class SecondRegisterScreen extends StatelessWidget {
                               SizedBox(
                                 height: 10.h,
                               ),
-                              CustomFormField(
-                                  textInputType: TextInputType.text,
-                                  hintText: AppLocalizations.of(context)!
-                                      .hintKedDegree,
-                                  controller: RegisterCubit.get(context)!
-                                      .kedDegreeController,
-                                  validationMassage: (value) {
-                                    if (value.isEmpty) {
-                                      return AppLocalizations.of(context)!
-                                          .kedDegree;
-                                    }
-                                  }),
+
+                              Container(
+                                width: 180.w,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: Colors.grey)),
+                                child: Center(
+                                  child: DropdownButton<String>(
+                                    elevation: 5,
+                                    value: RegisterCubit.get(context)!.grade,
+                                    hint: Text(RegisterCubit.get(context)!
+                                        .namesOfGrades
+                                        .first),
+                                    items: RegisterCubit.get(context)!
+                                        .namesOfGrades
+                                        .map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      print(newValue);
+                                      RegisterCubit.get(context)!
+                                          .selectGrade(newValue!);
+                                    },
+                                  ),
+                                ),
+                              ),
+
+                              // CustomFormField(
+                              //     textInputType: TextInputType.text,
+                              //     hintText: AppLocalizations.of(context)!
+                              //         .hintKedDegree,
+                              //     controller: RegisterCubit.get(context)!
+                              //         .kedDegreeController,
+                              //     validationMassage: (value) {
+                              //       if (value.isEmpty) {
+                              //         return AppLocalizations.of(context)!
+                              //             .kedDegree;
+                              //       }
+                              //     }),
                             ],
                           ),
                         ),
