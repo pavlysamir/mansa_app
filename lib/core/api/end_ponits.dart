@@ -1,10 +1,14 @@
 class EndPoint {
-  static String baseUrl = "http://16.171.141.127/api/";
+  static String baseUrl = "http://16.171.141.127/";
 
-  static String getAllGradesRegistration = "BaseLookup/GetAllRegistrationGrade";
+  static String getAllGradesRegistration =
+      "api/BaseLookup/GetAllRegistrationGrade";
+  static String verifyMobileNum = "Account/VerifyMobileNumber";
+
+  static String resendOtp = "Account/Resend-otp";
 
   static String login = "user/login";
-  static String signUp = "user/";
+  static String signUp = "Account/Register";
 
   static const String contentType = 'application/json';
   static String verifyforgetPasswordOtp = "user/verify-otp";
@@ -53,7 +57,8 @@ class ApiKey {
 
   static String id = "id";
   static String firstName = "firstName";
-  static String lastName = "lastName";
+  static String kedId = "kedId";
+  static String keNumber = "kedNumber";
 
   static String phone = "phone";
   static String confirmPassword = "confirmPassword";

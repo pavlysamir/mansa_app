@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 
@@ -167,5 +168,94 @@ class RegisterCubit extends Cubit<RegisterState> {
         .saveData(key: ApiKey.mobNumber, value: phoneController.text);
 
     emit(CashedFirstRegisterUserDataSuccess());
+  }
+
+  verifyMobileNum() async {
+    emit(VerifyMobileNumLoading());
+    final response =
+        await authRepository.verifyMobileNum(mobileNo: phoneController.text);
+
+    response.fold(
+      (errMessage) => emit(VerifyMobileNumFaluir(errMessage)),
+      (message) {
+        emit(VerifyMobileNumSuccess(message));
+      },
+    );
+  }
+
+  verifyOtpMobileNum() async {
+    emit(VerifyOtpMobileNumLoading());
+    final response = await authRepository.verifyOtpMobileNum(
+        mobileNo: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.mobNumber),
+        otp: verifyOtPhoneController.text);
+
+    response.fold(
+      (errMessage) => emit(VerifyOtpMobileNumFaluir(errMessage)),
+      (message) {
+        emit(VerifyOtpMobileNumSuccess(message));
+      },
+    );
+  }
+
+  resendOtp() async {
+    emit(ResendOtpLoading());
+    final response = await authRepository.resendOtp(
+      mobileNo: getIt
+          .get<CashHelperSharedPreferences>()
+          .getData(key: ApiKey.mobNumber),
+    );
+
+    response.fold(
+      (errMessage) => emit(ResendOtpFaluir(errMessage)),
+      (message) {
+        emit(ResendOtpSuccess(message));
+      },
+    );
+  }
+
+  Future<void> cashedUserDataSecondScreen() async {
+    emit(CashedSecondRegisterUserDataSuccess());
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: ApiKey.kedId, value: gradeId);
+
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: ApiKey.keNumber, value: kedNumberController.text);
+
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: ApiKey.password, value: passwordController.text);
+
+    emit(CashedSecondRegisterUserDataLoading());
+  }
+
+  signUp() async {
+    emit(SignUpLoading());
+    final response = await authRepository.signUp(
+        userName: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.firstName),
+        password: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.password),
+        mobileNo: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.mobNumber),
+        gradeId:
+            getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.kedId),
+        code: hostingCodeController.text,
+        kedNum: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.keNumber));
+
+    response.fold(
+      (errMessage) => emit(SignUpFaluir(errMessage)),
+      (message) {
+        emit(SignUpSuccess(message));
+      },
+    );
   }
 }

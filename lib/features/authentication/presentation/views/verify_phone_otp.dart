@@ -19,7 +19,33 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is VerifyOtpMobileNumSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(state.message),
+            ),
+          );
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kSecondRegisterScreen);
+        }
+        if (state is ResendOtpSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(state.message),
+            ),
+          );
+        }
+        if (state is VerifyOtpMobileNumFaluir) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -109,45 +135,51 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                             color: Theme.of(context).indicatorColor,
                           )),
                     ),
-                    Center(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Resend',
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: kDarktBlue),
-                      ),
-                    )),
+                    state is ResendOtpLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 20,
+                              color: kPrimaryKey,
+                            ),
+                          )
+                        : Center(
+                            child: TextButton(
+                            onPressed: () {
+                              RegisterCubit.get(context)!.resendOtp();
+                            },
+                            child: const Text(
+                              'Resend',
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: kDarktBlue),
+                            ),
+                          )),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.4,
                     ),
-                    CustomButtonLarge(
-                        text: AppLocalizations.of(context)!.submit,
-                        textColor: Colors.white,
-                        function: () async {
-                          if (RegisterCubit.get(context)!
-                              .formVerifyOtpPhoneKey
-                              .currentState!
-                              .validate()) {
-                            await getIt
-                                .get<CashHelperSharedPreferences>()
-                                .saveData(
-                                    key: ApiKey.otp,
-                                    value: RegisterCubit.get(context)!
-                                        .verifyOtPhoneController
-                                        .text)
-                                .then((value) {
-                              RegisterCubit.get(context)!
-                                  .getAllGradesRegistration()
-                                  .then((value) {
-                                customGoAndDeleteNavigate(
-                                    context: context,
-                                    path: AppRouter.kSecondRegisterScreen);
-                              });
-                            });
-                          }
-                        }),
+                    state is VerifyOtpMobileNumLoading ||
+                            state is GetAllSubjectsRegistrationLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: kPrimaryKey,
+                            ),
+                          )
+                        : CustomButtonLarge(
+                            text: AppLocalizations.of(context)!.submit,
+                            textColor: Colors.white,
+                            function: () async {
+                              if (RegisterCubit.get(context)!
+                                  .formVerifyOtpPhoneKey
+                                  .currentState!
+                                  .validate()) {
+                                RegisterCubit.get(context)!
+                                    .verifyOtpMobileNum()
+                                    .then((value) {
+                                  RegisterCubit.get(context)!
+                                      .getAllGradesRegistration();
+                                });
+                              }
+                            }),
                   ],
                 ),
               ),

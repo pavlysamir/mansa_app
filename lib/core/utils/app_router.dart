@@ -41,7 +41,7 @@ abstract class AppRouter {
           //             true
           //         ? kLogin
           //         :
-          kHomeLayout,
+          kFistRegisterScreen,
       routes: [
         GoRoute(
           path: kHomeLayout,

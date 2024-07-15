@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
@@ -19,7 +20,25 @@ class FirstRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is VerifyMobileNumSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(state.message),
+            ),
+          );
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kVerifyOtpPhoneScreen);
+        }
+        if (state is VerifyMobileNumFaluir) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -92,7 +111,8 @@ class FirstRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
-                  state is CashedFirstRegisterUserDataLoading
+                  state is CashedFirstRegisterUserDataLoading ||
+                          state is VerifyMobileNumLoading
                       ? const Center(
                           child: CircularProgressIndicator(
                           color: kPrimaryKey,
@@ -106,29 +126,10 @@ class FirstRegisterScreen extends StatelessWidget {
                                 .formFirstScreenRegisterKey
                                 .currentState!
                                 .validate()) {
-                              // await getIt
-                              //     .get<CashHelperSharedPreferences>()
-                              //     .saveData(
-                              //         key: ApiKey.mobNumber,
-                              //         value: RegisterCubit.get(context)!
-                              //             .phoneController
-                              //             .text)
-                              //     .then((value) {
-                              //   RegisterCubit.get(context)!
-                              //       .getAllGradesRegistration()
-                              //       .then((value) {
-                              //     customGoAndDeleteNavigate(
-                              //         context: context,
-                              //         path: AppRouter.kVerifyOtpPhoneScreen);
-                              //   });
-                              // });
-
                               RegisterCubit.get(context)!
                                   .cashedUserDataFirstScreen()
                                   .then((value) {
-                                customGoAndDeleteNavigate(
-                                    context: context,
-                                    path: AppRouter.kVerifyOtpPhoneScreen);
+                                RegisterCubit.get(context)!.verifyMobileNum();
                               });
                             }
                           }),

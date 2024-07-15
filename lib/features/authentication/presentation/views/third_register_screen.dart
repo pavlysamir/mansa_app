@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
@@ -19,7 +20,18 @@ class ThirdRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text(state.message),
+            ),
+          );
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kHomeLayout);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -171,18 +183,18 @@ class ThirdRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: 30.h,
                   ),
-                  CustomButtonLarge(
-                      text: AppLocalizations.of(context)!.signUp,
-                      textColor: Colors.white,
-                      function: () {
-                        if (RegisterCubit.get(context)!
-                            .formThirdScreenRegisterKey
-                            .currentState!
-                            .validate()) {
-                          customGoAndDeleteNavigate(
-                              context: context, path: AppRouter.kLoginScreen);
-                        }
-                      }),
+                  state is SignUpLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: kPrimaryKey,
+                          ),
+                        )
+                      : CustomButtonLarge(
+                          text: AppLocalizations.of(context)!.signUp,
+                          textColor: Colors.white,
+                          function: () {
+                            RegisterCubit.get(context)!.signUp();
+                          }),
                   SizedBox(
                     height: 20.h,
                   ),

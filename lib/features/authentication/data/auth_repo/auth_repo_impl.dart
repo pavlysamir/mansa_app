@@ -32,4 +32,70 @@ class AuthRepoImpl implements AuthRepo {
     // TODO: implement login
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<String, String>> verifyMobileNum(
+      {required String mobileNo}) async {
+    try {
+      final response =
+          await api.post(EndPoint.verifyMobileNum, queryParameters: {
+        'MobileNo': '${'+2'}$mobileNo',
+      });
+
+      return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> verifyOtpMobileNum(
+      {required String mobileNo, required String otp}) async {
+    try {
+      final response = await api.post(EndPoint.verifyMobileNum, data: {
+        'toPhone': '${'+2'}$mobileNo',
+        'otp': otp,
+      });
+
+      return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> resendOtp({required String mobileNo}) async {
+    try {
+      final response =
+          await api.post(EndPoint.resendOtp, data: '${'+2'}$mobileNo');
+
+      return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> signUp(
+      {required String userName,
+      required String password,
+      required String mobileNo,
+      required int gradeId,
+      required String kedNum,
+      required String code}) async {
+    try {
+      final response = await api.post(EndPoint.verifyMobileNum, data: {
+        "userName": userName,
+        "password": password,
+        "phoneNumber": '${'+2'}$mobileNo',
+        "registeraionGradeId": gradeId,
+        "registeraionNumber": kedNum,
+        "code": code
+      });
+
+      return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
 }

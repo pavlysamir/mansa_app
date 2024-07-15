@@ -30,3 +30,63 @@ final class SelectedGradRegistration extends RegisterState {}
 final class CashedFirstRegisterUserDataSuccess extends RegisterState {}
 
 final class CashedFirstRegisterUserDataLoading extends RegisterState {}
+
+final class VerifyMobileNumSuccess extends RegisterState {
+  final String message;
+
+  VerifyMobileNumSuccess(this.message);
+}
+
+final class VerifyMobileNumLoading extends RegisterState {}
+
+final class VerifyMobileNumFaluir extends RegisterState {
+  final String errorMessage;
+
+  VerifyMobileNumFaluir(this.errorMessage);
+}
+
+final class VerifyOtpMobileNumSuccess extends RegisterState {
+  final String message;
+
+  VerifyOtpMobileNumSuccess(this.message);
+}
+
+final class VerifyOtpMobileNumLoading extends RegisterState {}
+
+final class VerifyOtpMobileNumFaluir extends RegisterState {
+  final String errorMessage;
+
+  VerifyOtpMobileNumFaluir(this.errorMessage);
+}
+
+final class ResendOtpSuccess extends RegisterState {
+  final String message;
+
+  ResendOtpSuccess(this.message);
+}
+
+final class ResendOtpLoading extends RegisterState {}
+
+final class ResendOtpFaluir extends RegisterState {
+  final String errorMessage;
+
+  ResendOtpFaluir(this.errorMessage);
+}
+
+final class CashedSecondRegisterUserDataSuccess extends RegisterState {}
+
+final class CashedSecondRegisterUserDataLoading extends RegisterState {}
+
+final class SignUpSuccess extends RegisterState {
+  final String message;
+
+  SignUpSuccess(this.message);
+}
+
+final class SignUpLoading extends RegisterState {}
+
+final class SignUpFaluir extends RegisterState {
+  final String errorMessage;
+
+  SignUpFaluir(this.errorMessage);
+}

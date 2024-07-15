@@ -6,4 +6,19 @@ abstract class AuthRepo {
       getAllGradesRegistration();
 
   Future<void> login(String email, String password);
+
+  Future<Either<String, String>> verifyMobileNum({required String mobileNo});
+
+  Future<Either<String, String>> verifyOtpMobileNum(
+      {required String mobileNo, required String otp});
+
+  Future<Either<String, String>> resendOtp({required String mobileNo});
+
+  Future<Either<String, String>> signUp(
+      {required String userName,
+      required String password,
+      required String mobileNo,
+      required int gradeId,
+      required String kedNum,
+      required String code});
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
@@ -19,7 +20,14 @@ class SecondRegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is CashedSecondRegisterUserDataSuccess) {
+          customGoAndDeleteNavigate(
+            context: context,
+            path: AppRouter.kThirdRegisterScreen,
+          );
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -178,20 +186,25 @@ class SecondRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: 35.h,
                   ),
-                  CustomButtonLarge(
-                      text: AppLocalizations.of(context)!.followSubscription,
-                      textColor: Colors.white,
-                      function: () {
-                        if (RegisterCubit.get(context)!
-                            .formSecondScreenRegisterKey
-                            .currentState!
-                            .validate()) {
-                          customGoAndDeleteNavigate(
-                            context: context,
-                            path: AppRouter.kThirdRegisterScreen,
-                          );
-                        }
-                      }),
+                  state is CashedSecondRegisterUserDataLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: kPrimaryKey,
+                          ),
+                        )
+                      : CustomButtonLarge(
+                          text:
+                              AppLocalizations.of(context)!.followSubscription,
+                          textColor: Colors.white,
+                          function: () {
+                            if (RegisterCubit.get(context)!
+                                .formSecondScreenRegisterKey
+                                .currentState!
+                                .validate()) {
+                              RegisterCubit.get(context)!
+                                  .cashedUserDataSecondScreen();
+                            }
+                          }),
                   SizedBox(
                     height: 20.h,
                   ),
