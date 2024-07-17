@@ -1,12 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit(this.authRepository) : super(LoginInitial());
+
+  final AuthRepo authRepository;
+
   IconData iconDataPassword = Icons.visibility_off;
 
   IconData iconDataConfirmPassword = Icons.visibility_off;
@@ -50,4 +54,17 @@ class LoginCubit extends Cubit<LoginState> {
   var formVerifyOtpPhoneKey = GlobalKey<FormState>();
 
   var formVerifyPhoneKey = GlobalKey<FormState>();
+
+  login() async {
+    emit(LoginSuccess());
+    final response = await authRepository.login(
+        emailController.text, passwordController.text);
+
+    response.fold(
+      (errMessage) => emit(LoginFailure(message: errMessage)),
+      (message) {
+        emit(LoginSuccess());
+      },
+    );
+  }
 }

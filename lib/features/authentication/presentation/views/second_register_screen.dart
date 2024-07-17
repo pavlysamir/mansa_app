@@ -87,7 +87,7 @@ class SecondRegisterScreen extends StatelessWidget {
                               ),
                               CustomDropDownMenu(
                                 list: RegisterCubit.get(context)!.namesOfGrades,
-                                value: RegisterCubit.get(context)!.grade!,
+                                value: RegisterCubit.get(context)!.grade,
                                 onChanged: (String? newValue) {
                                   RegisterCubit.get(context)!
                                       .selectGrade(newValue!);

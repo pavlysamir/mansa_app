@@ -6,7 +6,6 @@ import 'package:mansa_app/features/home/presentation/managers/home_cubit/home_cu
 import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_olders.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_lawyer_data_item.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_title_appBar.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

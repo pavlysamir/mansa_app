@@ -18,7 +18,12 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is LoginSuccess) {
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kHomeLayout);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -102,15 +107,23 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 80.h,
                   ),
-                  CustomButtonLarge(
-                      text: AppLocalizations.of(context)!.followSubscription,
-                      textColor: Colors.white,
-                      function: () async {
-                        if (LoginCubit.get(context)!
-                            .formScreenLoginrKey
-                            .currentState!
-                            .validate()) {}
-                      }),
+                  state is LoginLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                          color: kPrimaryKey,
+                        ))
+                      : CustomButtonLarge(
+                          text:
+                              AppLocalizations.of(context)!.followSubscription,
+                          textColor: Colors.white,
+                          function: () async {
+                            if (LoginCubit.get(context)!
+                                .formScreenLoginrKey
+                                .currentState!
+                                .validate()) {
+                              LoginCubit.get(context)!.login();
+                            }
+                          }),
                   SizedBox(
                     height: 70.h,
                   ),

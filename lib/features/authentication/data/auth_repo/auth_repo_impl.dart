@@ -4,6 +4,7 @@ import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
+import 'package:mansa_app/features/authentication/data/models/login_user_moodel.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final ApiConsumer api;
@@ -28,9 +29,18 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> login(String email, String password) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<Either<String, LoginUserModel>> login(
+      String phoneNum, String password) async {
+    try {
+      final response = await api.post(EndPoint.login, data: {
+        'phoneNumber': '${'+2'}$phoneNum',
+        'password': password,
+      });
+      var data = LoginUserModel.fromJson(response['data']);
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
   }
 
   @override

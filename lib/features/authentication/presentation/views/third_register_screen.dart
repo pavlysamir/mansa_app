@@ -29,7 +29,7 @@ class ThirdRegisterScreen extends StatelessWidget {
             ),
           );
           customGoAndDeleteNavigate(
-              context: context, path: AppRouter.kHomeLayout);
+              context: context, path: AppRouter.kLoginScreen);
         }
       },
       builder: (context, state) {

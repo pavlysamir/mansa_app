@@ -8,7 +8,7 @@ class EndPoint {
 
   static String resendOtp = "Account/Resend-otp";
 
-  static String login = "user/login";
+  static String login = "Account/Login";
   static String signUp = "Account/Register";
 
   static const String contentType = 'application/json';
