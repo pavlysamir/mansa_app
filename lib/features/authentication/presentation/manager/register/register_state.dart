@@ -59,11 +59,7 @@ final class VerifyOtpMobileNumFaluir extends RegisterState {
   VerifyOtpMobileNumFaluir(this.errorMessage);
 }
 
-final class ResendOtpSuccess extends RegisterState {
-  final String message;
-
-  ResendOtpSuccess(this.message);
-}
+final class ResendOtpSuccess extends RegisterState {}
 
 final class ResendOtpLoading extends RegisterState {}
 

@@ -12,7 +12,7 @@ abstract class AuthRepo {
   Future<Either<String, String>> verifyOtpMobileNum(
       {required String mobileNo, required String otp});
 
-  Future<Either<String, String>> resendOtp({required String mobileNo});
+  Future<Either<String, void>> resendOtp({required String mobileNo});
 
   Future<Either<String, String>> signUp(
       {required String userName,

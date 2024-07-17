@@ -37,7 +37,9 @@
     "home":"Home",
     "setting":"Setting",
     "profile":"Profile",
-    "olderOfApp":"Your ranking on the application"
+    "olderOfApp":"Your ranking on the application",
+    "pleaseSelectImages":"Please select images"
+
 
 
     

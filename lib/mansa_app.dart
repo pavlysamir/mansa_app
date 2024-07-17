@@ -20,7 +20,8 @@ class MansaApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => RegisterCubit(getIt.get<AuthRepoImpl>()),
+          create: (context) => RegisterCubit(getIt.get<AuthRepoImpl>())
+            ..getAllGradesRegistration(),
         ),
         BlocProvider(
           create: (context) => LoginCubit(),

@@ -52,7 +52,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<String, String>> verifyOtpMobileNum(
       {required String mobileNo, required String otp}) async {
     try {
-      final response = await api.post(EndPoint.verifyMobileNum, data: {
+      final response = await api.post(EndPoint.verifyOtpMobileNum, data: {
         'toPhone': '${'+2'}$mobileNo',
         'otp': otp,
       });
@@ -64,12 +64,12 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<String, String>> resendOtp({required String mobileNo}) async {
+  Future<Either<String, void>> resendOtp({required String mobileNo}) async {
     try {
       final response =
-          await api.post(EndPoint.resendOtp, data: '${'+2'}$mobileNo');
+          await api.post(EndPoint.resendOtp, data: {'${'+2'}$mobileNo'});
 
-      return Right(response['message']);
+      return Right(response);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }
@@ -84,7 +84,7 @@ class AuthRepoImpl implements AuthRepo {
       required String kedNum,
       required String code}) async {
     try {
-      final response = await api.post(EndPoint.verifyMobileNum, data: {
+      final response = await api.post(EndPoint.signUp, data: {
         "userName": userName,
         "password": password,
         "phoneNumber": '${'+2'}$mobileNo',

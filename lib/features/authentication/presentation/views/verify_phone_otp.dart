@@ -10,6 +10,7 @@ import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
+import 'package:mansa_app/features/authentication/presentation/widgets/count_down_timer.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -32,13 +33,20 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
         }
         if (state is ResendOtpSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.green,
-              content: Text(state.message),
+              content: Text('success'),
             ),
           );
         }
         if (state is VerifyOtpMobileNumFaluir) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+            ),
+          );
+        }
+        if (state is ResendOtpFaluir) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
@@ -90,18 +98,22 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                             .copyWith(color: kPrimaryKey),
                       ),
                     ),
-                    Center(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppLocalizations.of(context)!.changePhoneNumber,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: kPrimaryKey),
-                      ),
-                    )),
+                    // Center(
+                    //     child: TextButton(
+                    //   onPressed: () {},
+                    //   child: Text(
+                    //     AppLocalizations.of(context)!.changePhoneNumber,
+                    //     style: const TextStyle(
+                    //         decoration: TextDecoration.underline,
+                    //         color: kPrimaryKey),
+                    //   ),
+                    // )),
                     SizedBox(
-                      height: 24.h,
+                      height: 3.h,
+                    ),
+                    const Center(child: CountdownButton()),
+                    SizedBox(
+                      height: 3.h,
                     ),
                     Directionality(
                       textDirection: TextDirection.ltr,
@@ -135,25 +147,25 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                             color: Theme.of(context).indicatorColor,
                           )),
                     ),
-                    state is ResendOtpLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 20,
-                              color: kPrimaryKey,
-                            ),
-                          )
-                        : Center(
-                            child: TextButton(
-                            onPressed: () {
-                              RegisterCubit.get(context)!.resendOtp();
-                            },
-                            child: const Text(
-                              'Resend',
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: kDarktBlue),
-                            ),
-                          )),
+                    // state is ResendOtpLoading
+                    //     ? const Center(
+                    //         child: CircularProgressIndicator(
+                    //           strokeWidth: 2,
+                    //           color: kPrimaryKey,
+                    //         ),
+                    //       )
+                    //     : Center(
+                    //         child: TextButton(
+                    //         onPressed: () {
+                    //           RegisterCubit.get(context)!.verifyMobileNum();
+                    //         },
+                    //         child: const Text(
+                    //           'Resend',
+                    //           style: TextStyle(
+                    //               decoration: TextDecoration.underline,
+                    //               color: kDarktBlue),
+                    //         ),
+                    //       )),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.4,
                     ),
@@ -173,11 +185,7 @@ class VerifyPhoneOtpRegisterScreen extends StatelessWidget {
                                   .currentState!
                                   .validate()) {
                                 RegisterCubit.get(context)!
-                                    .verifyOtpMobileNum()
-                                    .then((value) {
-                                  RegisterCubit.get(context)!
-                                      .getAllGradesRegistration();
-                                });
+                                    .verifyOtpMobileNum();
                               }
                             }),
                   ],

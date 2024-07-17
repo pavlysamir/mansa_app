@@ -4,6 +4,7 @@ class EndPoint {
   static String getAllGradesRegistration =
       "api/BaseLookup/GetAllRegistrationGrade";
   static String verifyMobileNum = "Account/VerifyMobileNumber";
+  static String verifyOtpMobileNum = "Account/verify-otp";
 
   static String resendOtp = "Account/Resend-otp";
 

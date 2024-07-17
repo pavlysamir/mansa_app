@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,7 +122,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   List<GradesRegistrationModel> allGradesRegistration = [];
   List<String> namesOfGrades = [];
-  getAllGradesRegistration() async {
+  Future<void> getAllGradesRegistration() async {
     emit(GetAllSubjectsRegistrationLoading());
     final response = await authRepository.getAllGradesRegistration();
 
@@ -136,13 +133,15 @@ class RegisterCubit extends Cubit<RegisterState> {
         for (var element in allGradesRegistration) {
           namesOfGrades.add(element.nameAr);
         }
+        grade = namesOfGrades.first;
+        gradeId = allGradesRegistration.first.id;
         emit(GetAllGradesRegistrationSuccess());
       },
     );
   }
 
-  String? grade;
-  int? gradeId;
+  late String grade;
+  late int gradeId;
 
   void selectGrade(String grade) {
     this.grade = grade;
@@ -172,6 +171,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   verifyMobileNum() async {
     emit(VerifyMobileNumLoading());
+
     final response =
         await authRepository.verifyMobileNum(mobileNo: phoneController.text);
 
@@ -185,6 +185,8 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   verifyOtpMobileNum() async {
     emit(VerifyOtpMobileNumLoading());
+    print(
+        'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww${verifyOtPhoneController.text}');
     final response = await authRepository.verifyOtpMobileNum(
         mobileNo: getIt
             .get<CashHelperSharedPreferences>()
@@ -202,15 +204,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   resendOtp() async {
     emit(ResendOtpLoading());
     final response = await authRepository.resendOtp(
-      mobileNo: getIt
-          .get<CashHelperSharedPreferences>()
-          .getData(key: ApiKey.mobNumber),
-    );
+        mobileNo: getIt
+            .get<CashHelperSharedPreferences>()
+            .getData(key: ApiKey.mobNumber));
 
     response.fold(
       (errMessage) => emit(ResendOtpFaluir(errMessage)),
       (message) {
-        emit(ResendOtpSuccess(message));
+        emit(ResendOtpSuccess());
       },
     );
   }

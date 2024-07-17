@@ -193,7 +193,20 @@ class ThirdRegisterScreen extends StatelessWidget {
                           text: AppLocalizations.of(context)!.signUp,
                           textColor: Colors.white,
                           function: () {
-                            RegisterCubit.get(context)!.signUp();
+                            if (RegisterCubit.get(context)!.fileFront != null &&
+                                RegisterCubit.get(context)!.fileBack != null) {
+                              RegisterCubit.get(context)!.signUp();
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    AppLocalizations.of(context)!
+                                        .pleaseSelectImages,
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
                           }),
                   SizedBox(
                     height: 20.h,
