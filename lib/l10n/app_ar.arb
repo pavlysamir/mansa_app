@@ -39,7 +39,11 @@
     "searchByName":"البحث بالاسم",
     "government":"المحافظة",
     "district":"المدينه/الحى",
-    "state":"الحالة"
+    "state":"الحالة",
+    "notification":"الاشعارات",
+    "welcom":"مرحبا بك"
+
+
 
 
     

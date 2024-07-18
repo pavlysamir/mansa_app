@@ -20,7 +20,7 @@ class CustomDropDownMenu extends StatelessWidget {
           border: Border.all(color: Colors.grey)),
       child: Center(
         child: DropdownButton<String>(
-          elevation: 5,
+          elevation: 0,
           value: value,
           hint: Text(list.first),
           items: list.map((String value) {

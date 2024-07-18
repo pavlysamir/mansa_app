@@ -11,6 +11,7 @@ import 'package:mansa_app/features/authentication/presentation/views/third_regis
 import 'package:mansa_app/features/authentication/presentation/views/verify_otp_reset_password.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_otp.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_reset_passwprd.dart';
+import 'package:mansa_app/features/notification/presentation/views/notification_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
 
 abstract class AppRouter {
@@ -34,6 +35,8 @@ abstract class AppRouter {
   static const kResetPasswordScreen = '/ResetPasswordScreen';
 
   static const kSearchScreen = '/SearchScreen';
+
+  static const kNotificationScreen = '/NotificationScreen';
 
   static final router = GoRouter(
       initialLocation:
@@ -82,6 +85,10 @@ abstract class AppRouter {
         GoRoute(
           path: kSearchScreen,
           builder: (context, state) => const SearchScreen(),
+        ),
+        GoRoute(
+          path: kNotificationScreen,
+          builder: (context, state) => const NotificationScreen(),
         ),
       ]);
 }

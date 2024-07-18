@@ -52,3 +52,5 @@ final class SelectedGovernment extends SearchState {}
 final class SelectedDistrict extends SearchState {}
 
 final class TriggerFunctionSuccess extends SearchState {}
+
+final class TriggerFunctionLoading extends SearchState {}

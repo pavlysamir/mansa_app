@@ -63,7 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconlyLight.notification,
                   size: 24.dg,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kNotificationScreen);
+                },
               ),
               SizedBox(width: 10.w),
             ],

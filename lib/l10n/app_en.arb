@@ -43,7 +43,9 @@
     "searchByName":"Search by name",
     "government":"Government",
     "district":"District",
-    "state":"State"
+    "state":"State",
+    "notification":"Notification",
+    "welcom":"Welcome"
 
 
 

@@ -28,7 +28,7 @@ class SearchCubit extends Cubit<SearchState> {
   List<int> idsOfGrades = [];
 
   Future<void> getAllGradesRegistration() async {
-    emit(GetAllSubjectsRegistrationLoading());
+    // emit(GetAllSubjectsRegistrationLoading());
     final response = await searchRepository.getAllGradesRegistration();
 
     response.fold(
@@ -42,7 +42,7 @@ class SearchCubit extends Cubit<SearchState> {
           mapGradRegistration[element.id] = false;
         }
 
-        emit(GetAllGradesRegistrationSuccess());
+        // emit(GetAllGradesRegistrationSuccess());
       },
     );
   }
@@ -60,7 +60,7 @@ class SearchCubit extends Cubit<SearchState> {
   List<int> idsOfAvalabilityToWork = [];
 
   Future<void> getAllAvalabilityToWork() async {
-    emit(GetAllAvalabalityOfWorkLoading());
+    // emit(GetAllAvalabalityOfWorkLoading());
     final response = await searchRepository.getAllAvailabalityWork();
 
     response.fold(
@@ -74,7 +74,7 @@ class SearchCubit extends Cubit<SearchState> {
           mapAvalabilityToWork[element.id] = false;
         }
 
-        emit(GetAllAvalabalityOfWorkSuccess());
+        //  emit(GetAllAvalabalityOfWorkSuccess());
       },
     );
   }
@@ -84,7 +84,7 @@ class SearchCubit extends Cubit<SearchState> {
   List<int> idsOfGovernments = [];
 
   Future<void> getAllGovernmentsk() async {
-    emit(GetAllGovernmentsLoading());
+    // emit(GetAllGovernmentsLoading());
     final response = await searchRepository.getAllGovernment();
 
     response.fold(
@@ -97,7 +97,7 @@ class SearchCubit extends Cubit<SearchState> {
         }
         government = namesOfGovernments.first;
         governmentId = allGovernments.first.id;
-        emit(GetAllGovernmentsSuccess());
+        // emit(GetAllGovernmentsSuccess());
       },
     );
   }
@@ -107,7 +107,7 @@ class SearchCubit extends Cubit<SearchState> {
   List<int> idsOfDistricts = [];
 
   Future<void> getAllDistricts() async {
-    emit(GetAllDistrictsLoading());
+    // emit(GetAllDistrictsLoading());
     final response = await searchRepository.getAllDistrict();
 
     response.fold(
@@ -120,7 +120,7 @@ class SearchCubit extends Cubit<SearchState> {
         }
         district = namesOfDistricts.first;
         districtId = allDistricts.first.id;
-        emit(GetAllDistrictsSuccess());
+        //   emit(GetAllDistrictsSuccess());
       },
     );
   }
@@ -158,6 +158,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   Future<void> triggerGetFunctions() async {
+    emit(TriggerFunctionLoading());
     await getAllGradesRegistration();
     await getAllAvalabilityToWork();
     await getAllDistricts();
