@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,7 +17,18 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is EditNewPasswordSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('تم '),
+            ),
+          );
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kLoginScreen);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -114,15 +128,24 @@ class ResetPasswordScreen extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.25,
                           ),
-                          CustomButtonLarge(
-                              text: AppLocalizations.of(context)!.login,
-                              textColor: Colors.white,
-                              function: () async {
-                                if (LoginCubit.get(context)!
-                                    .formScreenResetPasswordKey
-                                    .currentState!
-                                    .validate()) {}
-                              }),
+                          state is EditNewPasswordLoading
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: kPrimaryKey,
+                                  ),
+                                )
+                              : CustomButtonLarge(
+                                  text: AppLocalizations.of(context)!.login,
+                                  textColor: Colors.white,
+                                  function: () async {
+                                    if (LoginCubit.get(context)!
+                                        .formScreenResetPasswordKey
+                                        .currentState!
+                                        .validate()) {
+                                      LoginCubit.get(context)!
+                                          .verifyNumberOtpforgetPassword();
+                                    }
+                                  }),
                         ]))),
           )),
         );

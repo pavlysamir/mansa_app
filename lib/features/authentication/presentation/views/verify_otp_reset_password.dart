@@ -47,79 +47,91 @@ class VerifyPhoneOtpResetPasswordScreen extends StatelessWidget {
                       child: Text(
                         getIt
                             .get<CashHelperSharedPreferences>()
-                            .getData(key: ApiKey.mobNumber),
+                            .getData(key: ApiKey.resetPasswordNumber),
                         style: Theme.of(context)
                             .textTheme
                             .labelMedium!
                             .copyWith(color: kPrimaryKey),
                       ),
                     ),
-                    Center(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppLocalizations.of(context)!.changePhoneNumber,
-                        style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: kPrimaryKey),
-                      ),
-                    )),
+                    // Center(
+                    //     child: TextButton(
+                    //   onPressed: () {},
+                    //   child: Text(
+                    //     AppLocalizations.of(context)!.changePhoneNumber,
+                    //     style: const TextStyle(
+                    //         decoration: TextDecoration.underline,
+                    //         color: kPrimaryKey),
+                    //   ),
+                    // )),
                     SizedBox(
                       height: 24.h,
                     ),
-                    PinCodeTextField(
-                        keyboardType: TextInputType.number,
-                        cursorColor: Theme.of(context).indicatorColor,
-                        appContext: context,
-                        length: 6,
-                        controller:
-                            LoginCubit.get(context)!.verifyOtPhoneController,
-                        onChanged: (value) {},
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return AppLocalizations.of(context)!.enterOtp;
-                          }
-                          return null;
-                        },
-                        pinTheme: PinTheme(
-                            shape: PinCodeFieldShape.box,
-                            borderRadius: BorderRadius.circular(5),
-                            fieldHeight: 40.h,
-                            fieldWidth: 32.w,
-                            activeColor: Colors.grey,
-                            selectedColor: Colors.grey,
-                            inactiveColor: Colors.grey,
-                            activeFillColor: Colors.white,
-                            selectedFillColor: Colors.grey[200],
-                            inactiveFillColor: Colors.grey[100],
-                            errorBorderColor: Colors.red),
-                        textStyle: TextStyle(
-                          color: Theme.of(context).indicatorColor,
-                        )),
-                    Center(
-                        child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Resend',
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: kDarktBlue),
-                      ),
-                    )),
+                    Directionality(
+                      textDirection: TextDirection.ltr,
+                      child: PinCodeTextField(
+                          keyboardType: TextInputType.number,
+                          cursorColor: Theme.of(context).indicatorColor,
+                          appContext: context,
+                          length: 6,
+                          controller:
+                              LoginCubit.get(context)!.verifyOtPhoneController,
+                          onChanged: (value) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return AppLocalizations.of(context)!.enterOtp;
+                            }
+                            return null;
+                          },
+                          pinTheme: PinTheme(
+                              shape: PinCodeFieldShape.box,
+                              borderRadius: BorderRadius.circular(5),
+                              fieldHeight: 40.h,
+                              fieldWidth: 32.w,
+                              activeColor: Colors.grey,
+                              selectedColor: Colors.grey,
+                              inactiveColor: Colors.grey,
+                              activeFillColor: Colors.white,
+                              selectedFillColor: Colors.grey[200],
+                              inactiveFillColor: Colors.grey[100],
+                              errorBorderColor: Colors.red),
+                          textStyle: TextStyle(
+                            color: Theme.of(context).indicatorColor,
+                          )),
+                    ),
+                    // Center(
+                    //     child: TextButton(
+                    //   onPressed: () {},
+                    //   child: const Text(
+                    //     'Resend',
+                    //     style: TextStyle(
+                    //         decoration: TextDecoration.underline,
+                    //         color: kDarktBlue),
+                    //   ),
+                    // )),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.4,
                     ),
                     CustomButtonLarge(
                         text: AppLocalizations.of(context)!.submit,
                         textColor: Colors.white,
-                        function: () {
+                        function: () async {
                           if (LoginCubit.get(context)!
                               .formVerifyOtpPhoneKey
                               .currentState!
                               .validate()) {
-                            customGoAndDeleteNavigate(
-                                context: context,
-                                path: AppRouter.kResetPasswordScreen);
+                            await getIt
+                                .get<CashHelperSharedPreferences>()
+                                .saveData(
+                                    key: ApiKey.resetPasswordNumberOtp,
+                                    value: LoginCubit.get(context)!
+                                        .verifyOtPhoneController
+                                        .text)
+                                .then((value) {
+                              customGoAndDeleteNavigate(
+                                  context: context,
+                                  path: AppRouter.kResetPasswordScreen);
+                            });
                           }
                         }),
                   ],

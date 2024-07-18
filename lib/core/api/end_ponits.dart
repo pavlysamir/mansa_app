@@ -21,10 +21,11 @@ class EndPoint {
   static String signUp = "Account/Register";
 
   static const String contentType = 'application/json';
-  static String verifyforgetPasswordOtp = "user/verify-otp";
-  static String forgotPassword = "user/forgetpass";
+
+  static String forgotPassword = "Account/InitiatePasswordResetAsync";
   static String changeForgetPassword = "/Auth/change-forget-password";
-  static String verfyAccount = "user/verify-account";
+  static String verfyForgetPasswordOtp =
+      "Account/VerifyOtpAndResetPasswordAsync";
 
   static String resetPassword = "user/reset";
 
@@ -82,7 +83,8 @@ class ApiKey {
   static String newPassword = "newPassword";
   static String promoCode = "promoCode";
   static String planId = "planId";
-  static String profileKey = "profileKey";
+  static String resetPasswordNumber = "resetPasswordNumber";
+  static String resetPasswordNumberOtp = "resetPasswordNumberOtp";
 
   static String refId = "refId";
   static String chargeId = "chargeId";

@@ -29,4 +29,11 @@ abstract class AuthRepo {
     required List<String> dataType,
     required List<dynamic> file,
   });
+
+  Future<Either<String, String>> forgetPassword({required String mobileNo});
+
+  Future<Either<String, String>> verifyForgetPasswordOtp(
+      {required String mobileNo,
+      required String otp,
+      required String newPassword});
 }

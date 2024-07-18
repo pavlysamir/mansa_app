@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
-import 'package:mansa_app/core/api/end_ponits.dart';
+
 import 'package:mansa_app/core/functions/validation_handling.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
-import 'package:mansa_app/core/utils/service_locator.dart';
-import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
+
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
@@ -19,7 +19,26 @@ class VerifyPhoneResetPasswprd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is ForgetPasswordSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('تم الارسال'),
+            ),
+          );
+          customGoAndDeleteNavigate(
+              context: context, path: AppRouter.kVerifyOtpResetPasswordScreen);
+        }
+        if (state is ForgetPasswordFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
@@ -74,29 +93,22 @@ class VerifyPhoneResetPasswprd extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.42,
                           ),
-                          CustomButtonLarge(
-                              text: AppLocalizations.of(context)!.send,
-                              textColor: Colors.white,
-                              function: () async {
-                                if (LoginCubit.get(context)!
-                                    .formVerifyPhoneKey
-                                    .currentState!
-                                    .validate()) {
-                                  await getIt
-                                      .get<CashHelperSharedPreferences>()
-                                      .saveData(
-                                          key: ApiKey.mobNumber,
-                                          value: LoginCubit.get(context)!
-                                              .resetPasswordController
-                                              .text)
-                                      .then((value) {
-                                    customGoAndDeleteNavigate(
-                                        context: context,
-                                        path: AppRouter
-                                            .kVerifyOtpResetPasswordScreen);
-                                  });
-                                }
-                              }),
+                          state is ForgetPasswordLoading
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                  color: kPrimaryKey,
+                                ))
+                              : CustomButtonLarge(
+                                  text: AppLocalizations.of(context)!.send,
+                                  textColor: Colors.white,
+                                  function: () async {
+                                    if (LoginCubit.get(context)!
+                                        .formVerifyPhoneKey
+                                        .currentState!
+                                        .validate()) {
+                                      LoginCubit.get(context)!.forgetPassword();
+                                    }
+                                  }),
                         ]))),
           )),
         );
