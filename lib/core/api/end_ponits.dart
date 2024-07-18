@@ -13,6 +13,8 @@ class EndPoint {
   static String verifyMobileNum = "Account/VerifyMobileNumber";
   static String verifyOtpMobileNum = "Account/verify-otp";
 
+  static String addFile = "File/AddFile";
+
   static String resendOtp = "Account/Resend-otp";
 
   static String login = "Account/Login";

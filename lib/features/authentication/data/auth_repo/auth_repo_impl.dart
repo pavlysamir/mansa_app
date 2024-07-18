@@ -118,8 +118,37 @@ class AuthRepoImpl implements AuthRepo {
         "registeraionNumber": kedNum,
         "code": code
       });
+      getIt
+          .get<CashHelperSharedPreferences>()
+          .saveData(key: ApiKey.id, value: response['data']);
+      return Right(response['data']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
 
-      return Right(response['message']);
+  @override
+  Future<Either<String, void>> addFile({
+    required String userId,
+    required List<String> dataType,
+    required List<dynamic> file,
+  }) async {
+    try {
+      Map data = {
+        "file.userid": userId,
+      };
+
+      for (var element in file) {
+        data['file.file[0].file'] = element;
+      }
+
+      for (var element in dataType) {
+        data['file.file[0].fileTypeId'] = element;
+      }
+      final response =
+          await api.post(EndPoint.addFile, isFromData: true, data: data);
+
+      return Right(response);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

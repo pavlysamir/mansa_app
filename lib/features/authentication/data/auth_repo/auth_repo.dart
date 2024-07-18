@@ -23,4 +23,10 @@ abstract class AuthRepo {
       required int gradeId,
       required String kedNum,
       required String code});
+
+  Future<Either<String, void>> addFile({
+    required String userId,
+    required List<String> dataType,
+    required List<dynamic> file,
+  });
 }

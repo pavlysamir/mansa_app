@@ -86,3 +86,13 @@ final class SignUpFaluir extends RegisterState {
 
   SignUpFaluir(this.errorMessage);
 }
+
+final class AddFileLoading extends RegisterState {}
+
+final class AddFileFaluir extends RegisterState {
+  final String errorMessage;
+
+  AddFileFaluir(this.errorMessage);
+}
+
+final class AddFileSuccess extends RegisterState {}

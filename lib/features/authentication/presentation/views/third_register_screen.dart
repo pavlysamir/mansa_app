@@ -21,11 +21,11 @@ class ThirdRegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
-        if (state is SignUpSuccess) {
+        if (state is AddFileSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.green,
-              content: Text(state.message),
+              content: Text('تم الحفظ بنجاح'),
             ),
           );
           customGoAndDeleteNavigate(
@@ -195,7 +195,11 @@ class ThirdRegisterScreen extends StatelessWidget {
                           function: () {
                             if (RegisterCubit.get(context)!.fileFront != null &&
                                 RegisterCubit.get(context)!.fileBack != null) {
-                              RegisterCubit.get(context)!.signUp();
+                              RegisterCubit.get(context)!
+                                  .signUp()
+                                  .then((value) {
+                                RegisterCubit.get(context)!.addFile();
+                              });
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

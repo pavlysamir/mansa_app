@@ -233,7 +233,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(CashedSecondRegisterUserDataLoading());
   }
 
-  signUp() async {
+  Future<void> signUp() async {
     emit(SignUpLoading());
     final response = await authRepository.signUp(
         userName: getIt
@@ -256,6 +256,22 @@ class RegisterCubit extends Cubit<RegisterState> {
       (errMessage) => emit(SignUpFaluir(errMessage)),
       (message) {
         emit(SignUpSuccess(message));
+      },
+    );
+  }
+
+  addFile() async {
+    emit(AddFileLoading());
+    final response = await authRepository.addFile(
+      userId: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
+      dataType: ['1', '1'],
+      file: [fileFront, fileBack],
+    );
+
+    response.fold(
+      (errMessage) => emit(AddFileFaluir(errMessage)),
+      (message) {
+        emit(AddFileSuccess());
       },
     );
   }
