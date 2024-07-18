@@ -58,6 +58,8 @@ class ApiKey {
 
   static String id = "id";
   static String firstName = "firstName";
+  static String userName = "userName";
+
   static String kedId = "kedId";
   static String keNumber = "kedNumber";
 

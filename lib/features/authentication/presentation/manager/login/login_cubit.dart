@@ -56,13 +56,13 @@ class LoginCubit extends Cubit<LoginState> {
   var formVerifyPhoneKey = GlobalKey<FormState>();
 
   login() async {
-    emit(LoginSuccess());
+    emit(LoginLoading());
     final response = await authRepository.login(
         emailController.text, passwordController.text);
 
     response.fold(
       (errMessage) => emit(LoginFailure(message: errMessage)),
-      (message) {
+      (login) {
         emit(LoginSuccess());
       },
     );

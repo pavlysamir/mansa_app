@@ -1,5 +1,5 @@
 class LoginUserModel {
-  final int id;
+  final String id;
   final String userName;
   final String email;
   final String phoneNumber;

@@ -1,5 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:mansa_app/core/Layouts/home_layout.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/presentation/views/first_register_screen.dart';
 import 'package:mansa_app/features/authentication/presentation/views/login_screen.dart';
 import 'package:mansa_app/features/authentication/presentation/views/reset_password_screen.dart';
@@ -8,6 +11,7 @@ import 'package:mansa_app/features/authentication/presentation/views/third_regis
 import 'package:mansa_app/features/authentication/presentation/views/verify_otp_reset_password.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_otp.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_reset_passwprd.dart';
+import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';
@@ -29,19 +33,14 @@ abstract class AppRouter {
 
   static const kResetPasswordScreen = '/ResetPasswordScreen';
 
+  static const kSearchScreen = '/SearchScreen';
+
   static final router = GoRouter(
       initialLocation:
-          //kHomeLayOut,
-          // getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.token) !=
-          //         null
-          //     ? kHomeLayOut
-          //     : getIt
-          //                 .get<CashHelperSharedPreferences>()
-          //                 .getData(key: 'onBoarding') ==
-          //             true
-          //         ? kLogin
-          //         :
-          kFistRegisterScreen,
+          getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.token) !=
+                  null
+              ? kHomeLayout
+              : kFistRegisterScreen,
       routes: [
         GoRoute(
           path: kHomeLayout,
@@ -79,6 +78,10 @@ abstract class AppRouter {
         GoRoute(
           path: kResetPasswordScreen,
           builder: (context, state) => const ResetPasswordScreen(),
+        ),
+        GoRoute(
+          path: kSearchScreen,
+          builder: (context, state) => const SearchScreen(),
         ),
       ]);
 }

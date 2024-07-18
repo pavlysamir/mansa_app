@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/authentication/data/models/login_user_moodel.dart';
@@ -37,6 +39,20 @@ class AuthRepoImpl implements AuthRepo {
         'password': password,
       });
       var data = LoginUserModel.fromJson(response['data']);
+
+      getIt
+          .get<CashHelperSharedPreferences>()
+          .saveData(key: ApiKey.id, value: data.id);
+      getIt
+          .get<CashHelperSharedPreferences>()
+          .saveData(key: ApiKey.userName, value: data.userName);
+      getIt
+          .get<CashHelperSharedPreferences>()
+          .saveData(key: ApiKey.token, value: data.token);
+      getIt
+          .get<CashHelperSharedPreferences>()
+          .saveData(key: ApiKey.mobNumber, value: data.phoneNumber);
+
       return Right(data);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);

@@ -23,6 +23,14 @@ class LoginScreen extends StatelessWidget {
           customGoAndDeleteNavigate(
               context: context, path: AppRouter.kHomeLayout);
         }
+        if (state is LoginFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(state.message),
+            ),
+          );
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -113,8 +121,7 @@ class LoginScreen extends StatelessWidget {
                           color: kPrimaryKey,
                         ))
                       : CustomButtonLarge(
-                          text:
-                              AppLocalizations.of(context)!.followSubscription,
+                          text: AppLocalizations.of(context)!.login,
                           textColor: Colors.white,
                           function: () async {
                             if (LoginCubit.get(context)!

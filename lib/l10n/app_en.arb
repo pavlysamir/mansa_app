@@ -38,7 +38,11 @@
     "setting":"Setting",
     "profile":"Profile",
     "olderOfApp":"Your ranking on the application",
-    "pleaseSelectImages":"Please select images"
+    "pleaseSelectImages":"Please select images",
+    "search":"Search",
+    "searchByName":"Search by name",
+    "government":"Government",
+    "district":"District"
 
 
 

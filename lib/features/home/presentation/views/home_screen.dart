@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/home/presentation/managers/home_cubit/home_cubit.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_olders.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_lawyer_data_item.dart';
@@ -50,7 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconlyLight.search,
                   size: 24.dg,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kSearchScreen);
+                },
               ),
               SizedBox(width: 10.w),
               IconButton(
