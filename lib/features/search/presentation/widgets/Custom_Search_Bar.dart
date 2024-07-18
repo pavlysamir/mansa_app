@@ -26,7 +26,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-        height: 40.h,
+        height: 50.h,
         width: MediaQuery.of(context).size.width,
         child: Form(
           key: formKey,

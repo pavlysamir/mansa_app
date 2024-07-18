@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/authentication/data/models/login_user_moodel.dart';
@@ -27,7 +29,7 @@ abstract class AuthRepo {
   Future<Either<String, void>> addFile({
     required String userId,
     required List<String> dataType,
-    required List<dynamic> file,
+    required List<File> file,
   });
 
   Future<Either<String, String>> forgetPassword({required String mobileNo});

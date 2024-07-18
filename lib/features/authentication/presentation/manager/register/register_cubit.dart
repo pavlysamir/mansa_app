@@ -92,9 +92,11 @@ class RegisterCubit extends Cubit<RegisterState> {
         if (index == 1) {
           base64FrontImage = base64Encode(compressedBytes);
           fileFront = File(image.path);
+          print(fileFront!.path);
         } else if (index == 2) {
           base64BackImage = base64Encode(compressedBytes);
           fileBack = File(image.path);
+          print(fileBack!.path);
         }
 
         // Emit success state
@@ -265,7 +267,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     final response = await authRepository.addFile(
       userId: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
       dataType: ['1', '1'],
-      file: [fileFront, fileBack],
+      file: [fileFront!, fileBack!],
     );
 
     response.fold(

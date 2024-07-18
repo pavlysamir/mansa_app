@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
@@ -127,32 +130,36 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-  @override
-  Future<Either<String, void>> addFile({
-    required String userId,
-    required List<String> dataType,
-    required List<dynamic> file,
-  }) async {
-    try {
-      Map data = {
-        "file.userid": userId,
-      };
+  // Future<Either<String, void>> addFile({
+  //   required String userId,
+  //   required List<String> dataType,
+  //   required List<dynamic> file,
+  // }) async {
+  //   try {
+  //     // Create a list of maps for files
+  //     List<Map<String, dynamic>> filesList = [];
 
-      for (var element in file) {
-        data['file.file[0].file'] = element;
-      }
+  //     for (int i = 0; i < file.length; i++) {
+  //       filesList.add({
+  //         "file.file[$i].file": file[i],
+  //         "file.file[$i].fileTypeId": dataType[i],
+  //       });
+  //     }
 
-      for (var element in dataType) {
-        data['file.file[0].fileTypeId'] = element;
-      }
-      final response =
-          await api.post(EndPoint.addFile, isFromData: true, data: data);
+  //     // Prepare the data map with userId and files list
+  //     Map<String, dynamic> data = {
+  //       "file.userid": userId,
+  //       "files": filesList,
+  //     };
 
-      return Right(response);
-    } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
-    }
-  }
+  //     final response =
+  //         await api.post(EndPoint.addFile, isFromData: true, data: data);
+
+  //     return Right(response);
+  //   } on ServerException catch (e) {
+  //     return Left(e.errModel.errorMessage!);
+  //   }
+  // }
 
   @override
   Future<Either<String, String>> forgetPassword(
@@ -183,6 +190,47 @@ class AuthRepoImpl implements AuthRepo {
       return Right(response['message']);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> addFile(
+      {required String userId,
+      required List<String> dataType,
+      required List<File> file}) async {
+    try {
+      // Create FormData
+      FormData formData = FormData();
+
+      // Add userId field
+      formData.fields.add(MapEntry("file.userid", userId));
+
+      // Add files and their types
+      for (int i = 0; i < file.length; i++) {
+        formData.fields.add(MapEntry("file.file[$i].fileTypeId", dataType[i]));
+        formData.files.add(
+          MapEntry(
+            "file.file[$i].file",
+            await MultipartFile.fromFile(file[i].path,
+                filename: file[i].path.split('/').last),
+          ),
+        );
+      }
+
+      // Sending the request
+      final response = await Dio()
+          .post('http://16.171.141.127/File/AddFile', data: formData);
+
+      // Check the response and return accordingly
+      if (response.statusCode == 200) {
+        return Right(response.data);
+      } else {
+        return Left('Failed to upload files');
+      }
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    } catch (e) {
+      return Left('An unexpected error occurred');
     }
   }
 }
