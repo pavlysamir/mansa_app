@@ -19,7 +19,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 200.h,
+      //height: 200.h,
       decoration: BoxDecoration(
         border: Border.all(color: kDarktBlue),
         borderRadius: BorderRadius.circular(10.r),
@@ -106,7 +106,10 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   const Text(
-                    'ترتيبك علي القاهرة : 150',
+                    'ترتيبك علي درجة الاستئناف : 5',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: TextStyle(color: kBlackColor),
                   )
                 ],
@@ -152,12 +155,16 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   SizedBox(height: 5.h),
                   const Text(
                     'ترتيبك علي القاهرة : 150',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: TextStyle(color: kBlackColor),
                   )
                 ],
               ),
             ],
-          )
+          ),
+          SizedBox(height: 5.h),
         ],
       ),
     );
