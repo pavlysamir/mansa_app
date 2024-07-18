@@ -16,3 +16,39 @@ final class GetAllGradesRegistrationFail extends SearchState {
 }
 
 final class GetAllSubjectsRegistrationLoading extends SearchState {}
+
+final class GetAllAvalabalityOfWorkSuccess extends SearchState {}
+
+final class GetAllAvalabalityOfWorkFail extends SearchState {
+  final String errorMessage;
+
+  GetAllAvalabalityOfWorkFail(this.errorMessage);
+}
+
+final class GetAllAvalabalityOfWorkLoading extends SearchState {}
+
+final class GetAllGovernmentsSuccess extends SearchState {}
+
+final class GetAllGovernmentsFail extends SearchState {
+  final String errorMessage;
+
+  GetAllGovernmentsFail(this.errorMessage);
+}
+
+final class GetAllGovernmentsLoading extends SearchState {}
+
+final class GetAllDistrictsSuccess extends SearchState {}
+
+final class GetAllDistrictsFail extends SearchState {
+  final String errorMessage;
+
+  GetAllDistrictsFail(this.errorMessage);
+}
+
+final class GetAllDistrictsLoading extends SearchState {}
+
+final class SelectedGovernment extends SearchState {}
+
+final class SelectedDistrict extends SearchState {}
+
+final class TriggerFunctionSuccess extends SearchState {}

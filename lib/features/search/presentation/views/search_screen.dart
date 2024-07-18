@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
+import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo_impl.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 import 'package:mansa_app/features/search/presentation/widgets/Custom_Search_Bar.dart';
@@ -17,7 +18,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          SearchCubit(getIt.get<SearchRepoImpl>())..getAllGradesRegistration(),
+          SearchCubit(getIt.get<SearchRepoImpl>())..triggerGetFunctions(),
       child: BlocConsumer<SearchCubit, SearchState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -37,59 +38,160 @@ class SearchScreen extends StatelessWidget {
                 textColor: Colors.white,
               ),
             ),
-            body: state is GetAllSubjectsRegistrationLoading
-                ? const Center(
+            body: state is TriggerFunctionSuccess
+                ? SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          SizedBox(
+                            height: 40.h,
+                            child: CustomSearchBar(context: context),
+                          ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          const Divider(),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.kedDegree,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          ListView.separated(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 70, vertical: 16),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 10.h,
+                            ),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return CustomButtomFilterSearch(
+                                isSelected: SearchCubit.get(context)!
+                                        .mapGradRegistration[
+                                    SearchCubit.get(context)!
+                                        .idsOfGrades[index]]!,
+                                id: SearchCubit.get(context)!
+                                    .idsOfGrades[index],
+                                function: () {
+                                  SearchCubit.get(context)!.click(
+                                      SearchCubit.get(context)!
+                                          .idsOfGrades[index]);
+                                },
+                                text: SearchCubit.get(context)!
+                                    .namesOfGrades[index],
+                              );
+                            },
+                            itemCount:
+                                SearchCubit.get(context)!.namesOfGrades.length,
+                          ),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          const Divider(),
+                          SizedBox(
+                            height: 14.h,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.state,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          ListView.separated(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 70, vertical: 16),
+                            separatorBuilder: (context, index) => SizedBox(
+                              height: 10.h,
+                            ),
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return CustomButtomFilterSearch(
+                                isSelected: SearchCubit.get(context)!
+                                        .mapAvalabilityToWork[
+                                    SearchCubit.get(context)!
+                                        .idsOfAvalabilityToWork[index]]!,
+                                id: SearchCubit.get(context)!
+                                    .idsOfAvalabilityToWork[index],
+                                function: () {
+                                  SearchCubit.get(context)!
+                                      .clickAvalabilityToWork(
+                                          SearchCubit.get(context)!
+                                              .idsOfAvalabilityToWork[index]);
+                                },
+                                text: SearchCubit.get(context)!
+                                    .namesOfAvalabilityToWork[index],
+                              );
+                            },
+                            itemCount: SearchCubit.get(context)!
+                                .namesOfAvalabilityToWork
+                                .length,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.government,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: CustomDropDownMenu(
+                                  list: SearchCubit.get(context)!
+                                      .namesOfGovernments,
+                                  value: SearchCubit.get(context)!.government,
+                                  onChanged: (String? newValue) {
+                                    SearchCubit.get(context)!
+                                        .selectGovernment(newValue!);
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              Text(
+                                AppLocalizations.of(context)!.district,
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              SizedBox(
+                                height: 14.h,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                child: CustomDropDownMenu(
+                                  list: SearchCubit.get(context)!
+                                      .namesOfDistricts,
+                                  value: SearchCubit.get(context)!.district,
+                                  onChanged: (String? newValue) {
+                                    SearchCubit.get(context)!
+                                        .selectDistrict(newValue!);
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : const Center(
                     child: CircularProgressIndicator(
                     color: kPrimaryKey,
-                  ))
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        SizedBox(
-                          height: 40.h,
-                          child: CustomSearchBar(context: context),
-                        ),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        const Divider(),
-                        SizedBox(
-                          height: 14.h,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.kedDegree,
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                        ListView.separated(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 70, vertical: 16),
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 10.h,
-                          ),
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return CustomButtomFilterSearch(
-                              id: SearchCubit.get(context)!.idsOfGrades[index],
-                              function: () {
-                                SearchCubit.get(context)!.click(
-                                    SearchCubit.get(context)!
-                                        .idsOfGrades[index]);
-                              },
-                              text: SearchCubit.get(context)!
-                                  .namesOfGrades[index],
-                            );
-                          },
-                          itemCount:
-                              SearchCubit.get(context)!.namesOfGrades.length,
-                        )
-                      ],
-                    ),
-                  ),
+                  )),
           );
         },
       ),

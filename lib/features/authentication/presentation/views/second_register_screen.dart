@@ -11,7 +11,7 @@ import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
-import 'package:mansa_app/features/authentication/presentation/widgets/custom_drop_down_menu.dart';
+import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 
 class SecondRegisterScreen extends StatelessWidget {

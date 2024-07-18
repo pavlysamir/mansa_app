@@ -3,6 +3,13 @@ class EndPoint {
 
   static String getAllGradesRegistration =
       "api/BaseLookup/GetAllRegistrationGrade";
+  static String getAllAvailabilityWork =
+      "api/BaseLookup/GetAllAvailabilityWork";
+
+  static String getAllDistricts = "api/BaseLookup/GetAllDistricts";
+
+  static String getAllGovernorate = "api/BaseLookup/GetAllGovernorate";
+
   static String verifyMobileNum = "Account/VerifyMobileNumber";
   static String verifyOtpMobileNum = "Account/verify-otp";
 
