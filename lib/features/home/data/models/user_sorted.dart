@@ -1,4 +1,4 @@
-class LoginUserModel {
+class UserSortedModel {
   final int generalSorting;
   final int city;
 
@@ -8,7 +8,7 @@ class LoginUserModel {
 
   final int specializationField;
 
-  LoginUserModel({
+  UserSortedModel({
     required this.generalSorting,
     required this.city,
     required this.district,
@@ -16,8 +16,8 @@ class LoginUserModel {
     required this.specializationField,
   });
 
-  factory LoginUserModel.fromJson(Map<String, dynamic> json) {
-    return LoginUserModel(
+  factory UserSortedModel.fromJson(Map<String, dynamic> json) {
+    return UserSortedModel(
       generalSorting: json['generalSorting'],
       city: json['city'],
       district: json['district'],

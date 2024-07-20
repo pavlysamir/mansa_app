@@ -102,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                   Center(
                       child: TextButton(
                     onPressed: () {
-                      customJustGoNavigate(
+                     customGoAndDeleteNavigate(
                           context: context, path: AppRouter.kVerifyPhoneScreen);
                     },
                     child: Text(

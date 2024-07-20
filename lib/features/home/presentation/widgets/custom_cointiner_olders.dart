@@ -10,10 +10,14 @@ class CustomHomeContainerOlders extends StatelessWidget {
     required this.controller1,
     required this.controller2,
     required this.controller3,
+    required this.registrationGrade,
+    required this.city,
   });
   final TextEditingController controller1;
   final TextEditingController controller2;
   final TextEditingController controller3;
+  final int registrationGrade;
+  final int city;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
           Directionality(
             textDirection: TextDirection.ltr,
             child: SizedBox(
-              width: 132.w,
+              width: controller1.text.length < 3 ? 80.w : 180.w,
               child: PinCodeTextField(
                   controller: controller1,
                   enableActiveFill: true,
@@ -43,8 +47,9 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   cursorColor: Theme.of(context).indicatorColor,
                   appContext: context,
-                  length: 4,
+                  length: controller1.text.length,
                   pinTheme: PinTheme(
+                    fieldOuterPadding: EdgeInsets.symmetric(horizontal: 1.w),
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(5),
                     fieldHeight: 40.h,
@@ -76,7 +81,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: 132.w,
+                      width: controller2.text.length < 3 ? 80.w : 180.w,
                       child: PinCodeTextField(
                           controller: controller2,
                           enableActiveFill: true,
@@ -84,7 +89,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                           keyboardType: TextInputType.number,
                           cursorColor: Theme.of(context).indicatorColor,
                           appContext: context,
-                          length: 4,
+                          length: controller2.text.length,
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
@@ -105,12 +110,12 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  const Text(
-                    'ترتيبك علي درجة الاستئناف : 5',
+                  Text(
+                    'ترتيبك علي درجة الاستئناف : $registrationGrade',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
-                    style: TextStyle(color: kBlackColor),
+                    style: const TextStyle(color: kBlackColor),
                   )
                 ],
               ),
@@ -124,7 +129,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: 132.w,
+                      width: controller3.text.length < 3 ? 80.w : 180.w,
                       child: PinCodeTextField(
                           controller: controller3,
                           enableActiveFill: true,
@@ -132,7 +137,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                           keyboardType: TextInputType.number,
                           cursorColor: Theme.of(context).indicatorColor,
                           appContext: context,
-                          length: 4,
+                          length: controller3.text.length,
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
@@ -153,12 +158,12 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  const Text(
-                    'ترتيبك علي القاهرة : 150',
+                  Text(
+                    'ترتيبك علي القاهرة : $city',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: TextStyle(color: kBlackColor),
+                    style: const TextStyle(color: kBlackColor),
                   )
                 ],
               ),

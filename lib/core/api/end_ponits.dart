@@ -6,6 +6,10 @@ class EndPoint {
   static String getAllAvailabilityWork =
       "api/BaseLookup/GetAllAvailabilityWork";
 
+  static String getCurrentUserSorted = "Home/GetCurrentUserSorted";
+
+  static String getAllUsers = "Home/GetAllUsers";
+
   static String getAllDistricts = "api/BaseLookup/GetAllDistricts";
 
   static String getAllGovernorate = "api/BaseLookup/GetAllGovernorate";
