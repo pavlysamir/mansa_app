@@ -11,9 +11,17 @@ class HomeRepoImpl implements HomeRepo {
   HomeRepoImpl({required this.api});
 
   @override
-  Future<Either<String, List<User>>> getAllUsers({int pageNumber = 1}) {
-    // TODO: implement getAllUsers
-    throw UnimplementedError();
+  Future<Either<String, ApiResponse>> getAllUsers({int pageNumber = 1}) async {
+    try {
+      final response = await api.post(EndPoint.getAllUsers, queryParameters: {
+        ApiKey.pageNum: pageNumber,
+        ApiKey.pageSize: 10,
+      });
+
+      return Right(ApiResponse.fromJson(response));
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
   }
 
   @override
@@ -28,22 +36,4 @@ class HomeRepoImpl implements HomeRepo {
       return Left(e.errModel.errorMessage!);
     }
   }
-
-  // @override
-  // Future<Either<String, List<GradesRegistrationModel>>>
-  //     getAllGradesRegistration() async {
-  //   try {
-  //     final response = await api.get(
-  //       EndPoint.getAllGradesRegistration,
-  //     );
-  //     List<GradesRegistrationModel> allGradesRegistration = [];
-  //     for (var element in response) {
-  //       allGradesRegistration.add(GradesRegistrationModel.fromJson(element));
-  //     }
-
-  //     return Right(allGradesRegistration);
-  //   } on ServerException catch (e) {
-  //     return Left(e.errModel.errorMessage!);
-  //   }
-  // }
 }

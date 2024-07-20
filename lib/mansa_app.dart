@@ -28,8 +28,7 @@ class MansaApp extends StatelessWidget {
           create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
         ),
         BlocProvider(
-          create: (context) =>
-              HomeCubit(getIt.get<HomeRepoImpl>())..getCurrentUserSorted(),
+          create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
         ),
       ],
       child: ScreenUtilInit(

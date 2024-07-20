@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/features/home/data/models/user_data_model.dart';
 
 class CustomLowyerDataItem extends StatelessWidget {
   const CustomLowyerDataItem({
     super.key,
+    required this.user,
   });
-
+  final User user;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,42 +36,83 @@ class CustomLowyerDataItem extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 20.dg,
-                    child: const Icon(Icons.person),
+                    child: user.picture != null &&
+                            user.picture!.fileTypeName == 'Profile Picture'
+                        ? Image.network(user.picture!.url)
+                        : const Icon(Icons.person),
                   ),
                   SizedBox(width: 12.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'welcom',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium!
-                            .copyWith(color: kPrimaryKey),
-                      ),
-                      Text(
-                        'John Doe',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium!
-                            .copyWith(color: kDarktBlue),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          user.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(color: kDarktBlue),
+                        ),
+                        Text(
+                          user.registrationGrade,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(color: kPrimaryKey),
+                        ),
+                      ],
+                    ),
                   ),
-                  const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: kDarktBlue,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      ' متاح لانجاز مهمة',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .copyWith(color: Colors.white),
-                    ),
+                  Row(
+                    children: [
+                      if (user.availableWork.length > 0)
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: user.availableWork[0] == 'متاح للعمل'
+                                ? Colors.green
+                                : user.availableWork[0] == 'متاح لانجاز مهمة'
+                                    ? kPrimaryKey
+                                    : user.availableWork[0] == 'مطلوب للعمل '
+                                        ? Colors.red
+                                        : kDarktBlue,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            user.availableWork[0] ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(
+                                  color: Colors.white,
+                                ),
+                          ),
+                        ),
+                      SizedBox(width: 5.w),
+                      if (user.availableWork.length > 1)
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: user.availableWork[0] == 'متاح للعمل'
+                                ? Colors.green
+                                : user.availableWork[0] == 'متاح لانجاز مهمة'
+                                    ? kPrimaryKey
+                                    : user.availableWork[0] == 'مطلوب للعمل '
+                                        ? Colors.red
+                                        : kDarktBlue,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            user.availableWork[0] ?? '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                    ],
                   )
                 ],
               ),

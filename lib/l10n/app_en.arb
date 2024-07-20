@@ -38,6 +38,11 @@
     "setting":"Setting",
     "profile":"Profile",
     "olderOfApp":"Your ranking on the application",
+    "olderOfDistric":"Your ranking on the district",
+    "olderOfSpacific":"Your ranking on the specialty",
+    "olderOfGovernment":"Your ranking on the government",
+    "olderOfAst2naf":"Your ranking on the degree of appeal",
+
     "pleaseSelectImages":"Please select images",
     "search":"Search",
     "searchByName":"Search by name",

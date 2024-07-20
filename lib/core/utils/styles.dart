@@ -54,8 +54,11 @@ abstract class Styles {
 
   static TextStyle textStyle12WhiteBoldPoppings = GoogleFonts.poppins(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white);
-  static TextStyle textStyle12Orange = const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.bold, color: kPrimaryKey);
+  static TextStyle textStyle12Orange = GoogleFonts.almarai(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: kPrimaryKey,
+  );
 
   static TextStyle textStyle24BoldBlack = GoogleFonts.poppins(
     fontSize: 24,

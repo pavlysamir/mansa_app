@@ -39,7 +39,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
           Directionality(
             textDirection: TextDirection.ltr,
             child: SizedBox(
-              width: controller1.text.length < 3 ? 80.w : 180.w,
+              width: controller1.text.length < 3 ? 70.w : 180.w,
               child: PinCodeTextField(
                   controller: controller1,
                   enableActiveFill: true,
@@ -74,14 +74,14 @@ class CustomHomeContainerOlders extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.olderOfApp,
+                    AppLocalizations.of(context)!.olderOfDistric,
                     style: const TextStyle(color: kBlackColor),
                   ),
                   SizedBox(height: 5.h),
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: controller2.text.length < 3 ? 80.w : 180.w,
+                      width: controller2.text.length < 3 ? 70.w : 180.w,
                       child: PinCodeTextField(
                           controller: controller2,
                           enableActiveFill: true,
@@ -111,7 +111,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    'ترتيبك علي درجة الاستئناف : $registrationGrade',
+                    '${AppLocalizations.of(context)!.olderOfAst2naf} :$registrationGrade',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
@@ -122,14 +122,14 @@ class CustomHomeContainerOlders extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.olderOfApp,
+                    AppLocalizations.of(context)!.olderOfSpacific,
                     style: const TextStyle(color: kBlackColor),
                   ),
                   SizedBox(height: 5.h),
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: controller3.text.length < 3 ? 80.w : 180.w,
+                      width: controller3.text.length < 3 ? 70.w : 180.w,
                       child: PinCodeTextField(
                           controller: controller3,
                           enableActiveFill: true,
@@ -159,7 +159,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   ),
                   SizedBox(height: 5.h),
                   Text(
-                    'ترتيبك علي القاهرة : $city',
+                    '${AppLocalizations.of(context)!.olderOfGovernment} :$city',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,

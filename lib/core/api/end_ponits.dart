@@ -96,4 +96,6 @@ class ApiKey {
   static String plan = "plan";
   static String mySubscribeId = "subscrabtionId";
   static String limitNumberOfPostsPerDay = "limitNumberOfPostsPerDay";
+  static String pageNum = "PageNumber";
+  static String pageSize = "PageSize";
 }

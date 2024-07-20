@@ -10,13 +10,51 @@ import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_ol
 import 'package:mansa_app/features/home/presentation/widgets/custom_lawyer_data_item.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_title_appBar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ScrollController? _scrollController;
+  bool isLoading = false;
+  int pageNum = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    HomeCubit.get(context)!.getCurrentUserSorted();
+    // HomeCubit.get(context)!
+    //     .getAllUsers(pageNumber: pageNum); // Fetch initial data
+    _scrollController!.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController?.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() async {
+    if (_scrollController!.position.pixels >=
+            0.7 * _scrollController!.position.maxScrollExtent &&
+        !isLoading) {
+      isLoading = true;
+      print("${pageNum++}");
+      await HomeCubit.get(context)!.getAllUsers(++pageNum);
+      isLoading = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        // You can handle additional state changes if necessary
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -47,43 +85,61 @@ class HomeScreen extends StatelessWidget {
               SizedBox(width: 10.w),
             ],
           ),
-          body: state is GetCurrentUserSortedLoading
+          body: state is GetAllUsersFailure
               ? const Center(
-                  child: CircularProgressIndicator(
-                    color: kPrimaryKey,
-                  ),
+                  child: Text('There is a problem'),
                 )
-              : SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(21.0),
-                    child: Column(
-                      children: [
-                        CustomHomeContainerOlders(
-                          city: HomeCubit.get(context)!.userSortedModel!.city,
-                          registrationGrade: HomeCubit.get(context)!
-                              .userSortedModel!
-                              .registrationGrade,
-                          controller1:
-                              HomeCubit.get(context)!.olderOfAppController,
-                          controller2:
-                              HomeCubit.get(context)!.olderOfAreaController,
-                          controller3:
-                              HomeCubit.get(context)!.olderOfSpisicController,
+              : state is GetAllUsersSuccess ||
+                      state is GetMoreUsersLoading ||
+                      state is GetCurrentUserSortedSuccess
+                  ? SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Padding(
+                        padding: const EdgeInsets.all(21.0),
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, // Ensure alignment
+                          children: [
+                            CustomHomeContainerOlders(
+                              city: HomeCubit.get(context)!
+                                      .userSortedModel!
+                                      .city ??
+                                  0,
+                              registrationGrade: HomeCubit.get(context)!
+                                  .userSortedModel!
+                                  .registrationGrade,
+                              controller1:
+                                  HomeCubit.get(context)!.olderOfAppController,
+                              controller2:
+                                  HomeCubit.get(context)!.olderOfAreaController,
+                              controller3: HomeCubit.get(context)!
+                                  .olderOfSpisicController,
+                            ),
+                            SizedBox(height: 10.h),
+                            const Divider(),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return CustomLowyerDataItem(
+                                  user: HomeCubit.get(context)!.users[index],
+                                );
+                              },
+                              itemCount: HomeCubit.get(context)!.users.length,
+                            ),
+                            // if (isLoading)
+                            //   const Padding(
+                            //     padding: EdgeInsets.all(8.0),
+                            //     child: CircularProgressIndicator(
+                            //         color: kPrimaryKey),
+                            //   ),
+                          ],
                         ),
-                        SizedBox(height: 10.h),
-                        const Divider(),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return const CustomLowyerDataItem();
-                          },
-                          itemCount: 10,
-                        ),
-                      ],
+                      ),
+                    )
+                  : const Center(
+                      child: CircularProgressIndicator(color: kPrimaryKey),
                     ),
-                  ),
-                ),
         );
       },
     );

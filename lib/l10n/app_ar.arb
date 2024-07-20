@@ -34,6 +34,13 @@
     "setting":"الاعدادات",
     "profile":"البروفايل",
     "olderOfApp":"ترتيبك علي الأبليكشن",
+    "olderOfDistric":"ترتيبك علي المدينه",
+    "olderOfSpacific":"ترتيبك علي التخصص",
+    "olderOfGovernment":"ترتيبك علي المحافظة",
+    "olderOfAst2naf":"ترتيبك علي درجة الاستئناف",
+
+
+
     "pleaseSelectImages":"الرجاء اضافة صوره الكارنيه",
     "search":"البحث",
     "searchByName":"البحث بالاسم",

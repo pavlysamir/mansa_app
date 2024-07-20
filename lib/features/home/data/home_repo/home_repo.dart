@@ -5,5 +5,5 @@ import 'package:mansa_app/features/home/data/models/user_sorted.dart';
 abstract class HomeRepo {
   Future<Either<String, UserSortedModel>> getCurrentUserSorted();
 
-  Future<Either<String, List<User>>> getAllUsers({int pageNumber = 1});
+  Future<Either<String, ApiResponse>> getAllUsers({int pageNumber = 1});
 }

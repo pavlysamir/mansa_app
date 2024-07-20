@@ -13,3 +13,14 @@ final class GetCurrentUserSortedFailure extends HomeState {
   final String message;
   GetCurrentUserSortedFailure({required this.message});
 }
+
+final class GetAllUsersLoading extends HomeState {}
+
+final class GetMoreUsersLoading extends HomeState {}
+
+final class GetAllUsersSuccess extends HomeState {}
+
+final class GetAllUsersFailure extends HomeState {
+  final String message;
+  GetAllUsersFailure({required this.message});
+}
