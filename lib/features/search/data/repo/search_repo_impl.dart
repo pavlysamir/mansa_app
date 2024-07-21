@@ -3,6 +3,7 @@ import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
+import 'package:mansa_app/features/home/data/models/user_data_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo.dart';
@@ -76,6 +77,32 @@ class SearchRepoImpl implements SearchRepo {
       }
 
       return Right(allDistricts);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, ApiResponse>> getAllUsers(
+      {List<int>? KedDegreeId,
+      List<int>? availabilityToWordIds,
+      int? districtId,
+      int? governorateId,
+      int pageNumber = 1}) async {
+    try {
+      final response = await api.post(
+        EndPoint.getAllUsers,
+        queryParameters: {
+          ApiKey.pageNum: pageNumber,
+          ApiKey.pageSize: 10,
+          'RegistrationGradeId': KedDegreeId ?? [],
+          'SpecializationFieldId': availabilityToWordIds ?? [],
+          if (governorateId != null) "GovernorateId": governorateId,
+          if (districtId != null) "DistrictId": districtId
+        },
+      );
+
+      return Right(ApiResponse.fromJson(response));
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

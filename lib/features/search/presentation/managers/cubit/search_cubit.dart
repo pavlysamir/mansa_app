@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
+import 'package:mansa_app/features/home/data/models/user_data_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo.dart';
@@ -14,11 +15,22 @@ class SearchCubit extends Cubit<SearchState> {
 
   final SearchRepo searchRepository;
   static SearchCubit? get(context) => BlocProvider.of(context);
-
+  List<int> kedDegreeIds = [];
   void click(int id) {
     mapGradRegistration[id] = !mapGradRegistration[id]!;
-
+    print(mapGradRegistration.toString());
+    addClickKedDegreeToList(id);
     emit(SearchClick());
+  }
+
+  void addClickKedDegreeToList(int id) {
+    if (mapGradRegistration[id] == true) {
+      kedDegreeIds.add(id);
+      print(kedDegreeIds.toString());
+    } else {
+      kedDegreeIds.remove(id);
+      print(kedDegreeIds.toString());
+    }
   }
 
   Map<int, bool> mapGradRegistration = {};
@@ -47,10 +59,23 @@ class SearchCubit extends Cubit<SearchState> {
     );
   }
 
+  List<int> availabilityToWordIds = [];
+
   void clickAvalabilityToWork(int id) {
     mapAvalabilityToWork[id] = !mapAvalabilityToWork[id]!;
 
+    addClickAvailabilityToWorkToList(id);
     emit(SearchClick());
+  }
+
+  void addClickAvailabilityToWorkToList(int id) {
+    if (mapAvalabilityToWork[id] == true) {
+      availabilityToWordIds.add(id);
+      print(availabilityToWordIds.toString());
+    } else {
+      availabilityToWordIds.remove(id);
+      print(availabilityToWordIds.toString());
+    }
   }
 
   Map<int, bool> mapAvalabilityToWork = {};
@@ -165,5 +190,36 @@ class SearchCubit extends Cubit<SearchState> {
     await getAllGovernmentsk();
 
     emit(TriggerFunctionSuccess());
+  }
+
+  List<User> users = [];
+  int? count;
+  getAllUsers(int pageNumber) async {
+    if (pageNumber == 1) {
+      users.clear();
+    }
+
+    if (pageNumber == 1) {
+      emit(GetAllUsersLoading());
+    } else {
+      emit(GetMoreUsersLoading());
+    }
+    final response = await searchRepository.getAllUsers(
+        KedDegreeId: kedDegreeIds,
+        pageNumber: pageNumber,
+        availabilityToWordIds: availabilityToWordIds,
+        districtId: districtId,
+        governorateId: governmentId);
+    response.fold((errMessage) => emit(GetAllUsersFailure(message: errMessage)),
+        (getAllUsers) {
+      if (pageNumber == 1) {
+        count = getAllUsers.responseData.count;
+      }
+      if (kDebugMode) {
+        print(getAllUsers.responseData.items.length);
+      }
+      users.addAll(getAllUsers.responseData.items);
+      emit(GetAllUsersSuccess());
+    });
   }
 }

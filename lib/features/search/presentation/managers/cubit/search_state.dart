@@ -54,3 +54,14 @@ final class SelectedDistrict extends SearchState {}
 final class TriggerFunctionSuccess extends SearchState {}
 
 final class TriggerFunctionLoading extends SearchState {}
+
+final class GetAllUsersLoading extends SearchState {}
+
+final class GetMoreUsersLoading extends SearchState {}
+
+final class GetAllUsersSuccess extends SearchState {}
+
+final class GetAllUsersFailure extends SearchState {
+  final String message;
+  GetAllUsersFailure({required this.message});
+}

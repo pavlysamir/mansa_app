@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mansa_app/features/home/data/home_repo/home_repo.dart';
@@ -46,7 +47,12 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   List<User> users = [];
+  int? count;
   getAllUsers(int pageNumber) async {
+    if (pageNumber == 1) {
+      users.clear();
+    }
+
     if (pageNumber == 1) {
       emit(GetAllUsersLoading());
     } else {
@@ -55,6 +61,12 @@ class HomeCubit extends Cubit<HomeState> {
     final response = await homeRepo.getAllUsers(pageNumber: pageNumber);
     response.fold((errMessage) => emit(GetAllUsersFailure(message: errMessage)),
         (getAllUsers) {
+      if (pageNumber == 1) {
+        count = getAllUsers.responseData.count;
+      }
+      if (kDebugMode) {
+        print(getAllUsers.responseData.items.length);
+      }
       users.addAll(getAllUsers.responseData.items);
       emit(GetAllUsersSuccess());
     });

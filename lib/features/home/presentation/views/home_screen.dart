@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,10 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_scrollController!.position.pixels >=
             0.7 * _scrollController!.position.maxScrollExtent &&
         !isLoading) {
-      isLoading = true;
-      print("${pageNum++}");
-      await HomeCubit.get(context)!.getAllUsers(++pageNum);
-      isLoading = false;
+      if (HomeCubit.get(context)!.count! !=
+          HomeCubit.get(context)!.users.length) {
+        isLoading = true;
+        if (kDebugMode) {
+          print("bavlyyyyyyyyyyyyyy${++pageNum}");
+        }
+        await HomeCubit.get(context)!.getAllUsers(pageNum++);
+        isLoading = false;
+      } else {
+        null;
+      }
     }
   }
 
