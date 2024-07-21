@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Layouts/home_layout.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
@@ -39,6 +40,7 @@ abstract class AppRouter {
   static const kNotificationScreen = '/NotificationScreen';
 
   static final router = GoRouter(
+      navigatorKey: navigatorKey,
       initialLocation:
           getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.token) !=
                   null

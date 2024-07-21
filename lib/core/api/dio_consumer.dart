@@ -6,8 +6,9 @@ import 'package:mansa_app/core/errors/exceptions.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
-
-  DioConsumer({required this.dio}) {
+  DioConsumer({
+    required this.dio,
+  }) {
     dio.options.baseUrl = EndPoint.baseUrl;
     dio.interceptors.add(ApiInterceptor());
     dio.interceptors.add(LogInterceptor(

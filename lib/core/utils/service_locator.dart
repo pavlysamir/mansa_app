@@ -12,7 +12,9 @@ void setUpServiceLocator() {
   getIt.registerSingleton<CashHelperSharedPreferences>(
       CashHelperSharedPreferences());
 
-  getIt.registerSingleton<DioConsumer>(DioConsumer(dio: Dio()));
+  getIt.registerSingleton<DioConsumer>(DioConsumer(
+    dio: Dio(),
+  ));
 
   getIt.registerSingleton<AuthRepoImpl>(AuthRepoImpl(
     api: getIt.get<DioConsumer>(),
