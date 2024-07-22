@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/home/data/models/user_data_model.dart';
@@ -15,6 +16,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   final SearchRepo searchRepository;
   static SearchCubit? get(context) => BlocProvider.of(context);
+  final TextEditingController searchController = TextEditingController();
   List<int> kedDegreeIds = [];
   void click(int id) {
     mapGradRegistration[id] = !mapGradRegistration[id]!;
@@ -121,7 +123,7 @@ class SearchCubit extends Cubit<SearchState> {
           idsOfGovernments.add(element.id);
         }
         government = namesOfGovernments.first;
-        governmentId = allGovernments.first.id;
+        // governmentId = allGovernments.first.id;
         // emit(GetAllGovernmentsSuccess());
       },
     );
@@ -144,14 +146,14 @@ class SearchCubit extends Cubit<SearchState> {
           idsOfDistricts.add(element.id);
         }
         district = namesOfDistricts.first;
-        districtId = allDistricts.first.id;
+        // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
       },
     );
   }
 
   late String government;
-  late int governmentId;
+  int? governmentId;
 
   void selectGovernment(String government) {
     this.government = government;
@@ -167,7 +169,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   late String district;
-  late int districtId;
+  int? districtId;
 
   void selectDistrict(String district) {
     this.district = district;
@@ -194,7 +196,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<User> users = [];
   int? count;
-  getAllUsers(int pageNumber) async {
+  getSearchedUsers(int pageNumber) async {
     if (pageNumber == 1) {
       users.clear();
     }
@@ -204,9 +206,10 @@ class SearchCubit extends Cubit<SearchState> {
     } else {
       emit(GetMoreUsersLoading());
     }
-    final response = await searchRepository.getAllUsers(
+    final response = await searchRepository.getASearchedUsers(
         KedDegreeId: kedDegreeIds,
         pageNumber: pageNumber,
+        lawyerName: searchController.text,
         availabilityToWordIds: availabilityToWordIds,
         districtId: districtId,
         governorateId: governmentId);

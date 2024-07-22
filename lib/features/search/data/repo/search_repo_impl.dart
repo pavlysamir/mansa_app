@@ -83,9 +83,10 @@ class SearchRepoImpl implements SearchRepo {
   }
 
   @override
-  Future<Either<String, ApiResponse>> getAllUsers(
+  Future<Either<String, ApiResponse>> getASearchedUsers(
       {List<int>? KedDegreeId,
       List<int>? availabilityToWordIds,
+      String? lawyerName,
       int? districtId,
       int? governorateId,
       int pageNumber = 1}) async {
@@ -98,7 +99,8 @@ class SearchRepoImpl implements SearchRepo {
           'RegistrationGradeId': KedDegreeId ?? [],
           'SpecializationFieldId': availabilityToWordIds ?? [],
           if (governorateId != null) "GovernorateId": governorateId,
-          if (districtId != null) "DistrictId": districtId
+          if (districtId != null) "DistrictId": districtId,
+          'LawyerName': lawyerName
         },
       );
 

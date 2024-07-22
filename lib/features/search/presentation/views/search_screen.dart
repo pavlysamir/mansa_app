@@ -34,7 +34,9 @@ class SearchScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(20.0),
                 child: CustomButtonLarge(
                   text: AppLocalizations.of(context)!.search,
-                  function: () {},
+                  function: () {
+                    SearchCubit.get(context)!.getSearchedUsers(1);
+                  },
                   textColor: Colors.white,
                 ),
               ),

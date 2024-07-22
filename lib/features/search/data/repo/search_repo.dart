@@ -12,10 +12,11 @@ abstract class SearchRepo {
   Future<Either<String, List<GovernmentDataModel>>> getAllGovernment();
   Future<Either<String, List<GovernmentDataModel>>> getAllDistrict();
 
-  Future<Either<String, ApiResponse>> getAllUsers(
-      {List<int> KedDegreeId,
-      List<int> availabilityToWordIds,
-      int districtId,
-      int governorateId,
+  Future<Either<String, ApiResponse>> getASearchedUsers(
+      {List<int>? KedDegreeId,
+      List<int>? availabilityToWordIds,
+      String? lawyerName,
+      int? districtId,
+      int? governorateId,
       int pageNumber = 1});
 }
