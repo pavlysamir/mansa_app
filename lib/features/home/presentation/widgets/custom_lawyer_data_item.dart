@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/features/home/data/models/user_data_model.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CustomLowyerDataItem extends StatelessWidget {
   const CustomLowyerDataItem({
@@ -38,7 +41,20 @@ class CustomLowyerDataItem extends StatelessWidget {
                     radius: 20.dg,
                     child: user.picture != null &&
                             user.picture!.fileTypeName == 'Profile Picture'
-                        ? Image.network(user.picture!.url)
+                        ? FutureBuilder<File>(
+                            future: getLocalFile(user.picture!.url),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData) {
+                                  return Image.file(snapshot.data!);
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                }
+                              }
+                              return const CircularProgressIndicator();
+                            },
+                          )
                         : const Icon(Icons.person),
                   ),
                   SizedBox(width: 12.w),
@@ -126,5 +142,11 @@ class CustomLowyerDataItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<File> getLocalFile(String path) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/${path.split('/').last}');
+    return file;
   }
 }

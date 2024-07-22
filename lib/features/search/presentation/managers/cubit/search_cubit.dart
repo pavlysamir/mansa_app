@@ -202,7 +202,7 @@ class SearchCubit extends Cubit<SearchState> {
     }
 
     if (pageNumber == 1) {
-      emit(GetAllUsersLoading());
+      emit(GetSearchedUsersLoading());
     } else {
       emit(GetMoreUsersLoading());
     }
@@ -213,7 +213,8 @@ class SearchCubit extends Cubit<SearchState> {
         availabilityToWordIds: availabilityToWordIds,
         districtId: districtId,
         governorateId: governmentId);
-    response.fold((errMessage) => emit(GetAllUsersFailure(message: errMessage)),
+    response.fold(
+        (errMessage) => emit(GetSearchedUsersFailure(message: errMessage)),
         (getAllUsers) {
       if (pageNumber == 1) {
         count = getAllUsers.responseData.count;
@@ -222,7 +223,11 @@ class SearchCubit extends Cubit<SearchState> {
         print(getAllUsers.responseData.items.length);
       }
       users.addAll(getAllUsers.responseData.items);
-      emit(GetAllUsersSuccess());
+      if (pageNumber == 1) {
+        emit(GetSearchedUsersSuccess());
+      } else {
+        emit(GetMoreSearchedUsersSuccess());
+      }
     });
   }
 }

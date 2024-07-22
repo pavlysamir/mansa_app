@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Layouts/home_layout.dart';
@@ -13,6 +14,8 @@ import 'package:mansa_app/features/authentication/presentation/views/verify_otp_
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_otp.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_reset_passwprd.dart';
 import 'package:mansa_app/features/notification/presentation/views/notification_screen.dart';
+import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
+import 'package:mansa_app/features/search/presentation/views/result_search_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
 
 abstract class AppRouter {
@@ -38,6 +41,8 @@ abstract class AppRouter {
   static const kSearchScreen = '/SearchScreen';
 
   static const kNotificationScreen = '/NotificationScreen';
+
+  static const kResultSearchScreen = '/ResultSearchScreen';
 
   static final router = GoRouter(
       navigatorKey: navigatorKey,
@@ -91,6 +96,10 @@ abstract class AppRouter {
         GoRoute(
           path: kNotificationScreen,
           builder: (context, state) => const NotificationScreen(),
+        ),
+        GoRoute(
+          path: kResultSearchScreen,
+          builder: (context, state) => const ResultSearchScreen(),
         ),
       ]);
 }
