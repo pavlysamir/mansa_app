@@ -67,3 +67,5 @@ final class GetSearchedUsersFailure extends SearchState {
   final String message;
   GetSearchedUsersFailure({required this.message});
 }
+
+final class ClearData extends SearchState {}

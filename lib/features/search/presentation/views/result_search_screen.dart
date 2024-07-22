@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_lawyer_data_item.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 
@@ -65,27 +66,31 @@ class _ResultSearchScreenState extends State<ResultSearchScreen> {
               style: Theme.of(context).textTheme.displayMedium,
             ),
           ),
-          body: SingleChildScrollView(
-            controller: _scrollController,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.dg),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return CustomLowyerDataItem(
-                        user: SearchCubit.get(context)!.users[index],
-                      );
-                    },
-                    itemCount: SearchCubit.get(context)!.users.length,
+          body: SearchCubit.get(context)!.users.isEmpty
+              ? Center(
+                  child: Image.asset(AssetsData.noSearch),
+                )
+              : SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.dg),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return CustomLowyerDataItem(
+                              user: SearchCubit.get(context)!.users[index],
+                            );
+                          },
+                          itemCount: SearchCubit.get(context)!.users.length,
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
         );
       },
     );

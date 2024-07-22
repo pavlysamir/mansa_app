@@ -17,10 +17,11 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is GetSearchedUsersSuccess) {
           customJustGoNavigate(
               context: context, path: AppRouter.kResultSearchScreen);
+          await SearchCubit.get(context)!.clearData();
         } else if (state is GetSearchedUsersFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -41,13 +42,18 @@ class SearchScreen extends StatelessWidget {
             ),
             bottomNavigationBar: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: CustomButtonLarge(
-                text: AppLocalizations.of(context)!.search,
-                function: () {
-                  SearchCubit.get(context)!.getSearchedUsers(1);
-                },
-                textColor: Colors.white,
-              ),
+              child: state is GetSearchedUsersLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: kPrimaryKey,
+                    ))
+                  : CustomButtonLarge(
+                      text: AppLocalizations.of(context)!.search,
+                      function: () {
+                        SearchCubit.get(context)!.getSearchedUsers(1);
+                      },
+                      textColor: Colors.white,
+                    ),
             ),
             body: state is TriggerFunctionLoading
                 ? const Center(

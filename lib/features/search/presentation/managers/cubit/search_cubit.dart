@@ -230,4 +230,20 @@ class SearchCubit extends Cubit<SearchState> {
       }
     });
   }
+
+  Future<void> clearData() async {
+    searchController.clear();
+    kedDegreeIds.clear();
+    availabilityToWordIds.clear();
+    government = namesOfGovernments.first;
+    district = namesOfDistricts.first;
+    mapGradRegistration.forEach((key, value) {
+      mapGradRegistration[key] = false;
+    });
+    mapAvalabilityToWork.forEach(((key, value) {
+      mapAvalabilityToWork[key] = false;
+    }));
+
+    emit(ClearData());
+  }
 }
