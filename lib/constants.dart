@@ -26,5 +26,5 @@ const List<Color> buttonGradient = [
 ];
 
 File? imageFile;
-const profilePic = '';
+const profilePic = 'http://16.171.141.127/uploads/';
 const apiGoogleMapsKey = 'AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY';

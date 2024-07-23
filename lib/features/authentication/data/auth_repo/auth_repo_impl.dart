@@ -56,6 +56,12 @@ class AuthRepoImpl implements AuthRepo {
           .get<CashHelperSharedPreferences>()
           .saveData(key: ApiKey.mobNumber, value: data.phoneNumber);
 
+      if (data.picture.fileTypetId == 1) {
+        getIt
+            .get<CashHelperSharedPreferences>()
+            .saveData(key: ApiKey.profilePic, value: data.picture.url);
+      }
+
       return Right(data);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);

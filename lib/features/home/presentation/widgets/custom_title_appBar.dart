@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
@@ -17,7 +18,17 @@ class CustomTitleAppBar extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 20.dg,
-          child: const Icon(Icons.person),
+          child: getIt
+                      .get<CashHelperSharedPreferences>()
+                      .getData(key: ApiKey.profilePic) !=
+                  null
+              ? ClipOval(
+                  child: CachedNetworkImage(
+                      imageUrl: getIt
+                          .get<CashHelperSharedPreferences>()
+                          .getData(key: ApiKey.profilePic)),
+                )
+              : const Icon(Icons.person),
         ),
         SizedBox(width: 12.w),
         Column(

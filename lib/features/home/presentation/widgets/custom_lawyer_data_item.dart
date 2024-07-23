@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
@@ -41,20 +42,15 @@ class CustomLowyerDataItem extends StatelessWidget {
                     radius: 20.dg,
                     child: user.picture != null &&
                             user.picture!.fileTypeName == 'Profile Picture'
-                        ? FutureBuilder<File>(
-                            future: getLocalFile(user.picture!.url),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                if (snapshot.hasData) {
-                                  return Image.file(snapshot.data!);
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                }
-                              }
-                              return const CircularProgressIndicator();
-                            },
-                          )
+                        ? CachedNetworkImage(
+                            width: double.infinity,
+                            fit: BoxFit.fitHeight,
+                            imageUrl: '$profilePic${user.picture!.url}',
+                            placeholder: (context, url) => const Center(
+                                    child: CircularProgressIndicator(
+                                  color: kPrimaryKey,
+                                  strokeWidth: 1,
+                                )))
                         : const Icon(Icons.person),
                   ),
                   SizedBox(width: 12.w),
@@ -142,11 +138,5 @@ class CustomLowyerDataItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<File> getLocalFile(String path) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/${path.split('/').last}');
-    return file;
   }
 }
