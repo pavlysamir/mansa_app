@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_small.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PopUpDialog extends StatelessWidget {
   const PopUpDialog(
@@ -14,7 +16,8 @@ class PopUpDialog extends StatelessWidget {
       this.textColortcolor1 = Colors.white,
       this.colorButton2 = kPrimaryKey,
       this.textColortcolor2 = Colors.white,
-      required this.function2});
+      required this.function2,
+      required this.img});
   final BuildContext context;
   final Function() function;
   final String title;
@@ -24,6 +27,7 @@ class PopUpDialog extends StatelessWidget {
   final Color textColortcolor1;
   final Color textColortcolor2;
   final Function() function2;
+  final String img;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +39,10 @@ class PopUpDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Image.asset(img),
+          SizedBox(
+            height: 20.h,
+          ),
           Text(
             title,
             style: Theme.of(context).textTheme.displaySmall,
@@ -43,11 +51,6 @@ class PopUpDialog extends StatelessWidget {
           SizedBox(
             height: 20.h,
           ),
-          Text(
-            subTitle,
-            style: Theme.of(context).textTheme.labelLarge,
-            textAlign: TextAlign.center,
-          )
         ],
       ),
       actions: <Widget>[
@@ -57,17 +60,17 @@ class PopUpDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomButtonSmall(
-                borderColor: Colors.red,
+                borderColor: Colors.grey,
                 width: 100,
-                text: 'S.of(context).yes',
+                text: AppLocalizations.of(context)!.yes,
                 color: colorButton1,
                 function: function,
                 textColortcolor: textColortcolor1,
               ),
               CustomButtonSmall(
-                borderColor: Colors.red,
+                borderColor: Colors.grey,
                 width: 100,
-                text: 'S.of(context).no',
+                text: AppLocalizations.of(context)!.no,
                 textColortcolor: textColortcolor2,
                 color: colorButton2,
                 function: function2,
@@ -108,6 +111,7 @@ class PopUpDialogOneButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Image.asset(AssetsData.deleteAccount),
           Text(
             title,
             style: Theme.of(context).textTheme.displaySmall,

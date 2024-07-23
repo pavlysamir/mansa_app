@@ -50,7 +50,18 @@
     "district":"District",
     "state":"State",
     "notification":"Notification",
-    "welcom":"Welcome"
+    "welcom":"Welcome",
+    "settings":"Settings",
+    "balance":"Balance",
+    "inviteFriend":"Invite Friend",
+    "editProfile":"Edit Profile",
+    "deleteAccount":"Delete Account",
+    "logOut":"Log Out",
+    "doUDeleteAccount":"Do you want to delete your account?",
+    "doUWantToLogOut":"Do you want to log out?",
+    "yes":"yes",
+    "no":"no"
+
 
 
 

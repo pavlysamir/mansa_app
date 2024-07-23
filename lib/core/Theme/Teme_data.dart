@@ -156,8 +156,8 @@ class AppTheme {
         headlineMedium: Styles.textStyle14Grey,
         headlineSmall: Styles.textStyle14White,
         titleLarge: Styles.textStyle14White,
-        labelLarge: Styles.textStyle16White,
-        labelMedium: Styles.textStyle16Black,
+        labelLarge: Styles.textStyle16Black,
+        labelMedium: Styles.textStyle16White,
         headlineLarge: Styles.textStyle24Black
 
         // Text color for light mode

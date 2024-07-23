@@ -48,7 +48,19 @@
     "district":"المدينه/الحى",
     "state":"الحالة",
     "notification":"الاشعارات",
-    "welcom":"مرحبا بك"
+    "welcom":"مرحبا بك",
+    "settings":"الاعدادات",
+    "balance":"الرصيد",
+    "inviteFriend":"دعوة صديق",
+    "editProfile":"تعديل البروفايل",
+    "deleteAccount":"حذف الحساب",
+    "logOut":"تسجيل الخروج",
+    "doUDeleteAccount":"هل تريد حذف حسابك نهائياً ؟",
+    "doUWantToLogOut":"هل تريد تسجيل الخروج ؟",
+    "yes":"نعم",
+    "no":"لا"
+
+
 
 
 
