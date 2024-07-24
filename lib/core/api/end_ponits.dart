@@ -98,4 +98,8 @@ class ApiKey {
   static String limitNumberOfPostsPerDay = "limitNumberOfPostsPerDay";
   static String pageNum = "PageNumber";
   static String pageSize = "PageSize";
+
+  static String allgradesRegisters = "allgradesRegisters";
+  static String allCountRegisters = "allCountRegisters";
+  static String namesOfGrades = "namesOfGrades";
 }

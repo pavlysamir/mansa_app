@@ -4,6 +4,7 @@ import 'package:mansa_app/core/api/dio_consumer.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo_impl.dart';
 import 'package:mansa_app/features/home/data/home_repo/home_repo_impl.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo_impl.dart';
+import 'package:mansa_app/features/settings/data/repo/settings_repo_impl.dart';
 
 import 'shared_preferences_cash_helper.dart';
 
@@ -27,7 +28,7 @@ void setUpServiceLocator() {
   getIt.registerSingleton<HomeRepoImpl>(HomeRepoImpl(
     api: getIt.get<DioConsumer>(),
   ));
-  // getIt.registerSingleton<ProfileRepository>(ProfileRepository(
-  //   api: getIt.get<DioConsumer>(),
-  // ));
+  getIt.registerSingleton<SettingsRepoImpl>(SettingsRepoImpl(
+    api: getIt.get<DioConsumer>(),
+  ));
 }

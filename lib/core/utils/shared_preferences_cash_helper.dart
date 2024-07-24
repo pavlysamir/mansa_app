@@ -19,7 +19,7 @@ class CashHelperSharedPreferences {
       return await sharedPreferences!.setBool(key, value);
     } else if (value is double) {
       return await sharedPreferences!.setDouble(key, value);
-    } else {
+    } else if (value is List<String>) {
       return await sharedPreferences!.setStringList(key, value);
     }
   }

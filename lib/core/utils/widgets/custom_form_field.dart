@@ -6,7 +6,7 @@ class CustomFormField extends StatelessWidget {
   CustomFormField(
       {super.key,
       required this.controller,
-      required this.validationMassage,
+      this.validationMassage,
       required this.hintText,
       required this.textInputType,
       this.suffixIcon,
@@ -20,7 +20,7 @@ class CustomFormField extends StatelessWidget {
   final TextInputType textInputType;
   IconButton? suffixIcon;
   Icon? prefixIcon;
-  final Function(String value) validationMassage;
+  Function(String value)? validationMassage;
   final bool isEyeTrue;
   final String? initialValue;
   final bool? readOnly;
@@ -35,7 +35,7 @@ class CustomFormField extends StatelessWidget {
       keyboardType: textInputType,
       controller: controller,
       validator: (value) {
-        return validationMassage(value!);
+        return validationMassage!(value!);
       },
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();

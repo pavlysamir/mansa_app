@@ -2,6 +2,11 @@
     "createAccount": "انشاء حساب",
      "name": "الاسم *",
      "phoneNumber": "رقم الهاتف *",
+     "nameWithout": "الاسم",
+
+     "phoneNumberWithout": "رقم الهاتف",
+     "adress": "عنوان المكتب",
+
     "tripleName":"الاسم ثلاثي",
     "followSubscription":"متابعة التسجيل",
     "alreadyHaveAccount":"بالفعل لديك حساب؟ ",
@@ -24,7 +29,7 @@
     "hostCode":"كود الأستضافة",
     "signUp":"تسجيل الدخول",
     "submit":"تأكيد",
-      "email":"البريد الالكتروني *",
+      "email":"البريد الالكتروني",
     "emailValidation":"البريد الالكتروني مطلوب",
     "doUForgrtPassword":"هل نسيت كلمة المرور؟",
     "resetPassword":"اعادة تعيين كلمة المرور",
@@ -38,9 +43,6 @@
     "olderOfSpacific":"ترتيبك علي التخصص",
     "olderOfGovernment":"ترتيبك علي المحافظة",
     "olderOfAst2naf":"ترتيبك علي درجة الاستئناف",
-
-
-
     "pleaseSelectImages":"الرجاء اضافة صوره الكارنيه",
     "search":"البحث",
     "searchByName":"البحث بالاسم",
@@ -58,7 +60,10 @@
     "doUDeleteAccount":"هل تريد حذف حسابك نهائياً ؟",
     "doUWantToLogOut":"هل تريد تسجيل الخروج ؟",
     "yes":"نعم",
-    "no":"لا"
+    "no":"لا",
+    "putYourDescription":"ضع رؤيتك الشخصية",
+    "save":"حفظ"
+
 
 
 

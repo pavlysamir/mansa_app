@@ -132,14 +132,27 @@ class RegisterCubit extends Cubit<RegisterState> {
       (errMessage) => emit(GetAllGradesRegistrationFail(errMessage)),
       (allGrades) {
         allGradesRegistration = allGrades;
+        saveListInSharedPreferences(
+            key: ApiKey.allgradesRegisters, list: allGradesRegistration);
         for (var element in allGradesRegistration) {
           namesOfGrades.add(element.nameAr);
         }
+        getIt
+            .get<CashHelperSharedPreferences>()
+            .saveData(key: ApiKey.namesOfGrades, value: namesOfGrades);
         grade = namesOfGrades.first;
         gradeId = allGradesRegistration.first.id;
         emit(GetAllGradesRegistrationSuccess());
       },
     );
+  }
+
+  void saveListInSharedPreferences(
+      {required List<dynamic> list, required String key}) async {
+    final listValue = jsonEncode(list.map((item) => item.toJson()).toList());
+    await getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(key: key, value: listValue);
   }
 
   late String grade;

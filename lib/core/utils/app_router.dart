@@ -14,9 +14,9 @@ import 'package:mansa_app/features/authentication/presentation/views/verify_otp_
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_otp.dart';
 import 'package:mansa_app/features/authentication/presentation/views/verify_phone_reset_passwprd.dart';
 import 'package:mansa_app/features/notification/presentation/views/notification_screen.dart';
-import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 import 'package:mansa_app/features/search/presentation/views/result_search_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
+import 'package:mansa_app/features/settings/presentation/views/edit_profile.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';
@@ -43,6 +43,8 @@ abstract class AppRouter {
   static const kNotificationScreen = '/NotificationScreen';
 
   static const kResultSearchScreen = '/ResultSearchScreen';
+
+  static const kEditProfileScreen = '/EditProfileScreen';
 
   static final router = GoRouter(
       navigatorKey: navigatorKey,
@@ -100,6 +102,10 @@ abstract class AppRouter {
         GoRoute(
           path: kResultSearchScreen,
           builder: (context, state) => const ResultSearchScreen(),
+        ),
+        GoRoute(
+          path: kEditProfileScreen,
+          builder: (context, state) => const EditProfileScreen(),
         ),
       ]);
 }

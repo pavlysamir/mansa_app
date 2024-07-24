@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
+import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
+import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -28,7 +31,9 @@ class SettingsScreen extends StatelessWidget {
                 leading: const Icon(Icons.lock_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.balance,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
                 onTap: () {},
               ),
@@ -36,7 +41,9 @@ class SettingsScreen extends StatelessWidget {
                 leading: const Icon(Icons.add),
                 title: Text(
                   AppLocalizations.of(context)!.inviteFriend,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
                 onTap: () {},
               ),
@@ -44,15 +51,22 @@ class SettingsScreen extends StatelessWidget {
                 leading: const Icon(Icons.person_outline),
                 title: Text(
                   AppLocalizations.of(context)!.editProfile,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kEditProfileScreen);
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.call_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.contactUs,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
                 onTap: () {},
               ),
@@ -60,7 +74,9 @@ class SettingsScreen extends StatelessWidget {
                 leading: const Icon(Icons.delete_outline),
                 title: Text(
                   AppLocalizations.of(context)!.deleteAccount,
-                  style: Theme.of(context).textTheme.labelMedium,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                 ),
                 onTap: () {
                   showDialog(

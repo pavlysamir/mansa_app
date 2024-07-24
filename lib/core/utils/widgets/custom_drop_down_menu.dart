@@ -16,10 +16,12 @@ class CustomDropDownMenu extends StatelessWidget {
       width: 180.w,
       height: 50.h,
       decoration: BoxDecoration(
+          color: Colors.transparent,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey)),
       child: Center(
         child: DropdownButton<String>(
+          //dropdownColor: Colors.white.withOpacity(0.5),
           elevation: 0,
           value: value,
           hint: Text(list.first),

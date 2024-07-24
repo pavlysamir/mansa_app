@@ -12,6 +12,8 @@ import 'package:mansa_app/features/home/data/home_repo/home_repo_impl.dart';
 import 'package:mansa_app/features/home/presentation/managers/home_cubit/home_cubit.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo_impl.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
+import 'package:mansa_app/features/settings/data/repo/settings_repo_impl.dart';
+import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,6 +38,10 @@ class MansaApp extends StatelessWidget {
           create: (context) =>
               SearchCubit(getIt.get<SearchRepoImpl>())..triggerGetFunctions(),
         ),
+        BlocProvider(
+          create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>())
+            ..triggerGetFunctions(),
+        )
       ],
       child: ScreenUtilInit(
         designSize: const Size(390, 844),

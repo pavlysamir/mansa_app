@@ -6,6 +6,11 @@
 
     "name": "Name *",
     "phoneNumber": "Phone number *",
+    "nameWithout": "Name",
+
+    "phoneNumberWithout": "Phone number",
+    "adress": "Adress",
+
     "tripleName":"The name is triple",
     "followSubscription":"follow registaration",
     "alreadyHaveAccount":"Already have an account?",
@@ -60,7 +65,10 @@
     "doUDeleteAccount":"Do you want to delete your account?",
     "doUWantToLogOut":"Do you want to log out?",
     "yes":"yes",
-    "no":"no"
+    "no":"no",
+    "putYourDescription":"Put your Vision",
+    "save":"save"
+
 
 
 
