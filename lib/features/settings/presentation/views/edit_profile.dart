@@ -18,10 +18,19 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  SettingsCubit? settingsCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    settingsCubit = SettingsCubit.get(context);
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
-    SettingsCubit.get(context)!.clearData();
+
+    settingsCubit!.clearData();
     super.dispose();
   }
 

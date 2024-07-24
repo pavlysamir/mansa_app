@@ -277,18 +277,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     phoneController.clear();
     putYourVisionController.clear();
     adressOfficeController.clear();
-    allAvalabilityToWork.clear();
-    namesOfAvalabilityToWork.clear();
-    idsOfAvalabilityToWork.clear();
-    allGovernments.clear();
-    namesOfGovernments.clear();
-    idsOfGovernments.clear();
-    allDistricts.clear();
-    namesOfDistricts.clear();
-    idsOfDistricts.clear();
-    allGradesRegistration.clear();
-    namesOfGrades.clear();
-    file = File('');
+
     mapAvalabilityToWork.forEach(((key, value) {
       mapAvalabilityToWork[key] = false;
     }));
