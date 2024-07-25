@@ -41,6 +41,7 @@ class AuthRepoImpl implements AuthRepo {
         'phoneNumber': '${'+2'}$phoneNum',
         'password': password,
       });
+
       var data = LoginUserModel.fromJson(response['data']);
 
       getIt
@@ -56,10 +57,10 @@ class AuthRepoImpl implements AuthRepo {
           .get<CashHelperSharedPreferences>()
           .saveData(key: ApiKey.mobNumber, value: data.phoneNumber);
 
-      if (data.picture.fileTypetId == 1) {
+      if (data.picture != null && data.picture!.fileTypetId == 1) {
         getIt
             .get<CashHelperSharedPreferences>()
-            .saveData(key: ApiKey.profilePic, value: data.picture.url);
+            .saveData(key: ApiKey.profilePic, value: data.picture!.url);
       }
 
       return Right(data);

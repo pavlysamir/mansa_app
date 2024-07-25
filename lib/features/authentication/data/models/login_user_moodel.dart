@@ -1,49 +1,10 @@
-// class LoginUserModel {
-//   final String id;
-//   final String userName;
-//   final String email;
-//   final String phoneNumber;
-//   final String token;
-//   final String code;
-
-//   LoginUserModel({
-//     required this.id,
-//     required this.userName,
-//     required this.email,
-//     required this.phoneNumber,
-//     required this.token,
-//     required this.code,
-//   });
-
-//   factory LoginUserModel.fromJson(Map<String, dynamic> json) {
-//     return LoginUserModel(
-//         id: json['id'],
-//         userName: json['userName'],
-//         email: json['email'],
-//         phoneNumber: json['phoneNumber'],
-//         token: json['token'],
-//         code: json['code']);
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     return {
-//       'id': id,
-//       'userName': userName,
-//       'email': email,
-//       'phoneNumber': phoneNumber,
-//       'token': token,
-//       'code': code
-//     };
-//   }
-// }
-
 class LoginUserModel {
   String id;
   String userName;
   String email;
   String phoneNumber;
   String code;
-  PictureModel picture;
+  PictureModel? picture;
   String token;
 
   LoginUserModel({
@@ -52,7 +13,7 @@ class LoginUserModel {
     required this.email,
     required this.phoneNumber,
     required this.code,
-    required this.picture,
+    this.picture,
     required this.token,
   });
 
@@ -64,7 +25,9 @@ class LoginUserModel {
       email: json['email'],
       phoneNumber: json['phoneNumber'],
       code: json['code'],
-      picture: PictureModel.fromJson(json['picture']),
+      picture: json['picture'] != null
+          ? PictureModel.fromJson(json['picture'])
+          : null,
       token: json['token'],
     );
   }
@@ -77,7 +40,7 @@ class LoginUserModel {
       'email': email,
       'phoneNumber': phoneNumber,
       'code': code,
-      'picture': picture.toJson(),
+      'picture': picture?.toJson(),
       'token': token,
     };
   }
