@@ -65,7 +65,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return state is GetAllSubjectsRegistrationLoading
+          return state is TriggerFunctionLoading
               ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
@@ -198,6 +198,65 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 24.h,
                           ),
                           Text(
+                            AppLocalizations.of(context)!.mainAssociation,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          CustomDropDownMenu(
+                            list: SettingsCubit.get(context)!
+                                .namesOfBarAssociations,
+                            value: SettingsCubit.get(context)!.association,
+                            onChanged: (String? newValue) {
+                              SettingsCubit.get(context)!
+                                  .selectAssociation(newValue!);
+                            },
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.anotherAssociation,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          CustomDropDownMenu(
+                            list: SettingsCubit.get(context)!
+                                .namesOfSpecializationField,
+                            value:
+                                SettingsCubit.get(context)!.specializationField,
+                            onChanged: (String? newValue) {
+                              SettingsCubit.get(context)!
+                                  .selectSpecializationField(newValue!);
+                            },
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          // Text(
+                          //   AppLocalizations.of(context)!.nkata,
+                          //   style: Theme.of(context).textTheme.displayMedium,
+                          // ),
+                          // SizedBox(
+                          //   height: 10.h,
+                          // ),
+                          // CustomDropDownMenu(
+                          //   list: SettingsCubit.get(context)!
+                          //       .namesOfGrantingUniversity,
+                          //   value:
+                          //       SettingsCubit.get(context)!.grantingUniversity,
+                          //   onChanged: (String? newValue) {
+                          //     SettingsCubit.get(context)!
+                          //         .selectGrantingUniversity(newValue!);
+                          //   },
+                          // ),
+                          // SizedBox(
+                          //   height: 24.h,
+                          // ),
+                          Text(
                             AppLocalizations.of(context)!.adress,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
@@ -210,6 +269,43 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               // validationMassage: conditionOfValidationPhone,
                               hintText: 'رقم المكتب - رقم العقار - اسم الشارع',
                               textInputType: TextInputType.text),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.government,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          CustomDropDownMenu(
+                            list:
+                                SettingsCubit.get(context)!.namesOfGovernments,
+                            value: SettingsCubit.get(context)!.government,
+                            onChanged: (String? newValue) {
+                              SettingsCubit.get(context)!
+                                  .selectGovernment(newValue!);
+                            },
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.district,
+                            style: Theme.of(context).textTheme.displayMedium,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          CustomDropDownMenu(
+                            list: SettingsCubit.get(context)!.namesOfDistricts,
+                            value: SettingsCubit.get(context)!.district,
+                            onChanged: (String? newValue) {
+                              SettingsCubit.get(context)!
+                                  .selectDistrict(newValue!);
+                            },
+                          ),
                           SizedBox(
                             height: 24.h,
                           ),

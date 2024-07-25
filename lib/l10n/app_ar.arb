@@ -62,7 +62,20 @@
     "yes":"نعم",
     "no":"لا",
     "putYourDescription":"ضع رؤيتك الشخصية",
-    "save":"حفظ"
+    "save":"حفظ",
+"mainAssociation":"التخصص الأساسي ",
+"anotherAssociation":"التخصصات  الأخري",
+"nkata":"النقابة التابع لها",
+"lawBachoolory":"ليسانس حقوق عام",
+"changeLang":"تغيير اللغة",
+"doUWantChangeLang":"هل تريد تغيير اللغة؟",
+"changeTheme":"تغيير المظهر",
+
+"doUWantChangetheme":"هل تريد تغيير المظهر؟"
+
+
+
+    
 
 
 

@@ -33,7 +33,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
           SizedBox(height: 5.h),
           Text(
             AppLocalizations.of(context)!.olderOfApp,
-            style: const TextStyle(color: kBlackColor),
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
           SizedBox(height: 5.h),
           Directionality(
@@ -75,7 +75,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.olderOfDistric,
-                    style: const TextStyle(color: kBlackColor),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   SizedBox(height: 5.h),
                   Directionality(
@@ -110,20 +110,13 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  Text(
-                    '${AppLocalizations.of(context)!.olderOfAst2naf} :$registrationGrade',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(color: kBlackColor),
-                  )
                 ],
               ),
               Column(
                 children: [
                   Text(
                     AppLocalizations.of(context)!.olderOfSpacific,
-                    style: const TextStyle(color: kBlackColor),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   SizedBox(height: 5.h),
                   Directionality(
@@ -158,18 +151,34 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  Text(
-                    '${AppLocalizations.of(context)!.olderOfGovernment} :$city',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: const TextStyle(color: kBlackColor),
-                  )
                 ],
               ),
             ],
           ),
           SizedBox(height: 5.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Text(
+                  '${AppLocalizations.of(context)!.olderOfAst2naf} :$registrationGrade',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  '${AppLocalizations.of(context)!.olderOfGovernment} :$city',
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

@@ -16,7 +16,7 @@ import 'package:mansa_app/features/authentication/presentation/views/verify_phon
 import 'package:mansa_app/features/notification/presentation/views/notification_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/result_search_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
-import 'package:mansa_app/features/settings/presentation/views/edit_profile.dart';
+import 'package:mansa_app/features/settings/presentation/views/edit_profile_screen.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';

@@ -13,7 +13,7 @@ class CustomDropDownMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180.w,
+      // width: 180.w,
       height: 50.h,
       decoration: BoxDecoration(
           color: Colors.transparent,

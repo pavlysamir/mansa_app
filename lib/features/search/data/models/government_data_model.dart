@@ -6,7 +6,7 @@ class GovernmentDataModel {
   final int internalRef;
   final bool isActive;
   final String? description;
-  final List<dynamic> users;
+  final List<dynamic>? users;
   final bool isDeleted;
   final int createdBy;
   final DateTime createdOn;
@@ -21,7 +21,7 @@ class GovernmentDataModel {
     required this.internalRef,
     required this.isActive,
     this.description,
-    required this.users,
+    this.users,
     required this.isDeleted,
     required this.createdBy,
     required this.createdOn,

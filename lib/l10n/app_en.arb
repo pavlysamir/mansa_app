@@ -42,11 +42,11 @@
     "home":"Home",
     "setting":"Setting",
     "profile":"Profile",
-    "olderOfApp":"Your ranking on the application",
-    "olderOfDistric":"Your ranking on the district",
-    "olderOfSpacific":"Your ranking on the specialty",
+    "olderOfApp":"ranking degree of Application",
+    "olderOfDistric":"ranking on the district",
+    "olderOfSpacific":"ranking on the specialty",
     "olderOfGovernment":"Your ranking on the government",
-    "olderOfAst2naf":"Your ranking on the degree of appeal",
+    "olderOfAst2naf":"ranking degree on appeal",
 
     "pleaseSelectImages":"Please select images",
     "search":"Search",
@@ -67,7 +67,18 @@
     "yes":"yes",
     "no":"no",
     "putYourDescription":"Put your Vision",
-    "save":"save"
+    "save":"save",
+    "mainAssociation":"Main Specialty",
+"anotherAssociation":"Other Specialties",
+"nkata":"Its union",
+"lawBachoolory":"Bachelor of General Law",
+"changeLang":"Change Language",
+"doUWantChangeLang":"Do you want to change the language?",
+"changeTheme":"Change Theme",
+
+"doUWantChangetheme":"Do you want to change the theme?"
+
+
 
 
 

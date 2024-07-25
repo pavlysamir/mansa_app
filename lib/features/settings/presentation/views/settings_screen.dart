@@ -8,6 +8,7 @@ import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
+import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -69,6 +70,68 @@ class SettingsScreen extends StatelessWidget {
                       ),
                 ),
                 onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.call_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.changeLang,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => PopUpDialog(
+                      function2: () {
+                        Navigator.pop(context);
+                      },
+                      context: context,
+                      function: () {
+                        SettingsCubit.get(context)!.changeLanguage();
+                        Navigator.pop(context);
+                      },
+                      title: AppLocalizations.of(context)!.doUWantChangeLang,
+                      subTitle: '',
+                      img: AssetsData.deleteAccount,
+                      colorButton1: Colors.white,
+                      colorButton2: kPrimaryKey,
+                      textColortcolor1: kBlackColor,
+                      textColortcolor2: Colors.white,
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.call_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.changeTheme,
+                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => PopUpDialog(
+                      function2: () {
+                        Navigator.pop(context);
+                      },
+                      context: context,
+                      function: () {
+                        SettingsCubit.get(context)!.changeTheme();
+                        Navigator.pop(context);
+                      },
+                      title: AppLocalizations.of(context)!.doUWantChangetheme,
+                      subTitle: '',
+                      img: AssetsData.deleteAccount,
+                      colorButton1: Colors.white,
+                      colorButton2: kPrimaryKey,
+                      textColortcolor1: kBlackColor,
+                      textColortcolor2: Colors.white,
+                    ),
+                  );
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.delete_outline),

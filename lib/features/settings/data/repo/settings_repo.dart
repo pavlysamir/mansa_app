@@ -10,4 +10,9 @@ abstract class SettingsRepo {
   Future<Either<String, List<AvailibalityWorkModel>>> getAllAvailabalityWork();
   Future<Either<String, List<GovernmentDataModel>>> getAllGovernment();
   Future<Either<String, List<GovernmentDataModel>>> getAllDistrict();
+  Future<Either<String, List<GovernmentDataModel>>> getAllBarAssociations();
+  Future<Either<String, List<GovernmentDataModel>>> getAllGeneralLawBachelor();
+  Future<Either<String, List<GovernmentDataModel>>> getAllGrantingUniversity();
+  Future<Either<String, List<GovernmentDataModel>>> getAllPostgraduateStudy();
+  Future<Either<String, List<GovernmentDataModel>>> getAllSpecializationField();
 }

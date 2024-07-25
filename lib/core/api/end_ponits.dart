@@ -14,6 +14,20 @@ class EndPoint {
 
   static String getAllGovernorate = "api/BaseLookup/GetAllGovernorate";
 
+  static String getAllBarAssociations = "api/BaseLookup/GetAllBarAssociations";
+
+  static String getAllGeneralLawBachelor =
+      "api/BaseLookup/GetAllGeneralLawBachelor";
+
+  static String getAllGrantingUniversity =
+      "api/BaseLookup/GetAllGrantingUniversity";
+
+  static String getAllPostgraduateStudy =
+      "api/BaseLookup/GetAllPostgraduateStudy";
+
+  static String getAllSpecializationField =
+      "api/BaseLookup/GetAllSpecializationField";
+
   static String verifyMobileNum = "Account/VerifyMobileNumber";
   static String verifyOtpMobileNum = "Account/verify-otp";
 

@@ -137,7 +137,7 @@ class AppTheme {
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.black,
       unselectedItemColor: Colors.grey,
-      selectedItemColor: kBlackColor,
+      selectedItemColor: kPrimaryKey,
       elevation: 0.0,
       type: BottomNavigationBarType.fixed,
     ),

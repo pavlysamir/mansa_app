@@ -80,4 +80,94 @@ class SettingsRepoImpl implements SettingsRepo {
       return Left(e.errModel.errorMessage!);
     }
   }
+
+  @override
+  Future<Either<String, List<GovernmentDataModel>>>
+      getAllBarAssociations() async {
+    try {
+      final response = await api.get(
+        EndPoint.getAllBarAssociations,
+      );
+      List<GovernmentDataModel> allBarAssociations = [];
+      for (var element in response) {
+        allBarAssociations.add(GovernmentDataModel.fromJson(element));
+      }
+
+      return Right(allBarAssociations);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, List<GovernmentDataModel>>>
+      getAllGeneralLawBachelor() async {
+    try {
+      final response = await api.get(
+        EndPoint.getAllGeneralLawBachelor,
+      );
+      List<GovernmentDataModel> allGeneralLawBachelor = [];
+      for (var element in response) {
+        allGeneralLawBachelor.add(GovernmentDataModel.fromJson(element));
+      }
+
+      return Right(allGeneralLawBachelor);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, List<GovernmentDataModel>>>
+      getAllGrantingUniversity() async {
+    try {
+      final response = await api.get(
+        EndPoint.getAllGrantingUniversity,
+      );
+      List<GovernmentDataModel> allGrantingUniversity = [];
+      for (var element in response) {
+        allGrantingUniversity.add(GovernmentDataModel.fromJson(element));
+      }
+
+      return Right(allGrantingUniversity);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, List<GovernmentDataModel>>>
+      getAllPostgraduateStudy() async {
+    try {
+      final response = await api.get(
+        EndPoint.getAllPostgraduateStudy,
+      );
+      List<GovernmentDataModel> allPostgraduateStudy = [];
+      for (var element in response) {
+        allPostgraduateStudy.add(GovernmentDataModel.fromJson(element));
+      }
+
+      return Right(allPostgraduateStudy);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, List<GovernmentDataModel>>>
+      getAllSpecializationField() async {
+    try {
+      final response = await api.get(
+        EndPoint.getAllSpecializationField,
+      );
+      List<GovernmentDataModel> allSpecializationField = [];
+      for (var element in response) {
+        allSpecializationField.add(GovernmentDataModel.fromJson(element));
+      }
+
+      return Right(allSpecializationField);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
 }

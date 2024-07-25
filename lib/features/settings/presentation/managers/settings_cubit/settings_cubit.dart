@@ -5,6 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/core/Theme/Teme_data.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
 import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
@@ -83,7 +85,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   List<GradesRegistrationModel> allGradesRegistration = [];
   List<String> namesOfGrades = [];
   Future<void> getAllGradesRegistration() async {
-    emit(GetAllSubjectsRegistrationLoading());
+    // emit(GetAllSubjectsRegistrationLoading());
     final response = await settingsRepo.getAllGradesRegistration();
 
     response.fold(
@@ -100,7 +102,7 @@ class SettingsCubit extends Cubit<SettingsState> {
             .saveData(key: ApiKey.namesOfGrades, value: namesOfGrades);
         grade = namesOfGrades.first;
         gradeId = allGradesRegistration.first.id;
-        emit(GetAllGradesRegistrationSuccess());
+        //  emit(GetAllGradesRegistrationSuccess());
       },
     );
   }
@@ -254,12 +256,224 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(SelectedDistrict());
   }
 
+  List<GovernmentDataModel> allBarAssociations = [];
+  List<String> namesOfBarAssociations = [];
+  List<int> idsOfBarAssociations = [];
+
+  Future<void> getAllBarAssociations() async {
+    // emit(GetAllDistrictsLoading());
+    final response = await settingsRepo.getAllBarAssociations();
+
+    response.fold(
+      (errMessage) => emit(GetAllDistrictsFail(errMessage)),
+      (allAssoci) {
+        allBarAssociations = allAssoci;
+        for (var element in allBarAssociations) {
+          namesOfBarAssociations.add(element.nameAr);
+          idsOfBarAssociations.add(element.id);
+        }
+        association = namesOfBarAssociations.first;
+        // districtId = allDistricts.first.id;
+        //   emit(GetAllDistrictsSuccess());
+      },
+    );
+  }
+
+  late String association;
+  int? associationId;
+
+  void selectAssociation(String association) {
+    this.association = association;
+    for (var element in allBarAssociations) {
+      if (element.nameAr == association) {
+        districtId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.association}  ${associationId.toString()}');
+    }
+    emit(SelectedAssociation());
+  }
+
+  // Properties for GeneralLawBachelor
+  List<GovernmentDataModel> allGeneralLawBachelor = [];
+  List<String> namesOfGeneralLawBachelor = [];
+  List<int> idsOfGeneralLawBachelor = [];
+  late String generalLawBachelor;
+  int? generalLawBachelorId;
+
+  // Properties for GrantingUniversity
+  List<GovernmentDataModel> allGrantingUniversity = [];
+  List<String> namesOfGrantingUniversity = [];
+  List<int> idsOfGrantingUniversity = [];
+  late String grantingUniversity;
+  int? grantingUniversityId;
+
+  // Properties for PostgraduateStudy
+  List<GovernmentDataModel> allPostgraduateStudy = [];
+  List<String> namesOfPostgraduateStudy = [];
+  List<int> idsOfPostgraduateStudy = [];
+  late String postgraduateStudy;
+  int? postgraduateStudyId;
+
+  // Properties for SpecializationField
+  List<GovernmentDataModel> allSpecializationField = [];
+  List<String> namesOfSpecializationField = [];
+  List<int> idsOfSpecializationField = [];
+  late String specializationField;
+  int? specializationFieldId;
+
+  // Method to get all GeneralLawBachelor
+  Future<void> getAllGeneralLawBachelor() async {
+    final response = await settingsRepo.getAllGeneralLawBachelor();
+
+    response.fold(
+      (errMessage) => emit(GetAllDistrictsFail(errMessage)),
+      (allBachelors) {
+        allGeneralLawBachelor = allBachelors;
+        for (var element in allGeneralLawBachelor) {
+          namesOfGeneralLawBachelor.add(element.nameAr);
+          idsOfGeneralLawBachelor.add(element.id);
+        }
+        if (namesOfGeneralLawBachelor.isNotEmpty) {
+          generalLawBachelor = namesOfGeneralLawBachelor.first;
+          generalLawBachelorId = allGeneralLawBachelor.first.id;
+        }
+        //  emit(GetAllGeneralLawBachelorSuccess());
+      },
+    );
+  }
+
+  // Method to select GeneralLawBachelor
+  void selectGeneralLawBachelor(String generalLawBachelor) {
+    this.generalLawBachelor = generalLawBachelor;
+    for (var element in allGeneralLawBachelor) {
+      if (element.nameAr == generalLawBachelor) {
+        generalLawBachelorId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.generalLawBachelor}  ${generalLawBachelorId.toString()}');
+    }
+    emit(SelectedGeneralLawBachelor());
+  }
+
+  // Method to get all GrantingUniversity
+  Future<void> getAllGrantingUniversity() async {
+    final response = await settingsRepo.getAllGrantingUniversity();
+
+    response.fold(
+      (errMessage) => emit(GetAllDistrictsFail(errMessage)),
+      (allUniversities) {
+        allGrantingUniversity = allUniversities;
+        for (var element in allGrantingUniversity) {
+          namesOfGrantingUniversity.add(element.nameAr);
+          idsOfGrantingUniversity.add(element.id);
+        }
+        if (namesOfGrantingUniversity.isNotEmpty) {
+          grantingUniversity = namesOfGrantingUniversity.first;
+          grantingUniversityId = allGrantingUniversity.first.id;
+        }
+        // emit(GetAllGrantingUniversitySuccess());
+      },
+    );
+  }
+
+  // Method to select GrantingUniversity
+  void selectGrantingUniversity(String grantingUniversity) {
+    this.grantingUniversity = grantingUniversity;
+    for (var element in allGrantingUniversity) {
+      if (element.nameAr == grantingUniversity) {
+        grantingUniversityId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.grantingUniversity}  ${grantingUniversityId.toString()}');
+    }
+    emit(SelectedGrantingUniversity());
+  }
+
+  // Method to get all PostgraduateStudy
+  Future<void> getAllPostgraduateStudy() async {
+    final response = await settingsRepo.getAllPostgraduateStudy();
+
+    response.fold(
+      (errMessage) => emit(GetAllDistrictsFail(errMessage)),
+      (allStudies) {
+        allPostgraduateStudy = allStudies;
+        for (var element in allPostgraduateStudy) {
+          namesOfPostgraduateStudy.add(element.nameAr);
+          idsOfPostgraduateStudy.add(element.id);
+        }
+        if (namesOfPostgraduateStudy.isNotEmpty) {
+          postgraduateStudy = namesOfPostgraduateStudy.first;
+          postgraduateStudyId = allPostgraduateStudy.first.id;
+        }
+        // emit(GetAllPostgraduateStudySuccess());
+      },
+    );
+  }
+
+  // Method to select PostgraduateStudy
+  void selectPostgraduateStudy(String postgraduateStudy) {
+    this.postgraduateStudy = postgraduateStudy;
+    for (var element in allPostgraduateStudy) {
+      if (element.nameAr == postgraduateStudy) {
+        postgraduateStudyId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.postgraduateStudy}  ${postgraduateStudyId.toString()}');
+    }
+    emit(SelectedPostgraduateStudy());
+  }
+
+  // Method to get all SpecializationField
+  Future<void> getAllSpecializationField() async {
+    final response = await settingsRepo.getAllSpecializationField();
+
+    response.fold(
+      (errMessage) => emit(GetAllDistrictsFail(errMessage)),
+      (allFields) {
+        allSpecializationField = allFields;
+        for (var element in allSpecializationField) {
+          namesOfSpecializationField.add(element.nameAr);
+          idsOfSpecializationField.add(element.id);
+        }
+        if (namesOfSpecializationField.isNotEmpty) {
+          specializationField = namesOfSpecializationField.first;
+          specializationFieldId = allSpecializationField.first.id;
+        }
+        //emit(GetAllSpecializationFieldSuccess());
+      },
+    );
+  }
+
+  // Method to select SpecializationField
+  void selectSpecializationField(String specializationField) {
+    this.specializationField = specializationField;
+    for (var element in allSpecializationField) {
+      if (element.nameAr == specializationField) {
+        specializationFieldId = element.id;
+      }
+    }
+    if (kDebugMode) {
+      print('${this.specializationField}  ${specializationFieldId.toString()}');
+    }
+    emit(SelectedSpecializationField());
+  }
+
   Future<void> triggerGetFunctions() async {
     emit(TriggerFunctionLoading());
     await getAllGradesRegistration();
     await getAllAvalabilityToWork();
     await getAllDistricts();
     await getAllGovernmentsk();
+    await getAllBarAssociations();
+    await getAllGeneralLawBachelor();
+    await getAllGrantingUniversity();
+    await getAllPostgraduateStudy();
+    await getAllSpecializationField();
 
     emit(TriggerFunctionSuccess());
   }
@@ -283,5 +497,71 @@ class SettingsCubit extends Cubit<SettingsState> {
     }));
 
     emit(ClearData());
+  }
+
+  Future<void> changeLanguage() async {
+    // Toggle the language preference.
+    isEnglish = !isEnglish;
+    emit(ChangeLanguageSuccess());
+    // Save the updated language preference.
+    getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(
+          key: 'isEnglishh',
+          value: isEnglish,
+        )
+        .then((value) {
+      if (kDebugMode) {
+        print(isEnglish);
+      }
+    });
+  }
+
+  Future<void> changeTheme() async {
+    // Toggle the language preference.
+    isDark = !isDark;
+    emit(ChangeThemeSuccess());
+    // Save the updated language preference.
+    getIt
+        .get<CashHelperSharedPreferences>()
+        .saveData(
+          key: 'isDark',
+          value: isDark,
+        )
+        .then((value) {
+      if (kDebugMode) {
+        print(isDark);
+      }
+    });
+  }
+
+  Locale getLocale() {
+    if (getIt.get<CashHelperSharedPreferences>().getData(
+              key: 'isEnglishh',
+            ) ==
+        null) {
+      return const Locale('ar');
+    } else if (getIt.get<CashHelperSharedPreferences>().getData(
+          key: 'isEnglishh',
+        )) {
+      return const Locale('en');
+    } else {
+      return const Locale('ar');
+    }
+  }
+
+  ThemeData getTheme() {
+    if (getIt.get<CashHelperSharedPreferences>().getData(
+              key: 'isDark',
+            ) ==
+        null) {
+      return AppTheme.lightTheme;
+    } else if (getIt.get<CashHelperSharedPreferences>().getData(
+          key: 'isDark',
+        )) {
+      return AppTheme.darkTheme;
+    } else {
+      return AppTheme.lightTheme;
+    }
   }
 }

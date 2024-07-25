@@ -57,8 +57,22 @@ final class SelectedGovernment extends SettingsState {}
 
 final class SelectedDistrict extends SettingsState {}
 
+final class SelectedAssociation extends SettingsState {}
+
+final class SelectedSpecializationField extends SettingsState {}
+
+final class SelectedPostgraduateStudy extends SettingsState {}
+
+final class SelectedGrantingUniversity extends SettingsState {}
+
+final class SelectedGeneralLawBachelor extends SettingsState {}
+
 final class TriggerFunctionSuccess extends SettingsState {}
 
 final class TriggerFunctionLoading extends SettingsState {}
 
 final class SearchClick extends SettingsState {}
+
+final class ChangeLanguageSuccess extends SettingsState {}
+
+final class ChangeThemeSuccess extends SettingsState {}

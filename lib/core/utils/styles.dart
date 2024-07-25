@@ -42,10 +42,17 @@ abstract class Styles {
   //     color: Colors.black,
   //   );
   // }
-  static TextStyle textStyle12Black = const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black);
-  static TextStyle textStyle12White = const TextStyle(
-      fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white);
+
+  static TextStyle textStyle12Black = GoogleFonts.almarai(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: kBlackColor,
+  );
+  static TextStyle textStyle12White = GoogleFonts.almarai(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: Colors.white,
+  );
   static TextStyle textStyle12BoldGrey = const TextStyle(
       fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey);
 
