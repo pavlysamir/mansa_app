@@ -29,13 +29,19 @@ class _HomeLayoutState extends State<HomeLayout> {
             bottomNavigationBar: Container(
               height: 70.h,
               decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.grey,
-                    width: 1.0,
-                  ),
-                ),
-              ),
+                  // border: Border(
+                  //   top: BorderSide(
+                  //     color: Colors.grey,
+                  //     width: 1.0,
+                  //   ),
+                  // ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 10,
+                      offset: Offset(0, 5),
+                    ),
+                  ]),
               child: BottomNavigationBar(
                 mouseCursor: MouseCursor.defer,
                 items: [

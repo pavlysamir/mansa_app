@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController? _scrollController;
   bool isLoading = false;
-  int pageNum = 1;
+  int pageNum = 2;
 
   @override
   void initState() {
