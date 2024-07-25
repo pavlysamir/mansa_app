@@ -46,6 +46,8 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   TextEditingController putYourVisionController = TextEditingController();
 
+  TextEditingController codeController = TextEditingController();
+
   var editProfileKey = GlobalKey<FormState>();
 
   String? base64BackImage;

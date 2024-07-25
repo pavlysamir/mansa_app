@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/features/home/data/models/user_data_model.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CustomLowyerDataItem extends StatelessWidget {
   const CustomLowyerDataItem({

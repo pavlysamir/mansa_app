@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:iconly/iconly.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
+import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_small.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -140,6 +142,54 @@ class PopUpDialogOneButton extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class PopUpDialogReturnPoints extends StatelessWidget {
+  const PopUpDialogReturnPoints({
+    super.key,
+    required this.context,
+    required this.function,
+    required this.widget,
+  });
+  final BuildContext context;
+  final Function() function;
+  final Widget widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Theme.of(context).cardColor,
+      alignment: Alignment.center,
+      actionsAlignment: MainAxisAlignment.center,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+                onPressed: function,
+                icon: const Icon(
+                  IconlyLight.close_square,
+                  color: kPrimaryKey,
+                )),
+          ),
+          Image.asset(AssetsData.notes),
+          SizedBox(
+            height: 24.h,
+          ),
+          widget,
+          SizedBox(
+            height: 24.h,
+          ),
+          CustomButtonLarge(
+              text: AppLocalizations.of(context)!.save,
+              textColor: Colors.white,
+              function: () {})
+        ],
+      ),
     );
   }
 }

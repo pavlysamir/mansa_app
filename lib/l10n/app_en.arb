@@ -76,7 +76,17 @@
 "doUWantChangeLang":"Do you want to change the language?",
 "changeTheme":"Change Theme",
 
-"doUWantChangetheme":"Do you want to change the theme?"
+"doUWantChangetheme":"Do you want to change the theme?",
+"currentBalance":"Current Balance",
+"golden":"Golden",
+"silver":"Silver",
+"bronze":"Bronze",
+"returnGroubs":"Return Groups",
+"collegues":"Colleagues to whom you have given your collections",
+"inviteFriendQuote":"Invite a fellow lawyer, and win additional points that will be added to your overall ranking:-",
+"inviteFriendHints":". A general docket lawyer gives you 100 points.\n. A primary lawyer gives you 150 points. \n. An appellate lawyer gives you 200 points.\n. A cassation lawyer gives you 250 points.\n",
+"contantUsWithWhats":"Content with us by What's app",
+"contantUsWithmail":"Contant with us by email"
 
 
 

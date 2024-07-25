@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
@@ -36,7 +35,10 @@ class SettingsScreen extends StatelessWidget {
                         decoration: TextDecoration.underline,
                       ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kMyBalanceScreen);
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.add),
@@ -46,7 +48,10 @@ class SettingsScreen extends StatelessWidget {
                         decoration: TextDecoration.underline,
                       ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kInviteFriendcreen);
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.person_outline),
@@ -69,10 +74,13 @@ class SettingsScreen extends StatelessWidget {
                         decoration: TextDecoration.underline,
                       ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  customJustGoNavigate(
+                      context: context, path: AppRouter.kContantUsScreen);
+                },
               ),
               ListTile(
-                leading: const Icon(Icons.call_outlined),
+                leading: const Icon(Icons.language_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.changeLang,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(
@@ -103,7 +111,7 @@ class SettingsScreen extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.call_outlined),
+                leading: const Icon(Icons.color_lens_outlined),
                 title: Text(
                   AppLocalizations.of(context)!.changeTheme,
                   style: Theme.of(context).textTheme.labelMedium!.copyWith(

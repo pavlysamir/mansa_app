@@ -16,7 +16,10 @@ import 'package:mansa_app/features/authentication/presentation/views/verify_phon
 import 'package:mansa_app/features/notification/presentation/views/notification_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/result_search_screen.dart';
 import 'package:mansa_app/features/search/presentation/views/search_screen.dart';
+import 'package:mansa_app/features/settings/presentation/views/contant_us_screen.dart';
 import 'package:mansa_app/features/settings/presentation/views/edit_profile_screen.dart';
+import 'package:mansa_app/features/settings/presentation/views/invite_friend_screen.dart';
+import 'package:mansa_app/features/settings/presentation/views/my_balance_screen.dart';
 
 abstract class AppRouter {
   static const kWelcomeView = '/';
@@ -45,6 +48,12 @@ abstract class AppRouter {
   static const kResultSearchScreen = '/ResultSearchScreen';
 
   static const kEditProfileScreen = '/EditProfileScreen';
+
+  static const kMyBalanceScreen = '/MyBalanceScreen';
+
+  static const kInviteFriendcreen = '/InviteFriendcreen';
+
+  static const kContantUsScreen = '/ContantUsScreen';
 
   static final router = GoRouter(
       navigatorKey: navigatorKey,
@@ -106,6 +115,18 @@ abstract class AppRouter {
         GoRoute(
           path: kEditProfileScreen,
           builder: (context, state) => const EditProfileScreen(),
+        ),
+        GoRoute(
+          path: kMyBalanceScreen,
+          builder: (context, state) => const MyBalanceScreen(),
+        ),
+        GoRoute(
+          path: kInviteFriendcreen,
+          builder: (context, state) => const InviteFriendScreen(),
+        ),
+        GoRoute(
+          path: kContantUsScreen,
+          builder: (context, state) => const ContantUsScreen(),
         ),
       ]);
 }
