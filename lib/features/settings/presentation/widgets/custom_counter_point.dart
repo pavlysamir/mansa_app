@@ -47,17 +47,21 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const Spacer(),
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _counter++;
-                          });
-                        },
-                        icon: const Icon(
-                          size: 23,
-                          Icons.add,
-                          color: kDarktBlue,
-                        )),
+                    CircleAvatar(
+                      radius: 30.r,
+                      backgroundColor: Colors.transparent,
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _counter++;
+                            });
+                          },
+                          icon: const Icon(
+                            size: 23,
+                            Icons.add,
+                            color: kDarktBlue,
+                          )),
+                    ),
                     Text(
                       '$_counter',
                       style: Theme.of(context)
@@ -66,15 +70,23 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                           .copyWith(color: kDarktBlue),
                     ),
                     _counter == 0
-                        ? Icon(size: 23.h, Icons.remove, color: Colors.grey)
-                        : IconButton(
-                            iconSize: 23.h,
-                            onPressed: () {
-                              setState(() {
-                                _counter--;
-                              });
-                            },
-                            icon: const Icon(Icons.remove)),
+                        ? CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 30.r,
+                            child: Icon(
+                                size: 23.h, Icons.remove, color: Colors.grey))
+                        : CircleAvatar(
+                            radius: 30.r,
+                            backgroundColor: Colors.transparent,
+                            child: IconButton(
+                                iconSize: 23.h,
+                                onPressed: () {
+                                  setState(() {
+                                    _counter--;
+                                  });
+                                },
+                                icon: const Icon(Icons.remove)),
+                          ),
                   ],
                 ),
               ),

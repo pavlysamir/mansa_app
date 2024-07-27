@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/styles.dart';
 
 class CustomDescriptionPostField extends StatelessWidget {
@@ -16,7 +17,7 @@ class CustomDescriptionPostField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 130,
+      height: 130.h,
       child: TextFormField(
         maxLines: 10,
         keyboardType: textInputType,

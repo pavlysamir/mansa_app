@@ -36,7 +36,7 @@ class CustomLowyerDataItem extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 20.dg,
+                    radius: 20.r,
                     child: user.picture != null &&
                             user.picture!.fileTypeName == 'Profile Picture'
                         ? CachedNetworkImage(

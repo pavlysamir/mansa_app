@@ -24,157 +24,133 @@ class SettingsScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.dg),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.lock_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.balance,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.lock_outlined),
+                  title: Text(
+                    AppLocalizations.of(context)!.balance,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    customJustGoNavigate(
+                        context: context, path: AppRouter.kMyBalanceScreen);
+                  },
                 ),
-                onTap: () {
-                  customJustGoNavigate(
-                      context: context, path: AppRouter.kMyBalanceScreen);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.add),
-                title: Text(
-                  AppLocalizations.of(context)!.inviteFriend,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
+                ListTile(
+                  leading: const Icon(Icons.add),
+                  title: Text(
+                    AppLocalizations.of(context)!.inviteFriend,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    customJustGoNavigate(
+                        context: context, path: AppRouter.kInviteFriendcreen);
+                  },
                 ),
-                onTap: () {
-                  customJustGoNavigate(
-                      context: context, path: AppRouter.kInviteFriendcreen);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.person_outline),
-                title: Text(
-                  AppLocalizations.of(context)!.editProfile,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
+                ListTile(
+                  leading: const Icon(Icons.person_outline),
+                  title: Text(
+                    AppLocalizations.of(context)!.editProfile,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    customJustGoNavigate(
+                        context: context, path: AppRouter.kEditProfileScreen);
+                  },
                 ),
-                onTap: () {
-                  customJustGoNavigate(
-                      context: context, path: AppRouter.kEditProfileScreen);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.call_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.contactUs,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
+                ListTile(
+                  leading: const Icon(Icons.call_outlined),
+                  title: Text(
+                    AppLocalizations.of(context)!.contactUs,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    customJustGoNavigate(
+                        context: context, path: AppRouter.kContantUsScreen);
+                  },
                 ),
-                onTap: () {
-                  customJustGoNavigate(
-                      context: context, path: AppRouter.kContantUsScreen);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.language_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.changeLang,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
-                      ),
-                ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => PopUpDialog(
-                      function2: () {
-                        Navigator.pop(context);
-                      },
+                ListTile(
+                  leading: const Icon(Icons.language_outlined),
+                  title: Text(
+                    AppLocalizations.of(context)!.changeLang,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    showDialog(
                       context: context,
-                      function: () {
-                        SettingsCubit.get(context)!.changeLanguage();
-                        Navigator.pop(context);
-                      },
-                      title: AppLocalizations.of(context)!.doUWantChangeLang,
-                      subTitle: '',
-                      img: AssetsData.deleteAccount,
-                      colorButton1: Colors.white,
-                      colorButton2: kPrimaryKey,
-                      textColortcolor1: kBlackColor,
-                      textColortcolor2: Colors.white,
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.color_lens_outlined),
-                title: Text(
-                  AppLocalizations.of(context)!.changeTheme,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
+                      builder: (BuildContext context) => PopUpDialog(
+                        function2: () {
+                          Navigator.pop(context);
+                        },
+                        context: context,
+                        function: () {
+                          SettingsCubit.get(context)!.changeLanguage();
+                          Navigator.pop(context);
+                        },
+                        title: AppLocalizations.of(context)!.doUWantChangeLang,
+                        subTitle: '',
+                        img: AssetsData.deleteAccount,
+                        colorButton1: Colors.white,
+                        colorButton2: kPrimaryKey,
+                        textColortcolor1: kBlackColor,
+                        textColortcolor2: Colors.white,
                       ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => PopUpDialog(
-                      function2: () {
-                        Navigator.pop(context);
-                      },
+                ListTile(
+                  leading: const Icon(Icons.color_lens_outlined),
+                  title: Text(
+                    AppLocalizations.of(context)!.changeTheme,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
+                    showDialog(
                       context: context,
-                      function: () {
-                        SettingsCubit.get(context)!.changeTheme();
-                        Navigator.pop(context);
-                      },
-                      title: AppLocalizations.of(context)!.doUWantChangetheme,
-                      subTitle: '',
-                      img: AssetsData.deleteAccount,
-                      colorButton1: Colors.white,
-                      colorButton2: kPrimaryKey,
-                      textColortcolor1: kBlackColor,
-                      textColortcolor2: Colors.white,
-                    ),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.delete_outline),
-                title: Text(
-                  AppLocalizations.of(context)!.deleteAccount,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        decoration: TextDecoration.underline,
+                      builder: (BuildContext context) => PopUpDialog(
+                        function2: () {
+                          Navigator.pop(context);
+                        },
+                        context: context,
+                        function: () {
+                          SettingsCubit.get(context)!.changeTheme();
+                          Navigator.pop(context);
+                        },
+                        title: AppLocalizations.of(context)!.doUWantChangetheme,
+                        subTitle: '',
+                        img: AssetsData.deleteAccount,
+                        colorButton1: Colors.white,
+                        colorButton2: kPrimaryKey,
+                        textColortcolor1: kBlackColor,
+                        textColortcolor2: Colors.white,
                       ),
+                    );
+                  },
                 ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => PopUpDialog(
-                      function2: () {
-                        Navigator.pop(context);
-                      },
-                      context: context,
-                      function: () {
-                        //SettingsCubit.get(context).changeLanguage();
-                        Navigator.pop(context);
-                      },
-                      title: AppLocalizations.of(context)!.doUDeleteAccount,
-                      subTitle: '',
-                      img: AssetsData.deleteAccount,
-                      colorButton1: Colors.white,
-                      colorButton2: kPrimaryKey,
-                      textColortcolor1: kBlackColor,
-                      textColortcolor2: Colors.white,
-                    ),
-                  );
-                },
-              ),
-              SizedBox(height: 20.h),
-              TextButton(
-                  onPressed: () {
+                ListTile(
+                  leading: const Icon(Icons.delete_outline),
+                  title: Text(
+                    AppLocalizations.of(context)!.deleteAccount,
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          decoration: TextDecoration.underline,
+                        ),
+                  ),
+                  onTap: () {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => PopUpDialog(
@@ -186,9 +162,9 @@ class SettingsScreen extends StatelessWidget {
                           //SettingsCubit.get(context).changeLanguage();
                           Navigator.pop(context);
                         },
-                        title: AppLocalizations.of(context)!.doUWantToLogOut,
+                        title: AppLocalizations.of(context)!.doUDeleteAccount,
                         subTitle: '',
-                        img: AssetsData.logOut,
+                        img: AssetsData.deleteAccount,
                         colorButton1: Colors.white,
                         colorButton2: kPrimaryKey,
                         textColortcolor1: kBlackColor,
@@ -196,14 +172,40 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text(
-                    AppLocalizations.of(context)!.logOut,
-                    style: Styles.textStyle14.copyWith(
-                      color: kDarktBlue,
-                      decoration: TextDecoration.underline,
-                    ),
-                  )),
-            ],
+                ),
+                SizedBox(height: 20.h),
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => PopUpDialog(
+                          function2: () {
+                            Navigator.pop(context);
+                          },
+                          context: context,
+                          function: () {
+                            //SettingsCubit.get(context).changeLanguage();
+                            Navigator.pop(context);
+                          },
+                          title: AppLocalizations.of(context)!.doUWantToLogOut,
+                          subTitle: '',
+                          img: AssetsData.logOut,
+                          colorButton1: Colors.white,
+                          colorButton2: kPrimaryKey,
+                          textColortcolor1: kBlackColor,
+                          textColortcolor2: Colors.white,
+                        ),
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.logOut,
+                      style: Styles.textStyle14.copyWith(
+                        color: kDarktBlue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    )),
+              ],
+            ),
           ),
         ));
   }

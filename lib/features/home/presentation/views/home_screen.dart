@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     IconlyLight.search,
-                    size: 24.dg,
+                    size: 24.r,
                   ),
                   onPressed: () {
                     customJustGoNavigate(
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     IconlyLight.notification,
-                    size: 24.dg,
+                    size: 24.r,
                   ),
                   onPressed: () {
                     customJustGoNavigate(

@@ -28,20 +28,22 @@ class CustomMyCountPriceContainer extends StatelessWidget {
             borderRadius: BorderRadius.circular(5.r),
           ),
         ),
-        Container(
-          height: 78.h,
-          width: 98.w,
-          decoration: BoxDecoration(
-            color: Colors.white, // Background color
-            borderRadius: BorderRadius.circular(5.r),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Text(text, style: Theme.of(context).textTheme.headlineSmall),
-                Text(count, style: Theme.of(context).textTheme.displayLarge),
-              ],
+        IntrinsicHeight(
+          child: Container(
+            height: 78.h,
+            width: 98.w,
+            decoration: BoxDecoration(
+              color: Colors.white, // Background color
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(text, style: Theme.of(context).textTheme.headlineSmall),
+                  Text(count, style: Theme.of(context).textTheme.displayLarge),
+                ],
+              ),
             ),
           ),
         ),

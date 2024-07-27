@@ -17,7 +17,7 @@ class CustomTitleAppBar extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          radius: 20.dg,
+          radius: 20.r,
           child: getIt
                       .get<CashHelperSharedPreferences>()
                       .getData(key: ApiKey.profilePic) !=

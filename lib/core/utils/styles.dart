@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mansa_app/constants.dart';
 
@@ -30,7 +31,7 @@ abstract class Styles {
     color: Colors.white,
   );
   static TextStyle textStyle32Blue = GoogleFonts.almarai(
-    fontSize: 32,
+    fontSize: 32.sp,
     fontWeight: FontWeight.bold,
     color: kPrimaryKey,
   );
@@ -97,10 +98,10 @@ abstract class Styles {
     color: Colors.grey,
   );
   static TextStyle textStyle14Blck = GoogleFonts.almarai(
-      fontSize: 14, fontWeight: FontWeight.normal, color: kBlackColor);
+      fontSize: 14.sp, fontWeight: FontWeight.normal, color: kBlackColor);
 
   static TextStyle textStyle14White = GoogleFonts.almarai(
-      fontSize: 14, fontWeight: FontWeight.normal, color: Colors.white);
+      fontSize: 14.sp, fontWeight: FontWeight.normal, color: Colors.white);
 
   static TextStyle textStyle14 = GoogleFonts.almarai(
       fontSize: 14, fontWeight: FontWeight.normal, color: kDarktBlue);
