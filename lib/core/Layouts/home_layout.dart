@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
 import 'package:mansa_app/core/Layouts/home_layout_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -27,7 +26,7 @@ class _HomeLayoutState extends State<HomeLayout> {
 
           return Scaffold(
             bottomNavigationBar: Container(
-              height: 70.h,
+              //height: 70.h,
               decoration: const BoxDecoration(
                   // border: Border(
                   //   top: BorderSide(

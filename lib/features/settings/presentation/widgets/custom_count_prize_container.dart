@@ -17,7 +17,7 @@ class CustomMyCountPriceContainer extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Container(
-          height: 80.h,
+          height: 100.h,
           width: 100.w,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -30,7 +30,7 @@ class CustomMyCountPriceContainer extends StatelessWidget {
         ),
         IntrinsicHeight(
           child: Container(
-            height: 78.h,
+            height: 98.h,
             width: 98.w,
             decoration: BoxDecoration(
               color: Colors.white, // Background color
