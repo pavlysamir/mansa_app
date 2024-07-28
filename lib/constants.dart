@@ -17,6 +17,7 @@ const k5A5A5A = Color(0xff5A5A5A);
 const k323232 = Color(0xff323232);
 
 const klightBlue = Color(0xff8B8EDA);
+const kMoreLightBlue = Color(0xffE8EBFC);
 const kDarktBlue = Color(0xff2E3191);
 
 const List<Color> buttonGradient = [

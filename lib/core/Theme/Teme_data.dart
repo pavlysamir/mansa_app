@@ -110,7 +110,7 @@ class AppTheme {
         titleLarge: Styles.textStyle24BoldBlack,
         labelLarge: Styles.textStyle16White,
         labelMedium: Styles.textStyle16Black,
-        headlineLarge: Styles.textStyle24Black
+        headlineLarge: Styles.textStyle16Grey
 
         // Text color for light mode
         ),
@@ -158,7 +158,7 @@ class AppTheme {
         titleLarge: Styles.textStyle14White,
         labelLarge: Styles.textStyle16Black,
         labelMedium: Styles.textStyle16White,
-        headlineLarge: Styles.textStyle24Black
+        headlineLarge: Styles.textStyle16White
 
         // Text color for light mode
         ),

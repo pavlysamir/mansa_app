@@ -33,7 +33,7 @@ abstract class Styles {
   static TextStyle textStyle32Blue = GoogleFonts.almarai(
     fontSize: 32.sp,
     fontWeight: FontWeight.bold,
-    color: kPrimaryKey,
+    color: kDarktBlue,
   );
   // static TextStyle? textStyle32Black;
   // void initializeTextStyle32Black() {
@@ -114,6 +114,15 @@ abstract class Styles {
     fontWeight: FontWeight.bold,
     color: kBlackColor,
   );
-  static TextStyle textStyle16White = const TextStyle(
-      fontSize: 16, fontWeight: FontWeight.normal, color: Colors.white);
+  static TextStyle textStyle16White = GoogleFonts.almarai(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  static TextStyle textStyle16Grey = GoogleFonts.almarai(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xff6B6161),
+  );
 }

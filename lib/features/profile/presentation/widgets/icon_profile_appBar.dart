@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IconProfileAppBar extends StatelessWidget {
   const IconProfileAppBar({
@@ -15,19 +16,19 @@ class IconProfileAppBar extends StatelessWidget {
         child: Container(
             width: 100.w,
             decoration: BoxDecoration(
-              color: klightBlue,
+              color: kDarktBlue,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Padding(
-              padding: EdgeInsets.all(5.0),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'edit',
-                    style: TextStyle(color: Colors.white),
+                    AppLocalizations.of(context)!.edit,
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  Icon(Icons.edit, size: 20, color: Colors.white)
+                  const Icon(Icons.edit, size: 20, color: Colors.white)
                 ],
               ),
             )));
