@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
+import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 
 abstract class SettingsRepo {
   Future<Either<String, List<GradesRegistrationModel>>>
@@ -15,4 +17,6 @@ abstract class SettingsRepo {
   Future<Either<String, List<GovernmentDataModel>>> getAllGrantingUniversity();
   Future<Either<String, List<GovernmentDataModel>>> getAllPostgraduateStudy();
   Future<Either<String, List<GovernmentDataModel>>> getAllSpecializationField();
+  Future<Either<String, ProfileSettingModel>> getProfileSettingsData();
+  Future<Either<String, BalanceModel>> getMybalance();
 }

@@ -47,6 +47,10 @@ class EndPoint {
 
   static String resetPassword = "user/reset";
 
+  static String getProfileSetting = "ProfileSetting/GetProfileSetting";
+
+  static String getMyBalance = "ProfileSetting/GetUserBanlance";
+
   static String getUserDataEndPoint(id) {
     return "/User/$id";
   }

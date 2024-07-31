@@ -76,3 +76,23 @@ final class SearchClick extends SettingsState {}
 final class ChangeLanguageSuccess extends SettingsState {}
 
 final class ChangeThemeSuccess extends SettingsState {}
+
+final class GetProfileSettingLoading extends SettingsState {}
+
+final class GetProfileSettingSuccess extends SettingsState {}
+
+final class GetProfileSettingFail extends SettingsState {
+  final String errorMessage;
+
+  GetProfileSettingFail(this.errorMessage);
+}
+
+final class GetMyBalanceLoading extends SettingsState {}
+
+final class GetMyBalanceSuccess extends SettingsState {}
+
+final class GetMyBalanceFail extends SettingsState {
+  final String errorMessage;
+
+  GetMyBalanceFail(this.errorMessage);
+}

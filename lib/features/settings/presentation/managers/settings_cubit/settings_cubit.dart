@@ -13,6 +13,8 @@ import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
+import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
 import 'package:meta/meta.dart';
 import 'package:image/image.dart' as img;
@@ -565,5 +567,47 @@ class SettingsCubit extends Cubit<SettingsState> {
     } else {
       return AppTheme.lightTheme;
     }
+  }
+
+  ProfileSettingModel? profileSetingsData;
+  Future<void> getProfileSettingData() async {
+    emit(GetProfileSettingLoading());
+    final response = await settingsRepo.getProfileSettingsData();
+
+    response.fold(
+      (errMessage) => emit(GetProfileSettingFail(errMessage)),
+      (profileSett) {
+        profileSetingsData = profileSett;
+        nameController.text = profileSetingsData!.responseData!.name;
+        emailController.text = profileSetingsData!.responseData!.email;
+        phoneController.text = profileSetingsData!.responseData!.mobileNo;
+        putYourVisionController.text =
+            profileSetingsData!.responseData!.description ?? '';
+        adressOfficeController.text =
+            profileSetingsData!.responseData!.address ?? '';
+        for (var element
+            in profileSetingsData!.responseData!.specializationFields) {
+          specializationFieldId = element.id;
+          specializationField = element.nameAr;
+        }
+
+        emit(GetProfileSettingSuccess());
+      },
+    );
+  }
+
+  List<ResponseBalanceData>? myBalanceData = [];
+  Future<void> getMyBalanceData() async {
+    emit(GetMyBalanceLoading());
+    final response = await settingsRepo.getMybalance();
+
+    response.fold(
+      (errMessage) => emit(GetMyBalanceFail(errMessage)),
+      (myBalance) {
+        myBalanceData = myBalance.responseData;
+
+        emit(GetMyBalanceSuccess());
+      },
+    );
   }
 }

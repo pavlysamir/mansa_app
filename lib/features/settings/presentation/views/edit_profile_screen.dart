@@ -24,6 +24,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     settingsCubit = SettingsCubit.get(context);
+    settingsCubit!.getProfileSettingData();
   }
 
   @override
@@ -65,7 +66,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       body: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return state is TriggerFunctionLoading
+          return state is TriggerFunctionLoading ||
+                  state is GetProfileSettingLoading
               ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),

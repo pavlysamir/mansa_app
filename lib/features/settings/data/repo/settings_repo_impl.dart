@@ -5,6 +5,8 @@ import 'package:mansa_app/core/errors/exceptions.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
+import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
 
 class SettingsRepoImpl implements SettingsRepo {
@@ -166,6 +168,37 @@ class SettingsRepoImpl implements SettingsRepo {
       }
 
       return Right(allSpecializationField);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, ProfileSettingModel>> getProfileSettingsData() async {
+    try {
+      final response = await api.post(
+        EndPoint.getProfileSetting,
+      );
+      ProfileSettingModel profileSettingsData =
+          ProfileSettingModel.fromJson(response);
+      // Additional processing if needed (e.g., caching, transforming data)
+
+      return Right(profileSettingsData);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, BalanceModel>> getMybalance() async {
+    try {
+      final response = await api.get(
+        EndPoint.getMyBalance,
+      );
+      BalanceModel myBalanceData = BalanceModel.fromJson(response);
+      // Additional processing if needed (e.g., caching, transforming data)
+
+      return Right(myBalanceData);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

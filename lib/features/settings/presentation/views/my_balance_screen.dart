@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/custom_count_prize_container.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/custom_return_point_user_item.dart';
 
-class MyBalanceScreen extends StatelessWidget {
+class MyBalanceScreen extends StatefulWidget {
   const MyBalanceScreen({super.key});
+
+  @override
+  State<MyBalanceScreen> createState() => _MyBalanceScreenState();
+}
+
+class _MyBalanceScreenState extends State<MyBalanceScreen> {
+  SettingsCubit? settingsCubit;
+  @override
+  void initState() {
+    settingsCubit = SettingsCubit.get(context);
+
+    settingsCubit!.getMyBalanceData();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,80 +35,90 @@ class MyBalanceScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.dg),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 24.h,
-              ),
-              Text(AppLocalizations.of(context)!.currentBalance,
-                  style: Theme.of(context).textTheme.labelMedium),
-              SizedBox(
-                height: 18.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomMyCountPriceContainer(
-                    text: AppLocalizations.of(context)!.golden,
-                    count: '10',
-                  ),
-                  CustomMyCountPriceContainer(
-                    text: AppLocalizations.of(context)!.silver,
-                    count: '5',
-                  ),
-                  CustomMyCountPriceContainer(
-                    text: AppLocalizations.of(context)!.bronze,
-                    count: '9',
+      body: BlocConsumer<SettingsCubit, SettingsState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return state is GetMyBalanceLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                      color: kPrimaryKey,
+                    ),
                   )
-                ],
-              ),
-              SizedBox(
-                height: 18.h,
-              ),
-              Text('. مجموعة ذهبية تساوي 200 نقطة ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: kDarktBlue)),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text('. مجموعة ذهبية تساوي 200 نقطة ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: kDarktBlue)),
-              SizedBox(
-                height: 10.h,
-              ),
-              Text('. مجموعة ذهبية تساوي 200 نقطة ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(color: kDarktBlue)),
-              SizedBox(
-                height: 18.h,
-              ),
-              Text(AppLocalizations.of(context)!.collegues,
-                  style: Theme.of(context).textTheme.labelMedium),
-              SizedBox(
-                height: 18.h,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return const CustomReturnPointUserItem();
-                },
-                itemCount: 3,
-              ),
-            ],
-          ),
-        ),
-      ),
+                : SingleChildScrollView(
+                    child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.dg),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 24.h,
+                            ),
+                            Text(AppLocalizations.of(context)!.currentBalance,
+                                style: Theme.of(context).textTheme.labelMedium),
+                            SizedBox(
+                              height: 18.h,
+                            ),
+                            SizedBox(
+                              height: 120.h, // Adjust the height as needed
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const BouncingScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      settingsCubit!.myBalanceData!.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.w),
+                                      child: CustomMyCountPriceContainer(
+                                        balanceData: settingsCubit!
+                                            .myBalanceData![index],
+                                      ),
+                                    );
+                                  }),
+                            ),
+                            SizedBox(
+                              height: 18.h,
+                            ),
+                            Text('. مجموعة ذهبية تساوي 200 نقطة ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(color: kDarktBlue)),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text('. مجموعة ذهبية تساوي 200 نقطة ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(color: kDarktBlue)),
+                            SizedBox(
+                              height: 10.h,
+                            ),
+                            Text('. مجموعة ذهبية تساوي 200 نقطة ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(color: kDarktBlue)),
+                            SizedBox(
+                              height: 18.h,
+                            ),
+                            Text(AppLocalizations.of(context)!.collegues,
+                                style: Theme.of(context).textTheme.labelMedium),
+                            SizedBox(
+                              height: 18.h,
+                            ),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return const CustomReturnPointUserItem();
+                              },
+                              itemCount: 3,
+                            ),
+                          ],
+                        )));
+          }),
     );
   }
 }
