@@ -47,21 +47,27 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const Spacer(),
-                    CircleAvatar(
-                      radius: 30.r,
-                      backgroundColor: Colors.transparent,
-                      child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _counter++;
-                            });
-                          },
-                          icon: const Icon(
-                            size: 23,
-                            Icons.add,
-                            color: kDarktBlue,
-                          )),
-                    ),
+                    _counter == 1
+                        ? CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 30.r,
+                            child:
+                                Icon(size: 23.h, Icons.add, color: Colors.grey))
+                        : CircleAvatar(
+                            radius: 30.r,
+                            backgroundColor: Colors.transparent,
+                            child: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _counter++;
+                                  });
+                                },
+                                icon: const Icon(
+                                  size: 23,
+                                  Icons.add,
+                                  color: kDarktBlue,
+                                )),
+                          ),
                     Text(
                       '$_counter',
                       style: Theme.of(context)
