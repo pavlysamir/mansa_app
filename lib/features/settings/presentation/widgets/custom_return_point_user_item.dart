@@ -4,14 +4,18 @@ import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
+import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
+import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/custom_counter_point.dart';
 
 class CustomReturnPointUserItem extends StatelessWidget {
   const CustomReturnPointUserItem({
     super.key,
+    required this.user,
     //required this.user,
   });
-  //final User user;
+  final GivenUser user;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,8 +65,8 @@ class CustomReturnPointUserItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          // user.name,
-                          'Peter Younis',
+                          user.userData.name,
+                          // 'Peter Younis',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -71,8 +75,8 @@ class CustomReturnPointUserItem extends StatelessWidget {
                               .copyWith(color: kDarktBlue),
                         ),
                         Text(
-                          // user.registrationGrade,
-                          'محامي ابتدائي',
+                          user.userData.registrationGrade,
+                          //'محامي ابتدائي',
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -142,31 +146,89 @@ class CustomReturnPointUserItem extends StatelessWidget {
                     textColor: Colors.white,
                     function: () {
                       showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            PopUpDialogReturnPoints(
                           context: context,
-                          function: () {
-                            Navigator.pop(context);
-                          },
-                          widget: const Column(
-                            children: [
-                              CustomCounterPoint(
-                                text: 'مجموعة ذهبية',
-                              ),
-                              SizedBox(height: 10),
-                              CustomCounterPoint(
-                                text: 'مجموعة فضية',
-                              ),
-                              SizedBox(height: 10),
-                              CustomCounterPoint(
-                                text: 'مجموعة برونزية',
-                              ),
-                              SizedBox(height: 10),
-                            ],
-                          ),
-                        ),
-                      );
+                          builder: (BuildContext context) =>
+                              PopUpDialogReturnPoints(
+                                  context: context,
+                                  function: () {
+                                    Navigator.pop(context);
+                                  },
+                                  widget: SingleChildScrollView(
+                                      child: Column(children: [
+                                    ListView.builder(
+                                        itemCount: user.categories.length,
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              CustomCounterPoint(
+                                                catagoryData:
+                                                    user.categories[index],
+                                              ),
+                                              SizedBox(height: 10.h),
+                                              SizedBox(
+                                                height: 24.h,
+                                              ),
+                                              CustomButtonLarge(
+                                                  text: AppLocalizations.of(
+                                                          context)!
+                                                      .save,
+                                                  textColor: Colors.white,
+                                                  function: () {
+                                                    SettingsCubit.get(context)!
+                                                        .updateGiverCountPoints(
+                                                            lowyerId: user
+                                                                .userData
+                                                                .userId,
+                                                            categoryId: user
+                                                                .categories[
+                                                                    index]
+                                                                .id,
+                                                            points: user
+                                                                .categories[
+                                                                    index]
+                                                                .count);
+                                                  })
+                                            ],
+                                          );
+                                        })
+                                  ])))
+
+                          //     user.categories.map((category) {
+                          //       return Column(
+                          //         children: [
+                          //           CustomCounterPoint(
+                          //             catagoryData: category,
+                          //           ),
+                          //           SizedBox(height: 10.h),
+                          //         ],
+                          //       );
+                          //     }).toList(),
+                          //   ),
+                          // ),
+                          // function2: () {
+                          // },
+                          //  const Column(
+                          //   children: [
+
+                          //     CustomCounterPoint(
+                          //       text: 'مجموعة ذهبية',
+                          //     ),
+                          //     SizedBox(height: 10),
+                          //     CustomCounterPoint(
+                          //       text: 'مجموعة فضية',
+                          //     ),
+                          //     SizedBox(height: 10),
+                          //     CustomCounterPoint(
+                          //       text: 'مجموعة برونزية',
+                          //     ),
+                          //     SizedBox(height: 10),
+                          //   ],
+                          // ),
+
+                          );
                     }),
               )
             ],

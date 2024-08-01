@@ -155,6 +155,7 @@ class PopUpDialogReturnPoints extends StatelessWidget {
   });
   final BuildContext context;
   final Function() function;
+
   final Widget widget;
 
   @override
@@ -181,13 +182,6 @@ class PopUpDialogReturnPoints extends StatelessWidget {
             height: 24.h,
           ),
           widget,
-          SizedBox(
-            height: 24.h,
-          ),
-          CustomButtonLarge(
-              text: AppLocalizations.of(context)!.save,
-              textColor: Colors.white,
-              function: () {})
         ],
       ),
     );

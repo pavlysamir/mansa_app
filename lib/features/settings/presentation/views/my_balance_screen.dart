@@ -22,6 +22,8 @@ class _MyBalanceScreenState extends State<MyBalanceScreen> {
 
     settingsCubit!.getMyBalanceData();
 
+    settingsCubit!.getGivenUserPoints();
+
     super.initState();
   }
 
@@ -103,19 +105,37 @@ class _MyBalanceScreenState extends State<MyBalanceScreen> {
                             SizedBox(
                               height: 18.h,
                             ),
-                            Text(AppLocalizations.of(context)!.collegues,
-                                style: Theme.of(context).textTheme.labelMedium),
-                            SizedBox(
-                              height: 18.h,
+                            const SizedBox(
+                              width: double.infinity,
                             ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return const CustomReturnPointUserItem();
-                              },
-                              itemCount: 3,
-                            ),
+                            settingsCubit!.usersGivenPoints.isEmpty
+                                ? const SizedBox()
+                                : Column(
+                                    children: [
+                                      Text(
+                                          AppLocalizations.of(context)!
+                                              .collegues,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
+                                      SizedBox(
+                                        height: 18.h,
+                                      ),
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemBuilder: (context, index) {
+                                          return CustomReturnPointUserItem(
+                                            user: settingsCubit!
+                                                .usersGivenPoints[index],
+                                          );
+                                        },
+                                        itemCount: settingsCubit!
+                                            .usersGivenPoints.length,
+                                      ),
+                                    ],
+                                  ),
                           ],
                         )));
           }),

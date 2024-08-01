@@ -14,6 +14,7 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
 import 'package:meta/meta.dart';
@@ -607,6 +608,57 @@ class SettingsCubit extends Cubit<SettingsState> {
         myBalanceData = myBalance.responseData;
 
         emit(GetMyBalanceSuccess());
+      },
+    );
+  }
+
+  logOut() async {
+    emit(LogOutLoading());
+    await getIt.get<CashHelperSharedPreferences>().clearData().then((value) {
+      emit(LogOutSuccess());
+    }).catchError((value) {
+      emit(LogOutFail(value.toString()));
+      if (kDebugMode) {
+        print(value);
+      }
+    });
+  }
+
+  GivenUsersResponseModel? givenUsersResponseModel;
+  List<GivenUser> usersGivenPoints = [];
+
+  Future<void> getGivenUserPoints() async {
+    emit(GetUserGivenPointsLoading());
+    final response = await settingsRepo.getGivenUserPoints();
+
+    response.fold(
+      (errMessage) => emit(GetUserGivenPointsFail(errMessage)),
+      (usersGiven) {
+        givenUsersResponseModel = usersGiven;
+        usersGivenPoints = usersGiven.responseData.givenUsers;
+
+        emit(GetUserGivenPointsSuccess());
+      },
+    );
+  }
+
+  updateGiverCountPoints({
+    required num lowyerId,
+    required num categoryId,
+    required num points,
+  }) async {
+    emit(UpdateGiverPointsLoading());
+    final response = await settingsRepo.updateCountPonts(
+      categoryId: categoryId,
+      lowyerId: lowyerId,
+      points: points,
+    );
+    response.fold(
+      (errMessage) {
+        emit(UpdateGiverPointsFail(errMessage));
+      },
+      (response) {
+        emit(UpdateGiverPointsSuccess(response));
       },
     );
   }

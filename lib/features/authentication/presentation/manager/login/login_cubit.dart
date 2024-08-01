@@ -107,4 +107,13 @@ class LoginCubit extends Cubit<LoginState> {
       },
     );
   }
+
+  clearData() {
+    emailController.clear();
+    passwordController.clear();
+    resetPasswordController.clear();
+    verifyOtPhoneController.clear();
+    newPasswordController.clear();
+    confirmNewPasswordController.clear();
+  }
 }

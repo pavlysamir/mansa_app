@@ -96,3 +96,37 @@ final class GetMyBalanceFail extends SettingsState {
 
   GetMyBalanceFail(this.errorMessage);
 }
+
+final class GetUserGivenPointsLoading extends SettingsState {}
+
+final class GetUserGivenPointsSuccess extends SettingsState {}
+
+final class GetUserGivenPointsFail extends SettingsState {
+  final String errorMessage;
+
+  GetUserGivenPointsFail(this.errorMessage);
+}
+
+final class LogOutLoading extends SettingsState {}
+
+final class LogOutSuccess extends SettingsState {}
+
+final class LogOutFail extends SettingsState {
+  final String errorMessage;
+
+  LogOutFail(this.errorMessage);
+}
+
+final class UpdateGiverPointsLoading extends SettingsState {}
+
+final class UpdateGiverPointsSuccess extends SettingsState {
+  final String message;
+
+  UpdateGiverPointsSuccess(this.message);
+}
+
+final class UpdateGiverPointsFail extends SettingsState {
+  final String errorMessage;
+
+  UpdateGiverPointsFail(this.errorMessage);
+}

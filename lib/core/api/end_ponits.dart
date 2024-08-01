@@ -55,6 +55,10 @@ class EndPoint {
 
   static String getProfileDataEndPoint = "Profile/GetProfile";
 
+  static String getUsersGivenPoints = "ProfileSetting/GetUsersGiven";
+
+  static String updateCategoryCount = "ProfileSetting/UpdateCategoryCount";
+
   static String getUserDataEndPoint(id) {
     return "/User/$id";
   }

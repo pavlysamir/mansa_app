@@ -24,6 +24,8 @@ class CustomTitleAppBar extends StatelessWidget {
                   null
               ? ClipOval(
                   child: CachedNetworkImage(
+                      fit: BoxFit.fill,
+                      width: double.infinity,
                       imageUrl: getIt
                           .get<CashHelperSharedPreferences>()
                           .getData(key: ApiKey.profilePic)),

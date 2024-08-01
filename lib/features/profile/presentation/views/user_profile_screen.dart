@@ -60,22 +60,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       function: () {
                         Navigator.pop(context);
                       },
-                      widget: const Column(
-                        children: [
-                          CustomCounterPoint(
-                            text: 'مجموعة ذهبية',
-                          ),
-                          SizedBox(height: 10),
-                          CustomCounterPoint(
-                            text: 'مجموعة فضية',
-                          ),
-                          SizedBox(height: 10),
-                          CustomCounterPoint(
-                            text: 'مجموعة برونزية',
-                          ),
-                          SizedBox(height: 10),
-                        ],
-                      ),
+                      widget: const SizedBox(),
+                      // const Column(
+                      //   children: [
+                      //     CustomCounterPoint(
+                      //       text: 'مجموعة ذهبية',
+                      //     ),
+                      //     SizedBox(height: 10),
+                      //     CustomCounterPoint(
+                      //       text: 'مجموعة فضية',
+                      //     ),
+                      //     SizedBox(height: 10),
+                      //     CustomCounterPoint(
+                      //       text: 'مجموعة برونزية',
+                      //     ),
+                      //     SizedBox(height: 10),
+                      //   ],
+                      // ),
                     ),
                   );
                 },

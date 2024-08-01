@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 
 class CustomCounterPoint extends StatefulWidget {
-  const CustomCounterPoint({super.key, required this.text});
-  final String text;
+  const CustomCounterPoint({super.key, required this.catagoryData});
+  final CategoryData catagoryData;
 
   @override
   State<CustomCounterPoint> createState() => _CustomCounterPointState();
 }
 
 class _CustomCounterPointState extends State<CustomCounterPoint> {
-  int _counter = 0;
+  late num _counter;
+
+  @override
+  void initState() {
+    super.initState();
+    _counter = widget.catagoryData.count;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,7 +51,7 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                 child: Row(
                   children: [
                     Text(
-                      widget.text,
+                      widget.catagoryData.categoryName,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const Spacer(),
@@ -51,22 +59,27 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                         ? CircleAvatar(
                             backgroundColor: Colors.transparent,
                             radius: 30.r,
-                            child:
-                                Icon(size: 23.h, Icons.add, color: Colors.grey))
+                            child: Icon(
+                              size: 23.h,
+                              Icons.add,
+                              color: Colors.grey,
+                            ),
+                          )
                         : CircleAvatar(
                             radius: 30.r,
                             backgroundColor: Colors.transparent,
                             child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _counter++;
-                                  });
-                                },
-                                icon: const Icon(
-                                  size: 23,
-                                  Icons.add,
-                                  color: kDarktBlue,
-                                )),
+                              onPressed: () {
+                                setState(() {
+                                  _counter++;
+                                });
+                              },
+                              icon: const Icon(
+                                size: 23,
+                                Icons.add,
+                                color: kDarktBlue,
+                              ),
+                            ),
                           ),
                     Text(
                       '$_counter',
@@ -80,18 +93,23 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                             backgroundColor: Colors.transparent,
                             radius: 30.r,
                             child: Icon(
-                                size: 23.h, Icons.remove, color: Colors.grey))
+                              size: 23.h,
+                              Icons.remove,
+                              color: Colors.grey,
+                            ),
+                          )
                         : CircleAvatar(
                             radius: 30.r,
                             backgroundColor: Colors.transparent,
                             child: IconButton(
-                                iconSize: 23.h,
-                                onPressed: () {
-                                  setState(() {
-                                    _counter--;
-                                  });
-                                },
-                                icon: const Icon(Icons.remove)),
+                              iconSize: 23.h,
+                              onPressed: () {
+                                setState(() {
+                                  _counter--;
+                                });
+                              },
+                              icon: const Icon(Icons.remove),
+                            ),
                           ),
                   ],
                 ),

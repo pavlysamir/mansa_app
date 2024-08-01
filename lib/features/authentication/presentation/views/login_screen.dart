@@ -20,6 +20,7 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
+          LoginCubit.get(context)!.clearData();
           customGoAndDeleteNavigate(
               context: context, path: AppRouter.kHomeLayout);
         }
@@ -102,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                   Center(
                       child: TextButton(
                     onPressed: () {
-                     customGoAndDeleteNavigate(
+                      customGoAndDeleteNavigate(
                           context: context, path: AppRouter.kVerifyPhoneScreen);
                     },
                     child: Text(

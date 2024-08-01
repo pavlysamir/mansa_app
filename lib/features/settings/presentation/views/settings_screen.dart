@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
@@ -174,36 +175,47 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20.h),
-                TextButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => PopUpDialog(
-                          function2: () {
-                            Navigator.pop(context);
-                          },
-                          context: context,
-                          function: () {
-                            //SettingsCubit.get(context).changeLanguage();
-                            Navigator.pop(context);
-                          },
-                          title: AppLocalizations.of(context)!.doUWantToLogOut,
-                          subTitle: '',
-                          img: AssetsData.logOut,
-                          colorButton1: Colors.white,
-                          colorButton2: kPrimaryKey,
-                          textColortcolor1: kBlackColor,
-                          textColortcolor2: Colors.white,
-                        ),
-                      );
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.logOut,
-                      style: Styles.textStyle14.copyWith(
-                        color: kDarktBlue,
-                        decoration: TextDecoration.underline,
-                      ),
-                    )),
+                BlocConsumer<SettingsCubit, SettingsState>(
+                  listener: (context, state) {
+                    if (state is LogOutSuccess) {
+                      customGoAndDeleteNavigate(
+                          context: context, path: AppRouter.kLoginScreen);
+                    }
+                  },
+                  builder: (context, state) {
+                    return TextButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => PopUpDialog(
+                              function2: () {
+                                Navigator.pop(context);
+                              },
+                              context: context,
+                              function: () {
+                                SettingsCubit.get(context)!.logOut();
+                                Navigator.pop(context);
+                              },
+                              title:
+                                  AppLocalizations.of(context)!.doUWantToLogOut,
+                              subTitle: '',
+                              img: AssetsData.logOut,
+                              colorButton1: Colors.white,
+                              colorButton2: kPrimaryKey,
+                              textColortcolor1: kBlackColor,
+                              textColortcolor2: Colors.white,
+                            ),
+                          );
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.logOut,
+                          style: Styles.textStyle14.copyWith(
+                            color: kDarktBlue,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ));
+                  },
+                ),
               ],
             ),
           ),
