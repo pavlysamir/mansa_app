@@ -51,6 +51,10 @@ class EndPoint {
 
   static String getMyBalance = "ProfileSetting/GetUserBanlance";
 
+  static String deleteAccount = "ProfileSetting/DeleteUserById";
+
+  static String getProfileDataEndPoint = "Profile/GetProfile";
+
   static String getUserDataEndPoint(id) {
     return "/User/$id";
   }
@@ -84,6 +88,8 @@ class ApiKey {
   static String email = "email";
   static String password = "password";
   static String mobNumber = "mobileNumber";
+  static String specialization = "specialization";
+
   static String otp = "OTP";
   static String newForgetPassword = "newPass";
   static String token = "token";
@@ -91,6 +97,8 @@ class ApiKey {
   static String id = "id";
   static String firstName = "firstName";
   static String userName = "userName";
+
+  static String address = "address";
 
   static String kedId = "kedId";
   static String keNumber = "kedNumber";

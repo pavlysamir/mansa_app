@@ -19,4 +19,5 @@ abstract class SettingsRepo {
   Future<Either<String, List<GovernmentDataModel>>> getAllSpecializationField();
   Future<Either<String, ProfileSettingModel>> getProfileSettingsData();
   Future<Either<String, BalanceModel>> getMybalance();
+  Future<Either<String, String>> deleteAccount();
 }

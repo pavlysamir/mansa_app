@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
@@ -199,6 +201,20 @@ class SettingsRepoImpl implements SettingsRepo {
       // Additional processing if needed (e.g., caching, transforming data)
 
       return Right(myBalanceData);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> deleteAccount() async {
+    try {
+      final response = await api.get(EndPoint.deleteAccount, queryParameters: {
+        'userId':
+            getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id)
+      });
+
+      return Right(response['message']);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

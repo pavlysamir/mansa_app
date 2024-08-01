@@ -9,6 +9,7 @@ import 'package:mansa_app/features/authentication/presentation/manager/login/log
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
 import 'package:mansa_app/features/home/data/home_repo/home_repo_impl.dart';
 import 'package:mansa_app/features/home/presentation/managers/home_cubit/home_cubit.dart';
+import 'package:mansa_app/features/profile/data/repo/profile_repo_impl.dart';
 import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_cubit.dart';
 import 'package:mansa_app/features/search/data/repo/search_repo_impl.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
@@ -42,7 +43,9 @@ class MansaApp extends StatelessWidget {
           create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>())
             ..triggerGetFunctions(),
         ),
-        BlocProvider(create: (context) => ProfileCubit())
+        BlocProvider(
+            create: (context) =>
+                ProfileCubit(getIt.get<ProfileRepoImpl>()..getProfileData()))
       ],
       child: ScreenUtilInit(
         designSize: const Size(390, 844),

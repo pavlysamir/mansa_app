@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
+import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_olders.dart';
 import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_cubit.dart';
 import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_cointaner.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mansa_app/features/settings/presentation/widgets/custom_counter_point.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -50,7 +52,33 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               padding: const EdgeInsets.all(16.0),
               child: CustomButtonLarge(
                 text: AppLocalizations.of(context)!.supportWithGroubs,
-                function: () {},
+                function: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => PopUpDialogReturnPoints(
+                      context: context,
+                      function: () {
+                        Navigator.pop(context);
+                      },
+                      widget: const Column(
+                        children: [
+                          CustomCounterPoint(
+                            text: 'مجموعة ذهبية',
+                          ),
+                          SizedBox(height: 10),
+                          CustomCounterPoint(
+                            text: 'مجموعة فضية',
+                          ),
+                          SizedBox(height: 10),
+                          CustomCounterPoint(
+                            text: 'مجموعة برونزية',
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                  );
+                },
                 textColor: Colors.white,
               ),
             ),
