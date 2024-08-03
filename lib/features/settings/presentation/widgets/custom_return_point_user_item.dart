@@ -12,7 +12,6 @@ class CustomReturnPointUserItem extends StatelessWidget {
   const CustomReturnPointUserItem({
     super.key,
     required this.user,
-    //required this.user,
   });
   final GivenUser user;
 
@@ -21,7 +20,6 @@ class CustomReturnPointUserItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Container(
-        // height: 121.h,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           border: Border.all(color: Colors.white),
@@ -42,22 +40,8 @@ class CustomReturnPointUserItem extends StatelessWidget {
               Row(
                 children: [
                   CircleAvatar(
-                    radius: 20.dg,
-                    child:
-                        // user.picture != null &&
-                        //         user.picture!.fileTypeName == 'Profile Picture'
-                        //     ?
-                        // CachedNetworkImage(
-                        //     width: double.infinity,
-                        //     fit: BoxFit.fitHeight,
-                        //     imageUrl: '$profilePic${user.picture!.url}',
-                        //     placeholder: (context, url) => const Center(
-                        //             child: CircularProgressIndicator(
-                        //           color: kPrimaryKey,
-                        //           strokeWidth: 1,
-                        //         )))
-                        // :
-                        const Icon(Icons.person),
+                    radius: 20.r,
+                    child: const Icon(Icons.person),
                   ),
                   SizedBox(width: 12.w),
                   Expanded(
@@ -66,7 +50,6 @@ class CustomReturnPointUserItem extends StatelessWidget {
                       children: [
                         Text(
                           user.userData.name,
-                          // 'Peter Younis',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
@@ -76,7 +59,6 @@ class CustomReturnPointUserItem extends StatelessWidget {
                         ),
                         Text(
                           user.userData.registrationGrade,
-                          //'محامي ابتدائي',
                           style: Theme.of(context)
                               .textTheme
                               .headlineMedium!
@@ -85,150 +67,52 @@ class CustomReturnPointUserItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Row(
-                  //   children: [
-                  //     if (user.availableWork.length > 0)
-                  //       Container(
-                  //         padding: const EdgeInsets.all(6),
-                  //         decoration: BoxDecoration(
-                  //           color: user.availableWork[0] == 'متاح للعمل'
-                  //               ? Colors.green
-                  //               : user.availableWork[0] == 'متاح لانجاز مهمة'
-                  //                   ? kPrimaryKey
-                  //                   : user.availableWork[0] == 'مطلوب للعمل '
-                  //                       ? Colors.red
-                  //                       : kDarktBlue,
-                  //           borderRadius: BorderRadius.circular(10),
-                  //         ),
-                  //         child: Text(
-                  //           user.availableWork[0] ?? '',
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .titleSmall!
-                  //               .copyWith(
-                  //                 color: Colors.white,
-                  //               ),
-                  //         ),
-                  //       ),
-                  //     SizedBox(width: 5.w),
-                  //     if (user.availableWork.length > 1)
-                  //       Container(
-                  //         padding: const EdgeInsets.all(6),
-                  //         decoration: BoxDecoration(
-                  //           color: user.availableWork[0] == 'متاح للعمل'
-                  //               ? Colors.green
-                  //               : user.availableWork[0] == 'متاح لانجاز مهمة'
-                  //                   ? kPrimaryKey
-                  //                   : user.availableWork[0] == 'مطلوب للعمل '
-                  //                       ? Colors.red
-                  //                       : kDarktBlue,
-                  //           borderRadius: BorderRadius.circular(10),
-                  //         ),
-                  //         child: Text(
-                  //           user.availableWork[0] ?? '',
-                  //           style: Theme.of(context)
-                  //               .textTheme
-                  //               .titleSmall!
-                  //               .copyWith(color: Colors.white),
-                  //         ),
-                  //       ),
-                  //   ],
-                  // )
                 ],
               ),
               SizedBox(height: 10.h),
               const Divider(),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 20.dg, vertical: 10.dg),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: CustomButtonLarge(
                     text: AppLocalizations.of(context)!.returnGroubs,
                     textColor: Colors.white,
                     function: () {
                       showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            PopUpDialogReturnPoints(
                           context: context,
-                          builder: (BuildContext context) =>
-                              PopUpDialogReturnPoints(
-                                  context: context,
-                                  function: () {
-                                    Navigator.pop(context);
-                                  },
-                                  widget: SingleChildScrollView(
-                                      child: Column(children: [
-                                    ListView.builder(
-                                        itemCount: user.categories.length,
-                                        shrinkWrap: true,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            children: [
-                                              CustomCounterPoint(
-                                                catagoryData:
-                                                    user.categories[index],
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              SizedBox(
-                                                height: 24.h,
-                                              ),
-                                              CustomButtonLarge(
-                                                  text: AppLocalizations.of(
-                                                          context)!
-                                                      .save,
-                                                  textColor: Colors.white,
-                                                  function: () {
-                                                    SettingsCubit.get(context)!
-                                                        .updateGiverCountPoints(
-                                                            lowyerId: user
-                                                                .userData
-                                                                .userId,
-                                                            categoryId: user
-                                                                .categories[
-                                                                    index]
-                                                                .id,
-                                                            points: user
-                                                                .categories[
-                                                                    index]
-                                                                .count);
-                                                  })
-                                            ],
-                                          );
-                                        })
-                                  ])))
-
-                          //     user.categories.map((category) {
-                          //       return Column(
-                          //         children: [
-                          //           CustomCounterPoint(
-                          //             catagoryData: category,
-                          //           ),
-                          //           SizedBox(height: 10.h),
-                          //         ],
-                          //       );
-                          //     }).toList(),
-                          //   ),
-                          // ),
-                          // function2: () {
-                          // },
-                          //  const Column(
-                          //   children: [
-
-                          //     CustomCounterPoint(
-                          //       text: 'مجموعة ذهبية',
-                          //     ),
-                          //     SizedBox(height: 10),
-                          //     CustomCounterPoint(
-                          //       text: 'مجموعة فضية',
-                          //     ),
-                          //     SizedBox(height: 10),
-                          //     CustomCounterPoint(
-                          //       text: 'مجموعة برونزية',
-                          //     ),
-                          //     SizedBox(height: 10),
-                          //   ],
-                          // ),
-
-                          );
+                          function: () {
+                            Navigator.pop(context);
+                          },
+                          widget: ListView.builder(
+                            itemCount: user.categories.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  CustomCounterPoint(
+                                    catagoryData: user.categories[index],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  CustomButtonLarge(
+                                    text: AppLocalizations.of(context)!.save,
+                                    textColor: Colors.white,
+                                    function: () {
+                                      SettingsCubit.get(context)!
+                                          .updateGiverCountPoints(
+                                        lowyerId: user.userData.userId,
+                                        categoryId: user.categories[index].id,
+                                        points: user.categories[index].count,
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      );
                     }),
               )
             ],

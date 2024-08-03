@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
-import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_small.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -155,7 +154,6 @@ class PopUpDialogReturnPoints extends StatelessWidget {
   });
   final BuildContext context;
   final Function() function;
-
   final Widget widget;
 
   @override
@@ -164,25 +162,27 @@ class PopUpDialogReturnPoints extends StatelessWidget {
       backgroundColor: Theme.of(context).cardColor,
       alignment: Alignment.center,
       actionsAlignment: MainAxisAlignment.center,
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
                 onPressed: function,
                 icon: const Icon(
                   IconlyLight.close_square,
                   color: kPrimaryKey,
-                )),
-          ),
-          Image.asset(AssetsData.notes),
-          SizedBox(
-            height: 24.h,
-          ),
-          widget,
-        ],
+                ),
+              ),
+            ),
+            Image.asset(AssetsData.notes),
+            SizedBox(height: 24.h),
+            widget,
+          ],
+        ),
       ),
     );
   }
