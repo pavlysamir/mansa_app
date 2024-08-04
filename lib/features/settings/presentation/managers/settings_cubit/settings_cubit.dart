@@ -642,16 +642,16 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  updateGiverCountPoints({
+  List<Map> updateCount = [];
+
+  Future<void> updateGiverCountPoints({
     required num lowyerId,
-    required num categoryId,
-    required num points,
   }) async {
     emit(UpdateGiverPointsLoading());
+
     final response = await settingsRepo.updateCountPonts(
-      categoryId: categoryId,
       lowyerId: lowyerId,
-      points: points,
+      data: updateCount,
     );
     response.fold(
       (errMessage) {

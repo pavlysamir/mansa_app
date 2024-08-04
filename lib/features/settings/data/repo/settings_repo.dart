@@ -21,11 +21,8 @@ abstract class SettingsRepo {
   Future<Either<String, ProfileSettingModel>> getProfileSettingsData();
   Future<Either<String, BalanceModel>> getMybalance();
   Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints();
-  Future<Either<String, String>> updateCountPonts({
-    required num lowyerId,
-    required num categoryId,
-    required num points,
-  });
+  Future<Either<String, String>> updateCountPonts(
+      {required num lowyerId, required List<Map> data});
 
   Future<Either<String, String>> deleteAccount();
 }

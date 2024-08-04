@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
@@ -71,49 +72,78 @@ class CustomReturnPointUserItem extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               const Divider(),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                child: CustomButtonLarge(
-                    text: AppLocalizations.of(context)!.returnGroubs,
-                    textColor: Colors.white,
-                    function: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) =>
-                            PopUpDialogReturnPoints(
-                          context: context,
-                          function: () {
-                            Navigator.pop(context);
-                          },
-                          widget: ListView.builder(
-                            itemCount: user.categories.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Column(
+              BlocBuilder<SettingsCubit, SettingsState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    child: CustomButtonLarge(
+                        text: AppLocalizations.of(context)!.returnGroubs,
+                        textColor: Colors.white,
+                        function: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                PopUpDialogReturnPoints(
+                              context: context,
+                              function: () {
+                                Navigator.pop(context);
+                              },
+                              widget: Column(
                                 children: [
-                                  CustomCounterPoint(
-                                    catagoryData: user.categories[index],
-                                  ),
-                                  SizedBox(height: 10.h),
-                                  CustomButtonLarge(
-                                    text: AppLocalizations.of(context)!.save,
-                                    textColor: Colors.white,
-                                    function: () {
-                                      SettingsCubit.get(context)!
-                                          .updateGiverCountPoints(
-                                        lowyerId: user.userData.userId,
-                                        categoryId: user.categories[index].id,
-                                        points: user.categories[index].count,
+                                  ListView.builder(
+                                    itemCount: user.categories.length,
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      return Column(
+                                        children: [
+                                          CustomCounterPoint(
+                                            catagoryData:
+                                                user.categories[index],
+                                          ),
+                                          SizedBox(height: 10.h),
+                                        ],
                                       );
                                     },
                                   ),
+                                  state is UpdateGiverPointsLoading
+                                      ? const Center(
+                                          child: CircularProgressIndicator(
+                                            backgroundColor: kPrimaryKey,
+                                          ),
+                                        )
+                                      : CustomButtonLarge(
+                                          text: AppLocalizations.of(context)!
+                                              .save,
+                                          textColor: Colors.white,
+                                          function: () {
+                                            if (SettingsCubit.get(context)!
+                                                    .updateCount !=
+                                                []) {
+                                              SettingsCubit.get(context)!
+                                                  .updateGiverCountPoints(
+                                                lowyerId: user.userData.userId,
+                                              )
+                                                  .then((value) {
+                                                SettingsCubit.get(context)!
+                                                    .getMyBalanceData();
+
+                                                SettingsCubit.get(context)!
+                                                    .getGivenUserPoints();
+                                                Navigator.pop(context);
+                                              });
+                                            } else {
+                                              return;
+                                            }
+                                          })
                                 ],
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    }),
+                              ),
+                              function2: () {},
+                            ),
+                          );
+                        }),
+                  );
+                },
               )
             ],
           ),

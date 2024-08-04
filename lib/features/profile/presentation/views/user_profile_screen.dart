@@ -60,7 +60,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       function: () {
                         Navigator.pop(context);
                       },
-                      widget: const SizedBox(),
+                      widget: const SizedBox(), function2: () {},
                       // const Column(
                       //   children: [
                       //     CustomCounterPoint(

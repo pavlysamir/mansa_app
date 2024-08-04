@@ -238,18 +238,11 @@ class SettingsRepoImpl implements SettingsRepo {
   }
 
   @override
-  Future<Either<String, String>> updateCountPonts({
-    required num lowyerId,
-    required num categoryId,
-    required num points,
-  }) async {
+  Future<Either<String, String>> updateCountPonts(
+      {required num lowyerId, required List<Map> data}) async {
     try {
-      final response = await api.put(EndPoint.updateCategoryCount, data: {
-        "toLawyerId": lowyerId,
-        "categories": [
-          {"categoryId": categoryId, "newCount": points}
-        ]
-      });
+      final response = await api.put(EndPoint.updateCategoryCount,
+          data: {"toLawyerId": lowyerId, "categories": data});
 
       return Right(response['message']);
     } on ServerException catch (e) {

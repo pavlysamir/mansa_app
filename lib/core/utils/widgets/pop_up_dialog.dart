@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
+import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_small.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -151,10 +152,12 @@ class PopUpDialogReturnPoints extends StatelessWidget {
     required this.context,
     required this.function,
     required this.widget,
+    required this.function2,
   });
   final BuildContext context;
   final Function() function;
   final Widget widget;
+  final Function() function2;
 
   @override
   Widget build(BuildContext context) {
