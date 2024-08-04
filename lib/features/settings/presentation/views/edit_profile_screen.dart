@@ -32,6 +32,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // TODO: implement dispose
 
     settingsCubit!.clearData();
+    settingsCubit!.file == null;
     super.dispose();
   }
 

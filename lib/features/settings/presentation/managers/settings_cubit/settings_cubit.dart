@@ -588,8 +588,8 @@ class SettingsCubit extends Cubit<SettingsState> {
             profileSetingsData!.responseData!.address ?? '';
         for (var element
             in profileSetingsData!.responseData!.specializationFields) {
-          specializationFieldId = element.id;
-          specializationField = element.nameAr;
+          specializationFieldId = element.specializationFieldId;
+          specializationField = element.name;
         }
 
         emit(GetProfileSettingSuccess());
