@@ -13,3 +13,12 @@ final class GetProfileDataFail extends ProfileState {
 }
 
 final class GetProfileDataLoading extends ProfileState {}
+
+final class GetGiverCategoriesCountSuccess extends ProfileState {}
+
+final class GetGiverCategoriesCountFail extends ProfileState {
+  final String errMessage;
+  GetGiverCategoriesCountFail(this.errMessage);
+}
+
+final class GetGiverCategoriesCountLoading extends ProfileState {}

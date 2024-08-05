@@ -20,9 +20,9 @@ class LoginScreen extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccess) {
-          LoginCubit.get(context)!.clearData();
           customGoAndDeleteNavigate(
               context: context, path: AppRouter.kHomeLayout);
+          LoginCubit.get(context)!.clearData();
         }
         if (state is LoginFailure) {
           ScaffoldMessenger.of(context).showSnackBar(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
-import 'package:mansa_app/core/Assets/assets.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
@@ -14,8 +13,23 @@ import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_
 import 'package:mansa_app/features/profile/presentation/widgets/icon_profile_appBar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  ProfileCubit? profileCubit;
+  @override
+  void initState() {
+    profileCubit = ProfileCubit.get(context);
+
+    profileCubit!.getProfileData();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,31 +101,47 @@ class ProfileScreen extends StatelessWidget {
                           height: 8.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.h),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              CustomMedalGroubsContainer(
-                                img: AssetsData.goldenMedal,
-                                text:
-                                    AppLocalizations.of(context)!.goldenGroubs,
-                                count: '0',
-                              ),
-                              CustomMedalGroubsContainer(
-                                img: AssetsData.silverMedal,
-                                text:
-                                    AppLocalizations.of(context)!.silverGroubs,
-                                count: '0',
-                              ),
-                              CustomMedalGroubsContainer(
-                                img: AssetsData.bronzeMedal,
-                                text:
-                                    AppLocalizations.of(context)!.bronzeGroubs,
-                                count: '0',
-                              ),
-                            ],
-                          ),
-                        ),
+                            padding: EdgeInsets.symmetric(horizontal: 16.h),
+                            child: SizedBox(
+                              height: 120.h,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: profileCubit!.giverCategoriesCount!
+                                      .responseData.length,
+                                  itemBuilder: (context, index) {
+                                    return CustomMedalGroubsContainer(
+                                      img: profileCubit!.medalImages[index],
+                                      category:
+                                          profileCubit!.categoryData[index],
+                                    );
+                                  }),
+                            )
+                            //  Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     CustomMedalGroubsContainer(
+                            //       img: AssetsData.goldenMedal,
+                            //       text:
+                            //           AppLocalizations.of(context)!.goldenGroubs,
+                            //       count: '0',
+                            //     ),
+                            //     CustomMedalGroubsContainer(
+                            //       img: AssetsData.silverMedal,
+                            //       text:
+                            //           AppLocalizations.of(context)!.silverGroubs,
+                            //       count: '0',
+                            //     ),
+                            //     CustomMedalGroubsContainer(
+                            //       img: AssetsData.bronzeMedal,
+                            //       text:
+                            //           AppLocalizations.of(context)!.bronzeGroubs,
+                            //       count: '0',
+                            //     ),
+                            //   ],
+                            // ),
+                            ),
                         SizedBox(
                           height: 24.h,
                         ),
