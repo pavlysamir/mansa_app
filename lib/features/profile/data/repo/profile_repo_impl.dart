@@ -4,6 +4,7 @@ import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
 import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
+import 'package:mansa_app/features/home/data/models/user_sorted.dart';
 import 'package:mansa_app/features/profile/data/models/get_given_catagories_count_model.dart';
 import 'package:mansa_app/features/profile/data/models/profile_data_model.dart';
 import 'package:mansa_app/features/profile/data/repo/profile_repo.dart';
@@ -66,6 +67,19 @@ class ProfileRepoImpl implements ProfileRepo {
           GetGivenCatagoriesCountModel.fromJson(response);
 
       return Right(categorisCount);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, UserSortedModel>> getCurrentUserSorted() async {
+    try {
+      final response = await api.post(
+        EndPoint.getCurrentUserSorted,
+      );
+
+      return Right(UserSortedModel.fromJson(response['data']));
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

@@ -22,3 +22,12 @@ final class GetGiverCategoriesCountFail extends ProfileState {
 }
 
 final class GetGiverCategoriesCountLoading extends ProfileState {}
+
+final class GetCurrentUserSortedLoading extends ProfileState {}
+
+final class GetCurrentUserSortedSuccess extends ProfileState {}
+
+final class GetCurrentUserSortedFailure extends ProfileState {
+  final String message;
+  GetCurrentUserSortedFailure({required this.message});
+}

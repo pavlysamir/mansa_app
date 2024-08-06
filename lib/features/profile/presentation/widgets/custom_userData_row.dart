@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 
 class CustomUserdataRow extends StatelessWidget {
-  const CustomUserdataRow({super.key, required this.text, required this.img});
+  const CustomUserdataRow(
+      {super.key, required this.text, required this.img, this.isNull = false});
 
   final String text;
   final String img;
+  final bool isNull;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CustomUserdataRow extends StatelessWidget {
               text,
               style: Theme.of(context).textTheme.labelMedium!.copyWith(
                     fontWeight: FontWeight.w400,
-                    color: kBlackColor,
+                    color: isNull ? Colors.grey : kBlackColor,
                   ),
             )
           ],

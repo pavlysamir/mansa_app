@@ -20,26 +20,49 @@ class CustomUserdataCointaner extends StatelessWidget {
             child: Column(
               children: [
                 CustomUserdataRow(
+                    isNull: myProfileData.profileData.barAssociationsId == 0
+                        ? true
+                        : false,
                     img: AssetsData.nkaba,
-                    text: ProfileCubit.get(context)!.getNkabaName(
-                        myProfileData.profileData.barAssociationsId)),
+                    text: myProfileData.profileData.barAssociationsId == 0
+                        ? 'النقابة'
+                        : ProfileCubit.get(context)!.getNkabaName(
+                            myProfileData.profileData.barAssociationsId)),
                 CustomUserdataRow(
+                  isNull: myProfileData.profileData.generalLawBachelorId == 0
+                      ? true
+                      : false,
                   img: AssetsData.mizan,
-                  text: ProfileCubit.get(context)!.getBacaloryName(
-                      myProfileData.profileData.generalLawBachelorId),
+                  text: myProfileData.profileData.generalLawBachelorId == 0
+                      ? 'ليسانس حقوق عام '
+                      : ProfileCubit.get(context)!.getBacaloryName(
+                          myProfileData.profileData.generalLawBachelorId),
                 ),
                 CustomUserdataRow(
+                  isNull:
+                      myProfileData.profileData.address == '' ? true : false,
                   img: AssetsData.address,
-                  text: myProfileData.profileData.address,
+                  text: myProfileData.profileData.address == ''
+                      ? 'عنوان  '
+                      : myProfileData.profileData.address,
                 ),
                 CustomUserdataRow(
+                  isNull: myProfileData.profileData.specializationFields == 0
+                      ? true
+                      : false,
                   img: AssetsData.kady,
-                  text: ProfileCubit.get(context)!.getSpacializationName(
-                      myProfileData.profileData.specializationFields),
+                  text: myProfileData.profileData.specializationFields == 0
+                      ? 'التخصص'
+                      : ProfileCubit.get(context)!.getSpacializationName(
+                          myProfileData.profileData.specializationFields),
                 ),
                 CustomUserdataRow(
+                  isNull:
+                      myProfileData.profileData.mobileNo == '' ? true : false,
                   img: AssetsData.call,
-                  text: myProfileData.profileData.mobileNo,
+                  text: myProfileData.profileData.mobileNo == ''
+                      ? 'الجوال'
+                      : myProfileData.profileData.mobileNo,
                 ),
               ],
             ),

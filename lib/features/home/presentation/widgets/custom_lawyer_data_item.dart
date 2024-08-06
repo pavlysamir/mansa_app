@@ -18,7 +18,9 @@ class CustomLowyerDataItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const UserProfileScreen();
+            return UserProfileScreen(
+              user: user,
+            );
           }));
         },
         child: Container(

@@ -23,45 +23,33 @@ class CircularProfileImage extends StatelessWidget {
             alignment: AlignmentDirectional.bottomEnd,
             children: [
               ClipOval(
-                child:
-
-                    //   ClipOval(
-                    //     child: CachedNetworkImage(
-                    //         fit: BoxFit.fill,
-                    //         width: double.infinity,
-                    //         imageUrl: getIt
-                    //             .get<CashHelperSharedPreferences>()
-                    //             .getData(key: ApiKey.profilePic)),
-                    //   )
-                    // : const Icon(Icons.person),
-
-                    CircleAvatar(
-                        radius: 75.h,
-                        backgroundColor: kBlackColor,
-                        child: SettingsCubit.get(context)!.file != null
-                            ? Image.file(
-                                SettingsCubit.get(context)!.file!,
-                                fit: BoxFit.fill,
-                                width: double.infinity,
-                                height: double.infinity,
-                              )
-                            : getIt
+                child: CircleAvatar(
+                    radius: 75.h,
+                    backgroundColor: kBlackColor,
+                    child: SettingsCubit.get(context)!.file != null
+                        ? Image.file(
+                            SettingsCubit.get(context)!.file!,
+                            fit: BoxFit.fill,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
+                        : getIt
+                                    .get<CashHelperSharedPreferences>()
+                                    .getData(key: ApiKey.profilePic) !=
+                                null
+                            ? ClipOval(
+                                child: CachedNetworkImage(
+                                    fit: BoxFit.fill,
+                                    width: double.infinity,
+                                    imageUrl: getIt
                                         .get<CashHelperSharedPreferences>()
-                                        .getData(key: ApiKey.profilePic) !=
-                                    null
-                                ? ClipOval(
-                                    child: CachedNetworkImage(
-                                        fit: BoxFit.fill,
-                                        width: double.infinity,
-                                        imageUrl: getIt
-                                            .get<CashHelperSharedPreferences>()
-                                            .getData(key: ApiKey.profilePic)),
-                                  )
-                                : Icon(
-                                    Icons.person,
-                                    size: 75.h,
-                                    color: Colors.white,
-                                  )),
+                                        .getData(key: ApiKey.profilePic)),
+                              )
+                            : Icon(
+                                Icons.person,
+                                size: 75.h,
+                                color: Colors.white,
+                              )),
               ),
               IconButton(
                 onPressed: () {

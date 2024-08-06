@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,25 +59,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
+                          radius: 50.h,
                           backgroundColor: kBlackColor,
-                          radius: 50.r,
-                          child: ClipOval(
-                            child: Icon(
-                              Icons.person,
-                              size: 80.r,
-                              color: Colors.white,
-                            ),
-
-                            //  CachedNetworkImage(
-                            //   width: double.infinity,
-                            //   fit: BoxFit.fitHeight,
-                            //   imageUrl: userModel!.image!,
-                            //   placeholder: (context, url) => const Center(
-                            //     child: CircularProgressIndicator(
-                            //         color: kPrimaryKey, strokeWidth: 1),
-                            //   ),
-                            // ),
-                          ),
+                          child: profileCubit!.myProfileData!.responseData
+                                      .profileData.picture !=
+                                  null
+                              ? ClipOval(
+                                  child: CachedNetworkImage(
+                                      fit: BoxFit.fill,
+                                      width: double.infinity,
+                                      imageUrl: profileCubit!
+                                          .myProfileData!
+                                          .responseData
+                                          .profileData
+                                          .picture!
+                                          .url),
+                                )
+                              : Icon(
+                                  Icons.person,
+                                  size: 50.h,
+                                  color: Colors.white,
+                                ),
                         ),
                         SizedBox(
                           height: 13.h,
@@ -100,119 +103,145 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           height: 8.h,
                         ),
-                        Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.h),
-                            child: SizedBox(
-                              height: 120.h,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: profileCubit!.giverCategoriesCount!
-                                      .responseData.length,
-                                  itemBuilder: (context, index) {
-                                    return CustomMedalGroubsContainer(
-                                      img: profileCubit!.medalImages[index],
-                                      category:
-                                          profileCubit!.categoryData[index],
-                                    );
-                                  }),
-                            )),
+                        profileCubit!.categoryData.isEmpty
+                            ? const SizedBox()
+                            : Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.h),
+                                child: SizedBox(
+                                  height: 120.h,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: profileCubit!
+                                          .giverCategoriesCount!
+                                          .responseData
+                                          .length,
+                                      itemBuilder: (context, index) {
+                                        return CustomMedalGroubsContainer(
+                                          img: profileCubit!.medalImages[index],
+                                          category:
+                                              profileCubit!.categoryData[index],
+                                        );
+                                      }),
+                                )),
                         SizedBox(
                           height: 24.h,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.h),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.h,
+                          ),
                           child: const Divider(),
                         ),
                         SizedBox(
                           height: 10.h,
                         ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            // physics: const NeverScrollableScrollPhysics(),
-                            // scrollDirection: Axis.horizontal,
-                            itemCount: profileCubit!.myProfileData!.responseData
-                                .profileData.availableWorks.length,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                height: 30.h,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 16.h),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                          color: profileCubit!
-                                                      .myProfileData!
-                                                      .responseData
-                                                      .profileData
-                                                      .availableWorks[index]
-                                                      .name ==
-                                                  'متاح للعمل'
-                                              ? Colors.green
-                                              : profileCubit!
-                                                          .myProfileData!
-                                                          .responseData
-                                                          .profileData
-                                                          .availableWorks[index]
-                                                          .name ==
-                                                      'متاح لانجاز مهمة'
-                                                  ? kPrimaryKey
-                                                  : profileCubit!
+                        profileCubit!.myProfileData!.responseData.profileData
+                                    .availableWorks ==
+                                []
+                            ? const SizedBox()
+                            : ListView.builder(
+                                shrinkWrap: true,
+                                // physics: const NeverScrollableScrollPhysics(),
+                                // scrollDirection: Axis.horizontal,
+                                itemCount: profileCubit!
+                                    .myProfileData!
+                                    .responseData
+                                    .profileData
+                                    .availableWorks
+                                    .length,
+                                itemBuilder: (context, index) {
+                                  return SizedBox(
+                                    height: 40.h,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.h),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(6),
+                                                decoration: BoxDecoration(
+                                                  color: profileCubit!
                                                               .myProfileData!
                                                               .responseData
                                                               .profileData
                                                               .availableWorks[
                                                                   index]
                                                               .name ==
-                                                          'مطلوب للعمل '
-                                                      ? Colors.red
-                                                      : kDarktBlue,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Text(
-                                          //user.availableWork[0] ?? '',
-                                          profileCubit!
-                                              .myProfileData!
-                                              .responseData
-                                              .profileData
-                                              .availableWorks[index]
-                                              .name,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                color: Colors.white,
+                                                          'متاح للعمل'
+                                                      ? Colors.green
+                                                      : profileCubit!
+                                                                  .myProfileData!
+                                                                  .responseData
+                                                                  .profileData
+                                                                  .availableWorks[
+                                                                      index]
+                                                                  .name ==
+                                                              'متاح لانجاز مهمة'
+                                                          ? kPrimaryKey
+                                                          : profileCubit!
+                                                                      .myProfileData!
+                                                                      .responseData
+                                                                      .profileData
+                                                                      .availableWorks[
+                                                                          index]
+                                                                      .name ==
+                                                                  'مطلوب للعمل '
+                                                              ? Colors.red
+                                                              : kDarktBlue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Text(
+                                                  //user.availableWork[0] ?? '',
+                                                  profileCubit!
+                                                      .myProfileData!
+                                                      .responseData
+                                                      .profileData
+                                                      .availableWorks[index]
+                                                      .name,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .titleSmall!
+                                                      .copyWith(
+                                                        color: Colors.white,
+                                                      ),
+                                                ),
                                               ),
-                                        ),
+                                              SizedBox(width: 5.w),
+                                              Expanded(
+                                                child: Text(
+                                                  profileCubit!
+                                                          .myProfileData!
+                                                          .responseData
+                                                          .profileData
+                                                          .availableWorks[index]
+                                                          .description ??
+                                                      '',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium!,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          // SizedBox(
+                                          //   height: .h,
+                                          // ),
+                                        ],
                                       ),
-                                      SizedBox(width: 5.w),
-                                      Expanded(
-                                        child: Text(
-                                          profileCubit!
-                                                  .myProfileData!
-                                                  .responseData
-                                                  .profileData
-                                                  .availableWorks[index]
-                                                  .description ??
-                                              '',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
+                                    ),
+                                  );
+                                }),
                         SizedBox(
                           height: 32.h,
                         ),
