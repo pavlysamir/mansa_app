@@ -1,146 +1,187 @@
-class ProfileResponse {
-  bool? isSuccess;
-  num? version;
-  String? message;
-  PrrofileResponseData? responseData;
-  List<String>? errors;
-
-  ProfileResponse(
-      {this.isSuccess,
-      this.version,
-      this.message,
-      this.responseData,
-      this.errors});
-
-  ProfileResponse.fromJson(Map<String, dynamic> json) {
-    isSuccess = json['isSuccess'];
-    version = json['version'];
-    message = json['message'];
-    responseData = json['responseData'] != null
-        ? PrrofileResponseData.fromJson(json['responseData'])
-        : null;
-    errors = json['errors'] != null ? List<String>.from(json['errors']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['isSuccess'] = isSuccess;
-    data['version'] = version;
-    data['message'] = message;
-    if (responseData != null) {
-      data['responseData'] = responseData!.toJson();
-    }
-    data['errors'] = errors;
-    return data;
-  }
-}
-
 class PrrofileResponseData {
-  ProfileData? profileData;
+  bool isSuccess;
+  num version;
+  dynamic message; // It can be of any type, so dynamic is used
+  ProfileResponse responseData;
+  dynamic errors; // It can be of any type, so dynamic is used
 
-  PrrofileResponseData({this.profileData});
+  PrrofileResponseData({
+    required this.isSuccess,
+    required this.version,
+    required this.message,
+    required this.responseData,
+    required this.errors,
+  });
 
-  PrrofileResponseData.fromJson(Map<String, dynamic> json) {
-    profileData = json['profileData'] != null
-        ? ProfileData.fromJson(json['profileData'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    if (profileData != null) {
-      data['profileData'] = profileData!.toJson();
-    }
-    return data;
+  factory PrrofileResponseData.fromJson(Map<String, dynamic> json) {
+    return PrrofileResponseData(
+      isSuccess: json['isSuccess'] ?? false,
+      version: json['version'] ?? 0,
+      message: json['message'],
+      responseData: ProfileResponse.fromJson(json['responseData'] ?? {}),
+      errors: json['errors'],
+    );
   }
 }
 
-class ProfileData {
-  num? userId;
-  String? name;
-  String? mobileNo;
-  String? email;
-  num? registrationGradeId;
-  num? generalLawBachelorId;
-  num? barAssociationsId;
-  dynamic governorateId;
-  dynamic districtId;
-  String? registrationGrade;
-  dynamic generalLawBachelor;
-  dynamic barAssociation;
-  dynamic registrationNumber;
-  dynamic address;
-  dynamic description;
-  List<dynamic>? specializationFields;
-  List<dynamic>? availableWorks;
-  dynamic picture;
+class ProfileResponse {
+  Profile profileData;
 
-  ProfileData({
-    this.userId,
-    this.name,
-    this.mobileNo,
-    this.email,
-    this.registrationGradeId,
-    this.generalLawBachelorId,
-    this.barAssociationsId,
-    this.governorateId,
-    this.districtId,
-    this.registrationGrade,
-    this.generalLawBachelor,
-    this.barAssociation,
-    this.registrationNumber,
-    this.address,
-    this.description,
-    this.specializationFields,
-    this.availableWorks,
+  ProfileResponse({
+    required this.profileData,
+  });
+
+  factory ProfileResponse.fromJson(Map<String, dynamic> json) {
+    return ProfileResponse(
+      profileData: Profile.fromJson(json['profileData'] ?? {}),
+    );
+  }
+}
+
+class Profile {
+  num userId;
+  String name;
+  String mobileNo;
+  String email;
+  num registrationGradeId;
+  int generalLawBachelorId;
+  int barAssociationsId;
+  num governorateId;
+  num districtId;
+  String registrationGrade;
+  dynamic generalLawBachelor; // It can be of any type, so dynamic is used
+  dynamic barAssociation; // It can be of any type, so dynamic is used
+  String registrationNumber;
+  String address;
+  dynamic description; // It can be of any type, so dynamic is used
+  List<SpecializationField> specializationFields;
+  List<AvailableWork> availableWorks;
+  Picture? picture;
+
+  Profile({
+    required this.userId,
+    required this.name,
+    required this.mobileNo,
+    required this.email,
+    required this.registrationGradeId,
+    required this.generalLawBachelorId,
+    required this.barAssociationsId,
+    required this.governorateId,
+    required this.districtId,
+    required this.registrationGrade,
+    required this.generalLawBachelor,
+    required this.barAssociation,
+    required this.registrationNumber,
+    required this.address,
+    required this.description,
+    required this.specializationFields,
+    required this.availableWorks,
     this.picture,
   });
 
-  ProfileData.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
-    name = json['name'];
-    mobileNo = json['mobileNo'];
-    email = json['email'];
-    registrationGradeId = json['registrationGradeId'];
-    generalLawBachelorId = json['generalLawBachelorId'];
-    barAssociationsId = json['barAssociationsId'];
-    governorateId = json['governorateId'];
-    districtId = json['districtId'];
-    registrationGrade = json['registrationGrade'];
-    generalLawBachelor = json['generalLawBachelor'];
-    barAssociation = json['barAssociation'];
-    registrationNumber = json['registrationNumber'];
-    address = json['address'];
-    description = json['description'];
-    specializationFields = json['specializationFields'] != null
-        ? List<dynamic>.from(json['specializationFields'])
-        : null;
-    availableWorks = json['availableWorks'] != null
-        ? List<dynamic>.from(json['availableWorks'])
-        : null;
-    picture = json['picture'];
-  }
+  factory Profile.fromJson(Map<String, dynamic> json) {
+    var specializationFieldsList =
+        json['specializationFields'] as List<dynamic>?;
+    List<SpecializationField> specializationFields =
+        specializationFieldsList != null
+            ? specializationFieldsList
+                .map((fieldJson) => SpecializationField.fromJson(fieldJson))
+                .toList()
+            : [];
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['userId'] = userId;
-    data['name'] = name;
-    data['mobileNo'] = mobileNo;
-    data['email'] = email;
-    data['registrationGradeId'] = registrationGradeId;
-    data['generalLawBachelorId'] = generalLawBachelorId;
-    data['barAssociationsId'] = barAssociationsId;
-    data['governorateId'] = governorateId;
-    data['districtId'] = districtId;
-    data['registrationGrade'] = registrationGrade;
-    data['generalLawBachelor'] = generalLawBachelor;
-    data['barAssociation'] = barAssociation;
-    data['registrationNumber'] = registrationNumber;
-    data['address'] = address;
-    data['description'] = description;
-    data['specializationFields'] = specializationFields;
-    data['availableWorks'] = availableWorks;
-    data['picture'] = picture;
-    return data;
+    var availableWorksList = json['availableWorks'] as List<dynamic>?;
+    List<AvailableWork> availableWorks = availableWorksList != null
+        ? availableWorksList
+            .map((workJson) => AvailableWork.fromJson(workJson))
+            .toList()
+        : [];
+
+    return Profile(
+      userId: json['userId'] ?? 0,
+      name: json['name'] ?? '',
+      mobileNo: json['mobileNo'] ?? '',
+      email: json['email'] ?? '',
+      registrationGradeId: json['registrationGradeId'] ?? 0,
+      generalLawBachelorId: json['generalLawBachelorId'] ?? 0,
+      barAssociationsId: json['barAssociationsId'] ?? 0,
+      governorateId: json['governorateId'] ?? 0,
+      districtId: json['districtId'] ?? 0,
+      registrationGrade: json['registrationGrade'] ?? '',
+      generalLawBachelor: json['generalLawBachelor'],
+      barAssociation: json['barAssociation'],
+      registrationNumber: json['registrationNumber'] ?? '',
+      address: json['address'] ?? '',
+      description: json['description'],
+      specializationFields: specializationFields,
+      availableWorks: availableWorks,
+      picture:
+          json['picture'] != null ? Picture.fromJson(json['picture']) : null,
+    );
+  }
+}
+
+class SpecializationField {
+  num specializationFieldId;
+  String name;
+  bool isPrimary;
+
+  SpecializationField({
+    required this.specializationFieldId,
+    required this.name,
+    required this.isPrimary,
+  });
+
+  factory SpecializationField.fromJson(Map<String, dynamic> json) {
+    return SpecializationField(
+      specializationFieldId: json['specializationFieldId'] ?? 0,
+      name: json['name'] ?? '',
+      isPrimary: json['isPrimary'] ?? false,
+    );
+  }
+}
+
+class AvailableWork {
+  num availabilityWorkId;
+  String name;
+  dynamic description; // It can be of any type, so dynamic is used
+
+  AvailableWork({
+    required this.availabilityWorkId,
+    required this.name,
+    required this.description,
+  });
+
+  factory AvailableWork.fromJson(Map<String, dynamic> json) {
+    return AvailableWork(
+      availabilityWorkId: json['availabilityWorkId'] ?? 0,
+      name: json['name'] ?? '',
+      description: json['description'],
+    );
+  }
+}
+
+class Picture {
+  num fileTypetId;
+  dynamic fileTypeName; // It can be of any type, so dynamic is used
+  String url;
+  String fileName;
+  String description;
+
+  Picture({
+    required this.fileTypetId,
+    required this.fileTypeName,
+    required this.url,
+    required this.fileName,
+    required this.description,
+  });
+
+  factory Picture.fromJson(Map<String, dynamic> json) {
+    return Picture(
+      fileTypetId: json['fileTypetId'] ?? 0,
+      fileTypeName: json['fileTypeName'],
+      url: json['url'] ?? '',
+      fileName: json['fileName'] ?? '',
+      description: json['description'] ?? '',
+    );
   }
 }

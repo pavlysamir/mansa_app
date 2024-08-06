@@ -6,6 +6,8 @@ import 'package:mansa_app/features/profile/data/models/get_given_catagories_coun
 import 'package:mansa_app/features/profile/data/models/profile_data_model.dart';
 import 'package:mansa_app/features/profile/data/repo/profile_repo.dart';
 import 'package:meta/meta.dart';
+
+import '../../../../../constants.dart';
 part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
@@ -30,7 +32,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     response.fold(
       (errMessage) => emit(GetProfileDataFail(errMessage)),
       (profileData) async {
-        myProfileData = profileData.responseData;
+        myProfileData = profileData;
 
         await getGivenCatagoriesCount();
 
@@ -58,4 +60,33 @@ class ProfileCubit extends Cubit<ProfileState> {
     AssetsData.silverMedal,
     AssetsData.goldenMedal
   ];
+
+  getNkabaName(int index) {
+    for (var element in allBarAssociationsConst) {
+      if (element.id == index) {
+        return element.nameAr;
+      } else {
+        return '';
+      }
+    }
+  }
+
+  List<String> names = [];
+
+  getSpacializationName(List<SpecializationField> specializationFields) {
+    for (var element in specializationFields) {
+      names.add(element.name);
+    }
+    return names.join('-');
+  }
+
+  getBacaloryName(int index) {
+    for (var element in allGeneralLawConst) {
+      if (element.id == index) {
+        return element.nameAr;
+      } else {
+        return '';
+      }
+    }
+  }
 }

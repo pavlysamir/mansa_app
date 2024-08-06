@@ -13,7 +13,7 @@ class ProfileRepoImpl implements ProfileRepo {
   ProfileRepoImpl({required this.api});
 
   @override
-  Future<Either<String, ProfileResponse>> getProfileData() async {
+  Future<Either<String, PrrofileResponseData>> getProfileData() async {
     try {
       final response =
           await api.get(EndPoint.getProfileDataEndPoint, queryParameters: {
@@ -21,22 +21,25 @@ class ProfileRepoImpl implements ProfileRepo {
             getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
       });
 
-      ProfileResponse profileData = ProfileResponse.fromJson(response);
+      PrrofileResponseData profileData =
+          PrrofileResponseData.fromJson(response);
+      print(
+          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${profileData.responseData.profileData.name}');
       getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.userName,
-            value: profileData.responseData!.profileData!.name,
+            value: profileData.responseData.profileData.name,
           );
       getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.address,
-            value: profileData.responseData!.profileData!.address,
+            value: profileData.responseData.profileData.address,
           );
       getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.email,
-            value: profileData.responseData!.profileData!.email,
+            value: profileData.responseData.profileData.email,
           );
       getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.mobNumber,
-            value: profileData.responseData!.profileData!.mobileNo,
+            value: profileData.responseData.profileData.mobileNo,
           );
 
       // getIt.get<CashHelperSharedPreferences>().saveData(

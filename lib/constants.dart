@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 const kProfileImage =
@@ -32,3 +33,7 @@ const apiGoogleMapsKey = 'AIzaSyCuTilAfnGfkZtIx0T3qf-eOmWZ_N2LpoY';
 
 String email = Uri.encodeComponent("mansa.eg@gmail.com");
 String subject = Uri.encodeComponent("Hello in Mansa ");
+
+List<GovernmentDataModel> allBarAssociationsConst = [];
+
+List<GovernmentDataModel> allGeneralLawConst = [];

@@ -187,7 +187,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   SizedBox(
                     height: 32.h,
                   ),
-                  const CustomUserdataCointaner(),
+                  // const CustomUserdataCointaner(),
                   SizedBox(
                     height: 32.h,
                   ),

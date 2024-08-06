@@ -117,31 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           profileCubit!.categoryData[index],
                                     );
                                   }),
-                            )
-                            //  Row(
-                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            //   children: [
-                            //     CustomMedalGroubsContainer(
-                            //       img: AssetsData.goldenMedal,
-                            //       text:
-                            //           AppLocalizations.of(context)!.goldenGroubs,
-                            //       count: '0',
-                            //     ),
-                            //     CustomMedalGroubsContainer(
-                            //       img: AssetsData.silverMedal,
-                            //       text:
-                            //           AppLocalizations.of(context)!.silverGroubs,
-                            //       count: '0',
-                            //     ),
-                            //     CustomMedalGroubsContainer(
-                            //       img: AssetsData.bronzeMedal,
-                            //       text:
-                            //           AppLocalizations.of(context)!.bronzeGroubs,
-                            //       count: '0',
-                            //     ),
-                            //   ],
-                            // ),
-                            ),
+                            )),
                         SizedBox(
                           height: 24.h,
                         ),
@@ -152,54 +128,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.h),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  color:
-
-                                      //  user.availableWork[0] == 'متاح للعمل'
-                                      //     ? Colors.green
-                                      //     : user.availableWork[0] == 'متاح لانجاز مهمة'
-                                      //         ? kPrimaryKey
-                                      //         : user.availableWork[0] == 'مطلوب للعمل '
-                                      //             ? Colors.red
-                                      //             :
-                                      kDarktBlue,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  //user.availableWork[0] ?? '',
-                                  'متاح لانجاز مهمة',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .copyWith(
-                                        color: Colors.white,
+                        ListView.builder(
+                            shrinkWrap: true,
+                            // physics: const NeverScrollableScrollPhysics(),
+                            // scrollDirection: Axis.horizontal,
+                            itemCount: profileCubit!.myProfileData!.responseData
+                                .profileData.availableWorks.length,
+                            itemBuilder: (context, index) {
+                              return SizedBox(
+                                height: 30.h,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 16.h),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                          color: profileCubit!
+                                                      .myProfileData!
+                                                      .responseData
+                                                      .profileData
+                                                      .availableWorks[index]
+                                                      .name ==
+                                                  'متاح للعمل'
+                                              ? Colors.green
+                                              : profileCubit!
+                                                          .myProfileData!
+                                                          .responseData
+                                                          .profileData
+                                                          .availableWorks[index]
+                                                          .name ==
+                                                      'متاح لانجاز مهمة'
+                                                  ? kPrimaryKey
+                                                  : profileCubit!
+                                                              .myProfileData!
+                                                              .responseData
+                                                              .profileData
+                                                              .availableWorks[
+                                                                  index]
+                                                              .name ==
+                                                          'مطلوب للعمل '
+                                                      ? Colors.red
+                                                      : kDarktBlue,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          //user.availableWork[0] ?? '',
+                                          profileCubit!
+                                              .myProfileData!
+                                              .responseData
+                                              .profileData
+                                              .availableWorks[index]
+                                              .name,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                color: Colors.white,
+                                              ),
+                                        ),
                                       ),
+                                      SizedBox(width: 5.w),
+                                      Expanded(
+                                        child: Text(
+                                          profileCubit!
+                                                  .myProfileData!
+                                                  .responseData
+                                                  .profileData
+                                                  .availableWorks[index]
+                                                  .description ??
+                                              '',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium!,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 5.w),
-                              Expanded(
-                                child: Text(
-                                  '“ متاح لانجاز مهمة خلال ايام الاحد و الاثنين و الجمعة من  الساعة 7 صباحاً “',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium!,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                              );
+                            }),
                         SizedBox(
                           height: 32.h,
                         ),
-                        const CustomUserdataCointaner(),
+                        CustomUserdataCointaner(
+                          myProfileData:
+                              profileCubit!.myProfileData!.responseData,
+                        ),
                         SizedBox(
                           height: 32.h,
                         ),

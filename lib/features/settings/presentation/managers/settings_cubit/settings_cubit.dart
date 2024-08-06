@@ -273,11 +273,13 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllDistrictsFail(errMessage)),
       (allAssoci) {
         allBarAssociations = allAssoci;
+        allBarAssociationsConst = allAssoci;
         for (var element in allBarAssociations) {
           namesOfBarAssociations.add(element.nameAr);
           idsOfBarAssociations.add(element.id);
         }
         association = namesOfBarAssociations.first;
+
         // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
       },
@@ -336,6 +338,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllDistrictsFail(errMessage)),
       (allBachelors) {
         allGeneralLawBachelor = allBachelors;
+        allGeneralLawConst = allBachelors;
         for (var element in allGeneralLawBachelor) {
           namesOfGeneralLawBachelor.add(element.nameAr);
           idsOfGeneralLawBachelor.add(element.id);
