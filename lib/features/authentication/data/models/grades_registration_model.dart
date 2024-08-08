@@ -2,7 +2,7 @@ class GradesRegistrationModel {
   final int id;
   final String nameAr;
   final String nameEn;
-  final String internalCode;
+  final String? internalCode;
   final int internalRef;
   final bool isActive;
   final String? description;
@@ -17,7 +17,7 @@ class GradesRegistrationModel {
     required this.id,
     required this.nameAr,
     required this.nameEn,
-    required this.internalCode,
+    this.internalCode,
     required this.internalRef,
     required this.isActive,
     this.description,

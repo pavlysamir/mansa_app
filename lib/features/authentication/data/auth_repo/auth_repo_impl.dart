@@ -64,8 +64,15 @@ class AuthRepoImpl implements AuthRepo {
       }
 
       return Right(data);
+    } on DioException catch (e) {
+      // Check if DioException contains additional information
+      final errorMessage =
+          e.response?.data['errorMessage'] ?? 'Unknown error occurred';
+      return Left(errorMessage);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel.errorMessage ?? 'Server error');
+    } catch (e) {
+      return Left('An unexpected error occurred');
     }
   }
 

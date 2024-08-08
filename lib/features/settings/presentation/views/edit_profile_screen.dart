@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
+import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/features/search/presentation/widgets/custom_buttom_filter.dart';
 import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/circular_profile_img.dart';
@@ -207,15 +209,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          CustomDropDownMenu(
-                            list: SettingsCubit.get(context)!
-                                .namesOfBarAssociations,
-                            value: SettingsCubit.get(context)!.association,
-                            onChanged: (String? newValue) {
-                              SettingsCubit.get(context)!
-                                  .selectAssociation(newValue!);
-                            },
-                          ),
+                          // CustomDropDownMenu(
+                          //   list: SettingsCubit.get(context)!
+                          //       .namesOfBarAssociations,
+                          //   value: SettingsCubit.get(context)!.association,
+                          //   onChanged: (String? newValue) {
+                          //     SettingsCubit.get(context)!
+                          //         .selectAssociation(newValue!);
+                          //   },
+                          // ),
+                          GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      PopUpDialogDropDown(
+                                    context: context,
+                                    function: () {
+                                      Navigator.pop(context);
+                                    },
+                                    widget: Column(
+                                      children: [
+                                        state is UpdateGiverPointsLoading
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  backgroundColor: kPrimaryKey,
+                                                ),
+                                              )
+                                            : CustomButtonLarge(
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .save,
+                                                textColor: Colors.white,
+                                                function: () {})
+                                      ],
+                                    ),
+                                    function2: () {},
+                                  ),
+                                );
+                                // PopUpDialogDropDown
+                              },
+                              child: Text('aaaaaaaaaaa')),
                           SizedBox(
                             height: 24.h,
                           ),

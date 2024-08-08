@@ -189,3 +189,52 @@ class PopUpDialogReturnPoints extends StatelessWidget {
     );
   }
 }
+
+class PopUpDialogDropDown extends StatelessWidget {
+  const PopUpDialogDropDown({
+    super.key,
+    required this.context,
+    required this.function,
+    required this.widget,
+    required this.function2,
+  });
+  final BuildContext context;
+  final Function() function;
+  final Widget widget;
+  final Function() function2;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Theme.of(context).cardColor,
+      alignment: Alignment.center,
+      actionsAlignment: MainAxisAlignment.center,
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: function,
+                icon: const Icon(
+                  IconlyLight.close_square,
+                  color: kPrimaryKey,
+                ),
+              ),
+            ),
+            Image.asset(AssetsData.notes),
+            SizedBox(height: 24.h),
+            ListView.builder(
+                itemCount: 15,
+                itemBuilder: (context, index) {
+                  return Text('aaaaaaaaaaaaaaaaa');
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+}

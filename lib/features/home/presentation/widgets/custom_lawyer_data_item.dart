@@ -51,7 +51,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                           ? CachedNetworkImage(
                               width: double.infinity,
                               fit: BoxFit.fitHeight,
-                              imageUrl: '$profilePic${user.picture!.url}',
+                              imageUrl: user.picture!.url,
                               placeholder: (context, url) => const Center(
                                       child: CircularProgressIndicator(
                                     color: kPrimaryKey,

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 import '../../../../../../constants.dart';
 import '../../../../../../core/utils/styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  const CustomSearchBar({Key? key, required this.context}) : super(key: key);
-  final BuildContext context;
+  const CustomSearchBar({Key? key}) : super(key: key);
+
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
@@ -19,13 +20,9 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   var formKey = GlobalKey<FormState>();
 
   @override
-  void dispose() {
-    super.dispose();
-    SearchCubit.get(context)!.searchController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final searchCubit = BlocProvider.of<SearchCubit>(context);
+
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -43,7 +40,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     return 'there is nothing';
                   }
                 },
-                controller: SearchCubit.get(context)!.searchController,
+                controller: searchCubit.searchController,
                 onTapOutside: (event) {
                   FocusManager.instance.primaryFocus?.unfocus();
                 },
@@ -60,8 +57,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   contentPadding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
                   filled: true,
                   fillColor: Colors.grey[200],
-                  enabledBorder: outlineInputBorder(),
-                  focusedBorder: outlineInputBorder(),
+                  enabledBorder: outlineInputBorder(context),
+                  focusedBorder: outlineInputBorder(context),
                   hintText: AppLocalizations.of(context)!.searchByName,
                   hintStyle: Styles.textStyle14Blck.copyWith(
                     color: Colors.grey,
@@ -82,11 +79,4 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       },
     );
   }
-}
-
-OutlineInputBorder outlineInputBorder() {
-  return OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.grey.shade50),
-    borderRadius: BorderRadius.circular(10),
-  );
 }

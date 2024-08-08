@@ -86,7 +86,7 @@ class UserData {
   final String registrationGrade;
   final List<String> availableWork;
   final String? status;
-  final String? picture;
+  final Picture? picture;
 
   UserData({
     required this.userId,
@@ -104,7 +104,8 @@ class UserData {
       registrationGrade: json['registrationGrade'],
       availableWork: List<String>.from(json['availableWork']),
       status: json['status'],
-      picture: json['picture'],
+      picture:
+          json['picture'] != null ? Picture.fromJson(json['picture']) : null,
     );
   }
 
@@ -117,6 +118,32 @@ class UserData {
       'status': status,
       'picture': picture,
     };
+  }
+}
+
+class Picture {
+  final int fileTypetId;
+  final String fileTypeName;
+  final String url;
+  final String fileName;
+  final String description;
+
+  Picture({
+    required this.fileTypetId,
+    required this.fileTypeName,
+    required this.url,
+    required this.fileName,
+    required this.description,
+  });
+
+  factory Picture.fromJson(Map<String, dynamic> json) {
+    return Picture(
+      fileTypetId: json['fileTypetId'],
+      fileTypeName: json['fileTypeName'],
+      url: json['url'],
+      fileName: json['fileName'],
+      description: json['description'],
+    );
   }
 }
 

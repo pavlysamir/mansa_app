@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo_impl.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
@@ -44,8 +46,7 @@ class MansaApp extends StatelessWidget {
             ..triggerGetFunctions(),
         ),
         BlocProvider(
-            create: (context) =>
-                ProfileCubit(getIt.get<ProfileRepoImpl>()..getProfileData()))
+            create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>()))
       ],
       child: ScreenUtilInit(
         designSize: const Size(390, 844),

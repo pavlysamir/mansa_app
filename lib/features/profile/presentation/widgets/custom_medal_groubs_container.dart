@@ -12,8 +12,9 @@ class CustomMedalGroubsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: EdgeInsets.symmetric(horizontal: 7.w),
       child: Container(
+        clipBehavior: Clip.none,
         //height: 100.h,
         width: 100.w,
         decoration: BoxDecoration(

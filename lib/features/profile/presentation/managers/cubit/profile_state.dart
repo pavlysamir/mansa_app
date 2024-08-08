@@ -31,3 +31,27 @@ final class GetCurrentUserSortedFailure extends ProfileState {
   final String message;
   GetCurrentUserSortedFailure({required this.message});
 }
+
+final class UpdateGiverPointsLoading extends ProfileState {}
+
+final class UpdateGiverPointsSuccess extends ProfileState {
+  final String message;
+
+  UpdateGiverPointsSuccess(this.message);
+}
+
+final class UpdateGiverPointsFail extends ProfileState {
+  final String errorMessage;
+
+  UpdateGiverPointsFail(this.errorMessage);
+}
+
+final class GetUserGivenPointsLoading extends ProfileState {}
+
+final class GetUserGivenPointsSuccess extends ProfileState {}
+
+final class GetUserGivenPointsFail extends ProfileState {
+  final String errorMessage;
+
+  GetUserGivenPointsFail(this.errorMessage);
+}

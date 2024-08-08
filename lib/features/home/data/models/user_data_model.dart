@@ -1,6 +1,8 @@
 class User {
   final int userId;
   final String name;
+  final String mobileNum;
+  final String email;
   final String registrationGrade;
   final List<String> availableWork;
   final Picture? picture;
@@ -10,6 +12,8 @@ class User {
     required this.name,
     required this.registrationGrade,
     required this.availableWork,
+    required this.mobileNum,
+    required this.email,
     this.picture,
   });
 
@@ -17,6 +21,8 @@ class User {
     return User(
       userId: json['userId'],
       name: json['name'],
+      mobileNum: json['mobileNo'],
+      email: json['email'],
       registrationGrade: json['registrationGrade'],
       availableWork: List<String>.from(json['availableWork']),
       picture:

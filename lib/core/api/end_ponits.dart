@@ -51,6 +51,8 @@ class EndPoint {
 
   static String getMyBalance = "ProfileSetting/GetUserBanlance";
 
+  static String updateUserData = "ProfileSetting/UpdateProfileSetting";
+
   static String deleteAccount = "ProfileSetting/DeleteUserById";
 
   static String getProfileDataEndPoint = "Profile/GetProfile";

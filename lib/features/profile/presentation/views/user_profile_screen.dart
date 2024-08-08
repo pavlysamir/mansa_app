@@ -10,6 +10,8 @@ import 'package:mansa_app/features/home/data/models/user_data_model.dart';
 import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_olders.dart';
 import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_cointaner.dart';
+import 'package:mansa_app/features/settings/presentation/widgets/custom_counter_point.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -25,9 +27,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   void initState() {
-    profileCubit = ProfileCubit.get(context);
-    profileCubit!.getProfileData();
     super.initState();
+    profileCubit = ProfileCubit.get(context);
+    profileCubit!.getUserProfileData(id: widget.user.userId);
   }
 
   @override
@@ -35,6 +37,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return BlocConsumer<ProfileCubit, ProfileState>(
       listener: (context, state) {},
       builder: (context, state) {
+        final profileData =
+            profileCubit?.userProfileData?.responseData.profileData;
+        final userPictureUrl = profileData?.picture?.url;
+
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -51,7 +57,54 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     function: () {
                       Navigator.pop(context);
                     },
-                    widget: const SizedBox(),
+                    widget: Column(
+                      children: [
+                        if (profileCubit != null &&
+                            profileCubit!.categoryData.isNotEmpty)
+                          ListView.builder(
+                            itemCount: profileCubit!.categoryData.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  CustomCounterPoint(
+                                    catagoryData: profileCubit!
+                                        .usersGivenPoints[index]
+                                        .categories[index],
+                                  ),
+                                  SizedBox(height: 10.h),
+                                ],
+                              );
+                            },
+                          ),
+                        if (state is UpdateGiverPointsLoading)
+                          const Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: kPrimaryKey,
+                            ),
+                          )
+                        else
+                          CustomButtonLarge(
+                            text: AppLocalizations.of(context)!.save,
+                            textColor: Colors.white,
+                            function: () {
+                              if (profileCubit != null &&
+                                  profileCubit!.updateCount.isNotEmpty) {
+                                profileCubit!
+                                    .updateGiverCountPoints(
+                                  lowyerId: widget.user.userId,
+                                )
+                                    .then((value) {
+                                  profileCubit!.getGivenUserPoints();
+                                  Navigator.pop(context);
+                                });
+                              } else {
+                                return;
+                              }
+                            },
+                          ),
+                      ],
+                    ),
                     function2: () {},
                   ),
                 );
@@ -71,12 +124,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       CircleAvatar(
                         radius: 50.h,
                         backgroundColor: kBlackColor,
-                        child: widget.user.picture?.url != null
+                        child: userPictureUrl != null
                             ? ClipOval(
                                 child: CachedNetworkImage(
+                                    placeholder: (context, url) => const Center(
+                                          child: CircularProgressIndicator(
+                                            color: kBlackColor,
+                                          ),
+                                        ),
                                     fit: BoxFit.fill,
                                     width: double.infinity,
-                                    imageUrl: widget.user.picture!.url),
+                                    imageUrl: userPictureUrl),
                               )
                             : Icon(
                                 Icons.person,
@@ -95,10 +153,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             .copyWith(color: kDarktBlue),
                       ),
                       SizedBox(
-                        height: 13.h,
-                      ),
-                      SizedBox(
-                        height: 5.h,
+                        height: 18.h,
                       ),
                       Text('درجة القيد - التخصص الأ ساسي ',
                           style: Theme.of(context).textTheme.headlineLarge!),
@@ -131,13 +186,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      profileCubit!.myProfileData!.responseData.profileData
-                              .availableWorks.isEmpty
+                      profileData?.availableWorks == []
                           ? const SizedBox()
                           : ListView.builder(
                               shrinkWrap: true,
-                              itemCount: widget.user.availableWork.length,
+                              itemCount: profileData?.availableWorks.length,
                               itemBuilder: (context, index) {
+                                final availableWork =
+                                    profileData!.availableWorks[index];
                                 return SizedBox(
                                   height: 40.h,
                                   child: Padding(
@@ -150,17 +206,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             Container(
                                               padding: const EdgeInsets.all(6),
                                               decoration: BoxDecoration(
-                                                color: widget.user
-                                                                .availableWork[
-                                                            index] ==
+                                                color: availableWork.name ==
                                                         'متاح للعمل'
                                                     ? Colors.green
-                                                    : widget.user.availableWork[
-                                                                index] ==
+                                                    : availableWork.name ==
                                                             'متاح لانجاز مهمة'
                                                         ? kPrimaryKey
-                                                        : widget.user.availableWork[
-                                                                    index] ==
+                                                        : availableWork.name ==
                                                                 'مطلوب للعمل '
                                                             ? Colors.red
                                                             : kDarktBlue,
@@ -168,8 +220,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: Text(
-                                                widget
-                                                    .user.availableWork[index],
+                                                availableWork.name,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall!
@@ -179,22 +230,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               ),
                                             ),
                                             SizedBox(width: 5.w),
-                                            // Expanded(
-                                            //   child: Text(
-                                            //     widget.user
-                                            //                     .availableWork[
-                                            //                 index]
-
-                                            //            ??
-                                            //         '',
-                                            //     style: Theme.of(context)
-                                            //         .textTheme
-                                            //         .bodyMedium!,
-                                            //     overflow: TextOverflow.ellipsis,
-                                            //     maxLines: 2,
-                                            //     textAlign: TextAlign.center,
-                                            //   ),
-                                            // )
+                                            Expanded(
+                                              child: Text(
+                                                profileCubit!
+                                                        .userProfileData!
+                                                        .responseData
+                                                        .profileData
+                                                        .availableWorks[index]
+                                                        .description ??
+                                                    '',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyMedium!,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            )
                                           ],
                                         ),
                                       ],
@@ -205,6 +257,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                       SizedBox(
                         height: 32.h,
+                      ),
+                      CustomUserdataCointaner(
+                        myProfileData:
+                            profileCubit!.userProfileData!.responseData,
                       ),
                       SizedBox(
                         height: 32.h,
@@ -233,27 +289,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           ),
                           GestureDetector(
                             onTap: () async {
-                              // Uri mail = Uri.parse(
-                              //     "mailto:$email?subject=$subject&body= ");
-                              // if (await launchUrl(mail)) {
-                              //   //email app opened
-                              // } else {
-                              //   if (kDebugMode) {
-                              //     print('not working');
-                              //   }
-                              // }
+                              Uri mail = Uri.parse(
+                                  "mailto:$email?subject=$subject&body= ");
+                              if (await launchUrl(mail)) {
+                                //email app opened
+                              } else {
+                                if (kDebugMode) {
+                                  print('not working');
+                                }
+                              }
                             },
                             child: GestureDetector(
                               onTap: () async {
-                                // Uri mail = Uri.parse('tel:${ widget
-                                //                     .user.}');
-                                // if (await launchUrl(mail)) {
-                                //   //email app opened
-                                // } else {
-                                //   if (kDebugMode) {
-                                //     print('not working');
-                                //   }
-                                // }
+                                Uri mail =
+                                    Uri.parse('tel:${widget.user.mobileNum}');
+                                if (await launchUrl(mail)) {
+                                  //email app opened
+                                } else {
+                                  if (kDebugMode) {
+                                    print('not working');
+                                  }
+                                }
                               },
                               child: Column(
                                 children: [

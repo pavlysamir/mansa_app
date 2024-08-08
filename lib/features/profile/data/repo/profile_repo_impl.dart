@@ -8,18 +8,20 @@ import 'package:mansa_app/features/home/data/models/user_sorted.dart';
 import 'package:mansa_app/features/profile/data/models/get_given_catagories_count_model.dart';
 import 'package:mansa_app/features/profile/data/models/profile_data_model.dart';
 import 'package:mansa_app/features/profile/data/repo/profile_repo.dart';
+import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 
 class ProfileRepoImpl implements ProfileRepo {
   final ApiConsumer api;
   ProfileRepoImpl({required this.api});
 
   @override
-  Future<Either<String, PrrofileResponseData>> getProfileData() async {
+  Future<Either<String, PrrofileResponseData>> getProfileData(
+      {required int id}) async {
     try {
       final response =
           await api.get(EndPoint.getProfileDataEndPoint, queryParameters: {
-        'userId':
-            getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
+        'userId': id
+        // getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
       });
 
       PrrofileResponseData profileData =
@@ -73,13 +75,61 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<String, UserSortedModel>> getCurrentUserSorted() async {
+  Future<Either<String, UserSortedModel>> getCurrentUserSorted(
+      {required int id}) async {
     try {
-      final response = await api.post(
-        EndPoint.getCurrentUserSorted,
-      );
+      final response = await api
+          .post(EndPoint.getCurrentUserSorted, queryParameters: {'userId': id});
 
       return Right(UserSortedModel.fromJson(response['data']));
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, String>> updateCountPonts(
+      {required num lowyerId, required List<Map> data}) async {
+    try {
+      final response = await api.put(EndPoint.updateCategoryCount,
+          data: {"toLawyerId": lowyerId, "categories": data});
+
+      return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints() async {
+    try {
+      final response = await api.get(
+        EndPoint.getUsersGivenPoints,
+      );
+
+      GivenUsersResponseModel givenUsersResponseModel =
+          GivenUsersResponseModel.fromJson(response);
+
+      return Right(givenUsersResponseModel);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, PrrofileResponseData>> getUserProfileData(
+      {required int id}) async {
+    try {
+      final response =
+          await api.get(EndPoint.getProfileDataEndPoint, queryParameters: {
+        'userId': id
+        // getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
+      });
+
+      PrrofileResponseData profileData =
+          PrrofileResponseData.fromJson(response);
+
+      return Right(profileData);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

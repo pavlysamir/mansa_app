@@ -39,30 +39,26 @@ class CustomUserdataCointaner extends StatelessWidget {
                           myProfileData.profileData.generalLawBachelorId),
                 ),
                 CustomUserdataRow(
-                  isNull:
-                      myProfileData.profileData.address == '' ? true : false,
-                  img: AssetsData.address,
-                  text: myProfileData.profileData.address == ''
-                      ? 'عنوان  '
-                      : myProfileData.profileData.address,
-                ),
+                    isNull: myProfileData.profileData.address == null
+                        ? true
+                        : false,
+                    img: AssetsData.address,
+                    text: myProfileData.profileData.address ?? 'عنوان  '),
                 CustomUserdataRow(
-                  isNull: myProfileData.profileData.specializationFields == 0
+                  isNull: myProfileData.profileData.specializationFields == []
                       ? true
                       : false,
                   img: AssetsData.kady,
-                  text: myProfileData.profileData.specializationFields == 0
+                  text: myProfileData.profileData.specializationFields == []
                       ? 'التخصص'
                       : ProfileCubit.get(context)!.getSpacializationName(
                           myProfileData.profileData.specializationFields),
                 ),
                 CustomUserdataRow(
                   isNull:
-                      myProfileData.profileData.mobileNo == '' ? true : false,
+                      myProfileData.profileData.mobileNo == null ? true : false,
                   img: AssetsData.call,
-                  text: myProfileData.profileData.mobileNo == ''
-                      ? 'الجوال'
-                      : myProfileData.profileData.mobileNo,
+                  text: myProfileData.profileData.mobileNo ?? 'الجوال',
                 ),
               ],
             ),

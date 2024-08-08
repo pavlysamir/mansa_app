@@ -39,7 +39,7 @@ class ProfileResponse {
 }
 
 class Profile {
-  num userId;
+  int userId;
   String name;
   String mobileNo;
   String email;
@@ -51,9 +51,9 @@ class Profile {
   String registrationGrade;
   dynamic generalLawBachelor; // It can be of any type, so dynamic is used
   dynamic barAssociation; // It can be of any type, so dynamic is used
-  String registrationNumber;
-  String address;
-  dynamic description; // It can be of any type, so dynamic is used
+  String? registrationNumber;
+  String? address;
+  String? description; // It can be of any type, so dynamic is used
   List<SpecializationField> specializationFields;
   List<AvailableWork> availableWorks;
   Picture? picture;
@@ -69,11 +69,11 @@ class Profile {
     required this.governorateId,
     required this.districtId,
     required this.registrationGrade,
-    required this.generalLawBachelor,
-    required this.barAssociation,
-    required this.registrationNumber,
-    required this.address,
-    required this.description,
+    this.generalLawBachelor,
+    this.barAssociation,
+    this.registrationNumber,
+    this.address,
+    this.description,
     required this.specializationFields,
     required this.availableWorks,
     this.picture,

@@ -111,6 +111,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   height: 120.h,
                                   child: ListView.builder(
                                       shrinkWrap: true,
+                                      clipBehavior: Clip.none,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       scrollDirection: Axis.horizontal,

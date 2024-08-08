@@ -97,8 +97,8 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllGradesRegistrationFail(errMessage)),
       (allGrades) {
         allGradesRegistration = allGrades;
-        saveListInSharedPreferences(
-            key: ApiKey.allgradesRegisters, list: allGradesRegistration);
+        // saveListInSharedPreferences(
+        //     key: ApiKey.allgradesRegisters, list: allGradesRegistration);
         for (var element in allGradesRegistration) {
           namesOfGrades.add(element.nameAr);
         }
@@ -121,7 +121,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String grade;
-  late int gradeId;
+  int? gradeId;
 
   void selectGrade(String grade) {
     this.grade = grade;

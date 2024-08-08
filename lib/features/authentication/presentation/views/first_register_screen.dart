@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart'; 
 import 'package:mansa_app/core/functions/validation_handling.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
