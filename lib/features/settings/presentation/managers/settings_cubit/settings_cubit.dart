@@ -14,11 +14,17 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
 import 'package:meta/meta.dart';
 import 'package:image/image.dart' as img;
+// Import the two conflicting libraries with different aliases
+import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart'
+    as edit_lawyer;
+import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart'
+    as profile_setting;
 
 part 'settings_state.dart';
 
@@ -231,7 +237,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String government;
-  int? governmentId;
+  int governmentId = 0;
 
   void selectGovernment(String government) {
     this.government = government;
@@ -247,7 +253,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String district;
-  int? districtId;
+  int districtId = 0;
 
   void selectDistrict(String district) {
     this.district = district;
@@ -288,7 +294,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String association;
-  int? associationId;
+  int associationId = 0;
 
   void selectAssociation(String association) {
     this.association = association;
@@ -308,7 +314,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   List<String> namesOfGeneralLawBachelor = [];
   List<int> idsOfGeneralLawBachelor = [];
   late String generalLawBachelor;
-  int? generalLawBachelorId;
+  int generalLawBachelorId = 0;
 
   // Properties for GrantingUniversity
   List<GovernmentDataModel> allGrantingUniversity = [];
@@ -665,5 +671,103 @@ class SettingsCubit extends Cubit<SettingsState> {
         emit(UpdateGiverPointsSuccess(response));
       },
     );
+  }
+
+  Future<void> updateLawyerData() async {
+    emit(UpdateLaawyerDataLoading());
+
+    List<AvailabilityWork> selectedAvailableWorks = availabilityToWordIds
+        .map((id) => AvailabilityWork(
+              availabilityWorkId: id,
+              description:
+                  "", // Assuming description is optional or can be left empty
+            ))
+        .toList();
+
+    // Ensure specializationFieldId is not null before creating SpecializationField objects
+    List<edit_lawyer.SpecializationField> specializationFields = [];
+    if (specializationFieldId != null) {
+      specializationFields.add(
+        edit_lawyer.SpecializationField(
+          specializationFieldId: specializationFieldId!,
+          isPrimary: true, // Set isPrimary as needed
+        ),
+      );
+    } else {
+      // Handle the case where specializationFieldId is null, if necessary
+      print('Warning: specializationFieldId is null');
+    }
+
+    // LawyerData lawyerData = LawyerData(
+    //   name: nameController.text,
+    //   email: emailController.text ?? '',
+    //   mobileNo: phoneController.text,
+    //   description: putYourVisionController.text ?? '',
+    //   address: adressOfficeController.text ?? '',
+    //   specializationFields:
+    //       specializationFields, // Populate with actual data as needed
+    //   availableWorks: selectedAvailableWorks,
+    //   picture: edit_lawyer.Picture(
+    //     file: file == null ? '' : file!.path,
+    //     fileTypeId: 1,
+    //   ),
+    //   registrationGradeId: 1, // Populate with actual data
+    //   generalLawBachelorId:
+    //       generalLawBachelorId ?? 0, // Populate with actual data
+    //   barAssociationsId: associationId ?? 0, // Populate with actual data
+    //   governorateId: governmentId ?? 0, // Populate with actual data
+    //   districtId: districtId ?? 0, // Populate with actual data
+    //   registrationNumber: "0", // Populate with actual data
+    // );
+
+    final response = await settingsRepo.updateProfileSettings(
+        //  lawyerData: lawyerData,
+        data: {
+          "name": nameController.text,
+          "mobileNo": phoneController.text,
+          "email": emailController.text ?? '',
+          "registrationGradeId": 1,
+          "generalLawBachelorId": generalLawBachelorId ?? 0,
+          "barAssociationsId": associationId ?? 0,
+          "governorateId": governmentId ?? 0,
+          "districtId": districtId ?? 0,
+          "registrationNumber": "1111",
+          "address": adressOfficeController.text ?? '',
+          "description": putYourVisionController.text ?? '',
+          "specializationFields": [
+            {"specializationFieldId": specializationFieldId, "isPrimary": true}
+          ],
+          "availableWorks": [
+            {"availabilityWorkId": availabilityToWordIds[0], "description": " "}
+          ],
+          "picture": {"file": file == null ? '' : file!.path, "fileTypeId": 1}
+        });
+    response.fold(
+      (errMessage) {
+        emit(UpdateLaawyerDatatsFail(errMessage));
+      },
+      (response) {
+        emit(UpdateLaawyerDataSuccess());
+      },
+    );
+  }
+
+  void checkValidateEditeProfile() {
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        putYourVisionController.text.isEmpty ||
+        adressOfficeController.text.isEmpty ||
+        specializationField == 0 ||
+        availabilityToWordIds.isEmpty ||
+        governmentId == 0 ||
+        districtId == 0 ||
+        gradeId == 0 ||
+        generalLawBachelorId == 0 ||
+        associationId == 0) {
+      emit(CheckFauild());
+    } else {
+      updateLawyerData();
+    }
   }
 }

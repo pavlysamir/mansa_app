@@ -11,7 +11,7 @@ import 'package:mansa_app/features/home/presentation/widgets/custom_cointiner_ol
 import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_cointaner.dart';
-import 'package:mansa_app/features/settings/presentation/widgets/custom_counter_point.dart';
+import 'package:mansa_app/features/profile/presentation/widgets/custom_Counter_user_point.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -35,7 +35,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileCubit, ProfileState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is UpdateGiverPointsFail) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(state.errorMessage),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final profileData =
             profileCubit?.userProfileData?.responseData.profileData;
@@ -61,21 +70,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       children: [
                         if (profileCubit != null &&
                             profileCubit!.categoryData.isNotEmpty)
-                          ListView.builder(
-                            itemCount: profileCubit!.categoryData.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  CustomCounterPoint(
-                                    catagoryData: profileCubit!
-                                        .usersGivenPoints[index]
-                                        .categories[index],
-                                  ),
-                                  SizedBox(height: 10.h),
-                                ],
-                              );
-                            },
+                          Column(
+                            children: [
+                              const CustomCounterUserPoint(
+                                categoryId: 2,
+                                categoryName: 'الذهبيه',
+                                count: 0,
+                              ),
+                              SizedBox(height: 10.h),
+                              const CustomCounterUserPoint(
+                                categoryId: 1,
+                                categoryName: 'الفضية',
+                                count: 0,
+                              ),
+                              SizedBox(height: 10.h),
+                              const CustomCounterUserPoint(
+                                categoryId: 3,
+                                categoryName: 'البرونزية',
+                                count: 0,
+                              ),
+                              SizedBox(height: 10.h),
+                            ],
                           ),
                         if (state is UpdateGiverPointsLoading)
                           const Center(
@@ -88,19 +103,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             text: AppLocalizations.of(context)!.save,
                             textColor: Colors.white,
                             function: () {
-                              if (profileCubit != null &&
-                                  profileCubit!.updateCount.isNotEmpty) {
-                                profileCubit!
-                                    .updateGiverCountPoints(
-                                  lowyerId: widget.user.userId,
-                                )
-                                    .then((value) {
-                                  profileCubit!.getGivenUserPoints();
-                                  Navigator.pop(context);
-                                });
-                              } else {
-                                return;
-                              }
+                              profileCubit!.updateGiverCountPoints(
+                                lowyerId: widget.user.userId,
+                              );
+                              Navigator.pop(context);
                             },
                           ),
                       ],

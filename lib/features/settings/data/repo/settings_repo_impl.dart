@@ -8,6 +8,7 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
+import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
@@ -245,6 +246,19 @@ class SettingsRepoImpl implements SettingsRepo {
           data: {"toLawyerId": lowyerId, "categories": data});
 
       return Right(response['message']);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> updateProfileSettings(
+      {required Map<String, dynamic> data}) async {
+    try {
+      // Map<String, dynamic> data = lawyerData.toMap();
+      final response = await api.put(EndPoint.updateUserData, data: data);
+
+      return Right(response);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

@@ -130,3 +130,15 @@ final class UpdateGiverPointsFail extends SettingsState {
 
   UpdateGiverPointsFail(this.errorMessage);
 }
+
+final class UpdateLaawyerDataLoading extends SettingsState {}
+
+final class UpdateLaawyerDataSuccess extends SettingsState {}
+
+final class UpdateLaawyerDatatsFail extends SettingsState {
+  final String errorMessage;
+
+  UpdateLaawyerDatatsFail(this.errorMessage);
+}
+
+final class CheckFauild extends SettingsState {}

@@ -62,13 +62,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             CustomButtonLarge(
           text: AppLocalizations.of(context)!.save,
           function: () {
-            //  SettingsCubit.get(context)!.getSearchedUsers(1);
+            SettingsCubit.get(context)!.checkValidateEditeProfile();
           },
           textColor: Colors.white,
         ),
       ),
       body: BlocConsumer<SettingsCubit, SettingsState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is CheckFauild) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.red,
+                content: Text('طالرجاء ادخال كافة البيانات'),
+              ),
+            );
+          } else if (state is UpdateLaawyerDataSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('تم تحديث البيانات بنجاح'),
+              ),
+            );
+          } else if (state is UpdateLaawyerDatatsFail) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('الرجاء المحاوله مره اخرى'),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           return state is TriggerFunctionLoading ||
                   state is GetProfileSettingLoading
