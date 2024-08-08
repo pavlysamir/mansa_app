@@ -46,8 +46,8 @@ class Profile {
   num registrationGradeId;
   int generalLawBachelorId;
   int barAssociationsId;
-  num governorateId;
-  num districtId;
+  int governorateId;
+  int districtId;
   String registrationGrade;
   dynamic generalLawBachelor; // It can be of any type, so dynamic is used
   dynamic barAssociation; // It can be of any type, so dynamic is used

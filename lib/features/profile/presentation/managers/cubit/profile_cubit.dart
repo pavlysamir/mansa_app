@@ -53,9 +53,15 @@ class ProfileCubit extends Cubit<ProfileState> {
   PrrofileResponseData? myProfileData;
   Future<void> getProfileData() async {
     emit(GetProfileDataLoading());
+
+    // // Retrieve the id from shared preferences and convert it to an integer
+    // final String idString =
+    //     getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id);
+    // final int id =
+    //     int.tryParse(idString) ?? 0; // Default to 0 or handle error if parsing fails
+
     final response = await profileRepo.getProfileData(
-      id: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
-    );
+        id: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id));
 
     response.fold(
       (errMessage) => emit(GetProfileDataFail(errMessage)),
@@ -147,6 +153,16 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   getBacaloryName(int index) {
     for (var element in allGeneralLawConst) {
+      if (element.id == index) {
+        return element.nameAr;
+      } else {
+        return '';
+      }
+    }
+  }
+
+  getAddress(int index) {
+    for (var element in allDistrictConst) {
       if (element.id == index) {
         return element.nameAr;
       } else {

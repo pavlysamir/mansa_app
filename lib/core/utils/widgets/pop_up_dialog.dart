@@ -225,13 +225,8 @@ class PopUpDialogDropDown extends StatelessWidget {
                 ),
               ),
             ),
-            Image.asset(AssetsData.notes),
             SizedBox(height: 24.h),
-            ListView.builder(
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  return Text('aaaaaaaaaaaaaaaaa');
-                }),
+            widget,
           ],
         ),
       ),

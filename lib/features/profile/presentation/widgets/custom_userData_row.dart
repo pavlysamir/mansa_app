@@ -20,12 +20,16 @@ class CustomUserdataRow extends StatelessWidget {
             SizedBox(
               width: 22.w,
             ),
-            Text(
-              text,
-              style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: isNull ? Colors.grey : kBlackColor,
-                  ),
+            Expanded(
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      fontWeight: FontWeight.w400,
+                      color: isNull ? Colors.grey : kBlackColor,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                maxLines: 1,
+              ),
             )
           ],
         ),

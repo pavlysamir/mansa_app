@@ -37,3 +37,5 @@ String subject = Uri.encodeComponent("Hello in Mansa ");
 List<GovernmentDataModel> allBarAssociationsConst = [];
 
 List<GovernmentDataModel> allGeneralLawConst = [];
+
+List<GovernmentDataModel> allDistrictConst = [];

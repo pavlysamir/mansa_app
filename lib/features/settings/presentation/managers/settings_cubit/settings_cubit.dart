@@ -218,6 +218,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllDistrictsFail(errMessage)),
       (allDis) {
         allDistricts = allDis;
+        allDistrictConst = allDis;
         for (var element in allDistricts) {
           namesOfDistricts.add(element.nameAr);
           idsOfDistricts.add(element.id);
@@ -293,7 +294,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     this.association = association;
     for (var element in allBarAssociations) {
       if (element.nameAr == association) {
-        districtId = element.id;
+        associationId = element.id;
       }
     }
     if (kDebugMode) {

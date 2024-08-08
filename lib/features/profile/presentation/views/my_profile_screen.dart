@@ -46,16 +46,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: BlocConsumer<ProfileCubit, ProfileState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              return state is GetProfileDataLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(
-                      color: kPrimaryKey,
-                    ))
-                  : Column(
+        body: BlocConsumer<ProfileCubit, ProfileState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            return state is GetProfileDataLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: kPrimaryKey,
+                  ))
+                : SingleChildScrollView(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
@@ -254,9 +254,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           height: 32.h,
                         ),
                       ],
-                    );
-            },
-          ),
+                    ),
+                  );
+          },
         ));
   }
 }

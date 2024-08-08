@@ -39,11 +39,16 @@ class CustomUserdataCointaner extends StatelessWidget {
                           myProfileData.profileData.generalLawBachelorId),
                 ),
                 CustomUserdataRow(
-                    isNull: myProfileData.profileData.address == null
+                    isNull: myProfileData.profileData.districtId == 0
                         ? true
                         : false,
                     img: AssetsData.address,
-                    text: myProfileData.profileData.address ?? 'عنوان  '),
+                    text: myProfileData.profileData.districtId == 0
+                        ? 'العنوان'
+                        : ProfileCubit.get(context)!
+                            .getAddress(myProfileData.profileData.districtId)
+                    //myProfileData.profileData.address ?? 'عنوان  '
+                    ),
                 CustomUserdataRow(
                   isNull: myProfileData.profileData.specializationFields == []
                       ? true

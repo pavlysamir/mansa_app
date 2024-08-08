@@ -7,6 +7,7 @@ import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
+import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
 import 'package:mansa_app/features/search/presentation/widgets/custom_buttom_filter.dart';
 import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/circular_profile_img.dart';
@@ -230,6 +231,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     },
                                     widget: Column(
                                       children: [
+                                        SizedBox(
+                                          height: 200.h,
+                                          child: ListView.builder(
+                                              itemCount: 15,
+                                              itemBuilder: (context, index) {
+                                                return SelectedDropDownItem(
+                                                  functionSelected: () {
+                                                    SettingsCubit.get(context)!
+                                                        .selectAssociation(
+                                                            SettingsCubit.get(
+                                                                        context)!
+                                                                    .namesOfBarAssociations[
+                                                                index]);
+                                                  },
+                                                  index: index,
+                                                  name: SettingsCubit.get(
+                                                              context)!
+                                                          .namesOfBarAssociations[
+                                                      index],
+                                                );
+                                              }),
+                                        ),
                                         state is UpdateGiverPointsLoading
                                             ? const Center(
                                                 child:
@@ -250,7 +273,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 );
                                 // PopUpDialogDropDown
                               },
-                              child: Text('aaaaaaaaaaa')),
+                              child: Container(
+                                  width: double.infinity,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          SettingsCubit.get(context)!
+                                              .association,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        ),
+                                        const Icon(Icons.arrow_drop_down)
+                                      ],
+                                    ),
+                                  ))),
                           SizedBox(
                             height: 24.h,
                           ),
@@ -283,12 +329,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           // ),
                           // CustomDropDownMenu(
                           //   list: SettingsCubit.get(context)!
-                          //       .namesOfGrantingUniversity,
-                          //   value:
-                          //       SettingsCubit.get(context)!.grantingUniversity,
+                          //       .namesOfBarAssociations,
+                          //   value: SettingsCubit.get(context)!.association,
                           //   onChanged: (String? newValue) {
                           //     SettingsCubit.get(context)!
-                          //         .selectGrantingUniversity(newValue!);
+                          //         .selectAssociation(newValue!);
                           //   },
                           // ),
                           // SizedBox(

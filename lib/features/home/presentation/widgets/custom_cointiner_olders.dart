@@ -29,9 +29,11 @@ class CustomHomeContainerOlders extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.r),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 5.h),
           Text(
+            textAlign: TextAlign.center,
             AppLocalizations.of(context)!.olderOfApp,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
@@ -39,7 +41,11 @@ class CustomHomeContainerOlders extends StatelessWidget {
           Directionality(
             textDirection: TextDirection.ltr,
             child: SizedBox(
-              width: controller1.text.length < 3 ? 70.w : 180.w,
+              width: controller1.text.length == 1
+                  ? 40.w
+                  : controller1.text.length < 3
+                      ? 70.w
+                      : 180.w,
               child: PinCodeTextField(
                   controller: controller1,
                   enableActiveFill: true,
@@ -53,7 +59,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     shape: PinCodeFieldShape.box,
                     borderRadius: BorderRadius.circular(5),
                     fieldHeight: 40.h,
-                    fieldWidth: 32.w,
+                    fieldWidth: 30.w,
                     activeColor: kDarktBlue,
                     selectedColor: kDarktBlue,
                     disabledColor: kDarktBlue,
@@ -64,6 +70,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                     errorBorderColor: Colors.red,
                   ),
                   textStyle: const TextStyle(
+                    fontSize: 16,
                     color: Colors.white,
                   )),
             ),
@@ -74,6 +81,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
               Column(
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     AppLocalizations.of(context)!.olderOfDistric,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
@@ -81,7 +89,11 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: controller2.text.length < 3 ? 70.w : 180.w,
+                      width: controller1.text.length == 1
+                          ? 30.w
+                          : controller2.text.length < 3
+                              ? 70.w
+                              : 180.w,
                       child: PinCodeTextField(
                           controller: controller2,
                           enableActiveFill: true,
@@ -94,7 +106,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
                             fieldHeight: 40.h,
-                            fieldWidth: 32.w,
+                            fieldWidth: 30.w,
                             activeColor: kPrimaryKey,
                             selectedColor: kPrimaryKey,
                             disabledColor: kPrimaryKey,
@@ -106,6 +118,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                           ),
                           textStyle: const TextStyle(
                             color: Colors.white,
+                            fontSize: 16,
                           )),
                     ),
                   ),
@@ -115,6 +128,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
               Column(
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     AppLocalizations.of(context)!.olderOfSpacific,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
@@ -122,7 +136,11 @@ class CustomHomeContainerOlders extends StatelessWidget {
                   Directionality(
                     textDirection: TextDirection.ltr,
                     child: SizedBox(
-                      width: controller3.text.length < 3 ? 70.w : 180.w,
+                      width: controller1.text.length == 1
+                          ? 30.w
+                          : controller3.text.length < 3
+                              ? 70.w
+                              : 180.w,
                       child: PinCodeTextField(
                           controller: controller3,
                           enableActiveFill: true,
@@ -135,7 +153,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
                             fieldHeight: 40.h,
-                            fieldWidth: 32.w,
+                            fieldWidth: 30.w,
                             activeColor: kPrimaryKey,
                             selectedColor: kPrimaryKey,
                             disabledColor: kPrimaryKey,
@@ -146,6 +164,7 @@ class CustomHomeContainerOlders extends StatelessWidget {
                             errorBorderColor: Colors.red,
                           ),
                           textStyle: const TextStyle(
+                            fontSize: 16,
                             color: Colors.white,
                           )),
                     ),

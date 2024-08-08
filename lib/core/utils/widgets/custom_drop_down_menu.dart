@@ -24,7 +24,10 @@ class CustomDropDownMenu extends StatelessWidget {
           //dropdownColor: Colors.white.withOpacity(0.5),
           elevation: 0,
           value: value,
-          hint: Text(list.first),
+          hint: Text(
+            list.first,
+            overflow: TextOverflow.ellipsis,
+          ),
           items: list.map((String value) {
             return DropdownMenuItem<String>(
               value: value,

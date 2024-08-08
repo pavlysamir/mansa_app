@@ -44,9 +44,11 @@ class AuthRepoImpl implements AuthRepo {
 
       var data = LoginUserModel.fromJson(response['data']);
 
+      int? id = int.tryParse(data.id);
+
       getIt
           .get<CashHelperSharedPreferences>()
-          .saveData(key: ApiKey.id, value: data.id);
+          .saveData(key: ApiKey.id, value: id);
       getIt
           .get<CashHelperSharedPreferences>()
           .saveData(key: ApiKey.userName, value: data.userName);
