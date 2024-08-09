@@ -631,6 +631,10 @@ class SettingsCubit extends Cubit<SettingsState> {
             key: ApiKey.profilePic,
             value: profileSetingsData!.responseData!.picture!.url);
 
+        getIt.get<CashHelperSharedPreferences>().saveData(
+            key: ApiKey.userName,
+            value: profileSetingsData!.responseData!.name);
+
         emit(GetProfileSettingSuccess());
       },
     );
