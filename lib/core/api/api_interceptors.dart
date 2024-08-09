@@ -14,18 +14,9 @@ class ApiInterceptor extends Interceptor {
     String? token =
         getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.token);
 
-    int id = getIt
-        .get<CashHelperSharedPreferences>()
-        .getData(key: ApiKey.id)
-        .toInt();
-
     // If token is not null, add it to the request headers as a Bearer token
     if (token != null) {
       options.headers[ApiKey.authorizationHeader] = 'Bearer $token';
-    }
-
-    if (id != null) {
-      options.headers['UserId'] = id;
     }
 
     super.onRequest(options, handler);
