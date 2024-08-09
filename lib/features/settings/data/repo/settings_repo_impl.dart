@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
@@ -8,7 +11,6 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
-import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
@@ -258,6 +260,64 @@ class SettingsRepoImpl implements SettingsRepo {
       // Map<String, dynamic> data = lawyerData.toMap();
       final response = await api.put(EndPoint.updateUserData, data: data);
 
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> addFile(
+      {required String userId,
+      required List<String> dataType,
+      required List<File> file}) async {
+    try {
+      // Create FormData
+      FormData formData = FormData();
+
+      // Add userId field
+      formData.fields.add(MapEntry("file.userid", userId));
+
+      // Add files and their types
+      for (int i = 0; i < file.length; i++) {
+        formData.fields.add(MapEntry("file.file[$i].fileTypeId", dataType[i]));
+        formData.files.add(
+          MapEntry(
+            "file.file[$i].file",
+            await MultipartFile.fromFile(file[i].path,
+                filename: file[i].path.split('/').last),
+          ),
+        );
+      }
+
+      // Sending the request
+      final response = await Dio()
+          .post('http://16.171.141.127/File/AddFile', data: formData);
+
+      // Check the response and return accordingly
+      if (response.statusCode == 200) {
+        return Right(response.data);
+      } else {
+        return Left('Failed to upload files');
+      }
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    } catch (e) {
+      return Left('An unexpected error occurred');
+    }
+  }
+
+  @override
+  Future<Either<String, void>> getFile({
+    required int userId,
+  }) async {
+    try {
+      final response = await api.post(
+        EndPoint.getFile,
+        queryParameters: {
+          'filetypeId': '1',
+        },
+      );
       return Right(response);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);

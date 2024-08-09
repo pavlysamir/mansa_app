@@ -10,6 +10,9 @@ import 'package:mansa_app/core/utils/styles.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
+import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
+import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
+import 'package:mansa_app/core/utils/widgets/selected_drop_down_manager.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
 import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
@@ -19,6 +22,8 @@ class SecondRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SelectedDropDownManager manager = SelectedDropDownManager();
+
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is CashedSecondRegisterUserDataSuccess) {
@@ -85,6 +90,86 @@ class SecondRegisterScreen extends StatelessWidget {
                               SizedBox(
                                 height: 10.h,
                               ),
+                              GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          PopUpDialogDropDown(
+                                        context: context,
+                                        function: () {
+                                          Navigator.pop(context);
+                                        },
+                                        widget: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 200.h,
+                                              child: ListView.builder(
+                                                  itemCount: RegisterCubit.get(
+                                                          context)!
+                                                      .namesOfGrades
+                                                      .length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return SelectedDropDownItem(
+                                                      manager: manager,
+                                                      functionSelected: () {
+                                                        RegisterCubit.get(
+                                                                context)!
+                                                            .selectGrade(
+                                                                RegisterCubit.get(
+                                                                        context)!
+                                                                    .namesOfGrades[index]);
+                                                      },
+                                                      index: index,
+                                                      name: RegisterCubit.get(
+                                                              context)!
+                                                          .namesOfGrades[index],
+                                                    );
+                                                  }),
+                                            ),
+                                            CustomButtonLarge(
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .save,
+                                                textColor: Colors.white,
+                                                function: () {
+                                                  Navigator.pop(context);
+                                                })
+                                          ],
+                                        ),
+                                        function2: () {},
+                                      ),
+                                    );
+                                    // PopUpDialogDropDown
+                                  },
+                                  child: Container(
+                                      width: double.infinity,
+                                      height: 50.h,
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border:
+                                              Border.all(color: Colors.grey)),
+                                      child: Center(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              RegisterCubit.get(context)!
+                                                      .grade ??
+                                                  'اختر درجة القيد ',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            ),
+                                            const Icon(Icons.arrow_drop_down)
+                                          ],
+                                        ),
+                                      ))),
                               CustomDropDownMenu(
                                 list: RegisterCubit.get(context)!.namesOfGrades,
                                 value: RegisterCubit.get(context)!.grade,

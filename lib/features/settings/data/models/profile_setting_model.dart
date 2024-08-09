@@ -41,11 +41,11 @@ class UserResponseData {
   final String name;
   final String mobileNo;
   final String email;
-  final num registrationGradeId;
-  final num generalLawBachelorId;
-  final num barAssociationsId;
-  final num governorateId;
-  final num districtId;
+  final int registrationGradeId;
+  final int generalLawBachelorId;
+  final int barAssociationsId;
+  final int governorateId;
+  final int districtId;
   final String registrationGrade;
   final String? generalLawBachelor;
   final String? barAssociation;
@@ -159,7 +159,7 @@ class SpecializationField {
 }
 
 class AvailableWork {
-  final num availabilityWorkId;
+  final int availabilityWorkId;
   final String name;
   final String? description;
 

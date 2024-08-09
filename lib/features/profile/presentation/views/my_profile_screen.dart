@@ -36,7 +36,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          forceMaterialTransparency: true,
           backgroundColor: Colors.transparent,
+          automaticallyImplyLeading: false,
           actions: [
             IconProfileAppBar(
               function: () {
@@ -92,6 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               .textTheme
                               .labelMedium!
                               .copyWith(color: kDarktBlue),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         Text('درجة القيد - التخصص الأ ساسي ',
                             style: Theme.of(context).textTheme.headlineLarge!),

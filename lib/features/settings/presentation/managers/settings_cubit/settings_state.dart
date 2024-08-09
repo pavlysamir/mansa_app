@@ -142,3 +142,23 @@ final class UpdateLaawyerDatatsFail extends SettingsState {
 }
 
 final class CheckFauild extends SettingsState {}
+
+final class AddFileLoading extends SettingsState {}
+
+final class AddFileFaluir extends SettingsState {
+  final String errorMessage;
+
+  AddFileFaluir(this.errorMessage);
+}
+
+final class AddFileSuccess extends SettingsState {}
+
+final class GetFileLoading extends SettingsState {}
+
+final class GetFileFaluir extends SettingsState {
+  final String errorMessage;
+
+  GetFileFaluir(this.errorMessage);
+}
+
+final class GetFileSuccess extends SettingsState {}

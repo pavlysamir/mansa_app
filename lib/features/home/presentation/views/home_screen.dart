@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
+              forceMaterialTransparency: true,
               title: const CustomTitleAppBar(),
               actions: [
                 IconButton(

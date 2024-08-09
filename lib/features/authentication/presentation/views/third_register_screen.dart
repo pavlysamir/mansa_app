@@ -239,7 +239,11 @@ class ThirdRegisterScreen extends StatelessWidget {
                   ),
                   Center(
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          customJustGoNavigate(
+                              context: context,
+                              path: AppRouter.kContantUsScreen);
+                        },
                         child: Text(
                           AppLocalizations.of(context)!.contactUs,
                           style:

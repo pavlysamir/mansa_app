@@ -17,6 +17,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          forceMaterialTransparency: true,
           backgroundColor: Colors.transparent,
           title: Text(
             AppLocalizations.of(context)!.settings,

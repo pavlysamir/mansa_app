@@ -43,6 +43,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               content: Text(state.errorMessage),
             ),
           );
+        } else if (state is UpdateGiverPointsSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('تم'),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -52,6 +59,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         return Scaffold(
           appBar: AppBar(
+            forceMaterialTransparency: true,
             backgroundColor: Colors.transparent,
           ),
           bottomNavigationBar: Padding(

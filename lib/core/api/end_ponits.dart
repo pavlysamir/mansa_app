@@ -33,6 +33,8 @@ class EndPoint {
 
   static String addFile = "File/AddFile";
 
+  static String getFile = "File/GetUserFiles";
+
   static String resendOtp = "Account/Resend-otp";
 
   static String login = "Account/Login";

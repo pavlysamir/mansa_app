@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
@@ -32,4 +34,14 @@ abstract class SettingsRepo {
 
   Future<Either<String, void>> updateProfileSettings(
       {required Map<String, dynamic> data});
+
+  Future<Either<String, void>> addFile({
+    required String userId,
+    required List<String> dataType,
+    required List<File> file,
+  });
+
+  Future<Either<String, void>> getFile({
+    required int userId,
+  });
 }

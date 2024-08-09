@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/Assets/Assets.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart'; 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/core/functions/validation_handling.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/styles.dart';
@@ -29,6 +29,8 @@ class FirstRegisterScreen extends StatelessWidget {
           );
           customGoAndDeleteNavigate(
               context: context, path: AppRouter.kVerifyOtpPhoneScreen);
+          RegisterCubit.get(context)!.nameController.clear();
+          RegisterCubit.get(context)!.phoneController.clear();
         }
         if (state is VerifyMobileNumFaluir) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -148,6 +150,8 @@ class FirstRegisterScreen extends StatelessWidget {
                         onTap: () {
                           customGoAndDeleteNavigate(
                               context: context, path: AppRouter.kLoginScreen);
+                          RegisterCubit.get(context)!.nameController.clear();
+                          RegisterCubit.get(context)!.phoneController.clear();
                         },
                         child: Text(AppLocalizations.of(context)!.login,
                             style: Styles.textStyle14.copyWith(
@@ -161,7 +165,13 @@ class FirstRegisterScreen extends StatelessWidget {
                   ),
                   Center(
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          customJustGoNavigate(
+                              context: context,
+                              path: AppRouter.kContantUsScreen);
+                          RegisterCubit.get(context)!.nameController.clear();
+                          RegisterCubit.get(context)!.phoneController.clear();
+                        },
                         child: Text(
                           AppLocalizations.of(context)!.contactUs,
                           style: Styles.textStyle14.copyWith(

@@ -23,6 +23,7 @@ class CustomTitleAppBar extends StatelessWidget {
                       .getData(key: ApiKey.profilePic) !=
                   null
               ? ClipOval(
+                  clipBehavior: Clip.antiAlias,
                   child: CachedNetworkImage(
                       fit: BoxFit.fill,
                       width: double.infinity,
@@ -43,14 +44,19 @@ class CustomTitleAppBar extends StatelessWidget {
                   .headlineMedium!
                   .copyWith(color: kDarktBlue),
             ),
-            Text(
-              getIt
-                  .get<CashHelperSharedPreferences>()
-                  .getData(key: ApiKey.userName),
-              style: Theme.of(context)
-                  .textTheme
-                  .labelMedium!
-                  .copyWith(color: kDarktBlue),
+            SizedBox(
+              width: 130.w,
+              child: Text(
+                getIt
+                    .get<CashHelperSharedPreferences>()
+                    .getData(key: ApiKey.userName),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelMedium!
+                    .copyWith(color: kDarktBlue),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         )

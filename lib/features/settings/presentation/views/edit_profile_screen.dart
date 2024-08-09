@@ -8,6 +8,7 @@ import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
+import 'package:mansa_app/core/utils/widgets/selected_drop_down_manager.dart';
 import 'package:mansa_app/features/search/presentation/widgets/custom_buttom_filter.dart';
 import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 import 'package:mansa_app/features/settings/presentation/widgets/circular_profile_img.dart';
@@ -22,6 +23,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   SettingsCubit? settingsCubit;
+  final SelectedDropDownManager manager = SelectedDropDownManager();
 
   @override
   void initState() {
@@ -43,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor: Colors.white,
         title: Text(
           AppLocalizations.of(context)!.editProfile,
@@ -178,16 +181,115 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       SizedBox(
                                         height: 10.h,
                                       ),
-                                      CustomDropDownMenu(
-                                        list: SettingsCubit.get(context)!
-                                            .namesOfGrades,
-                                        value:
-                                            SettingsCubit.get(context)!.grade,
-                                        onChanged: (String? newValue) {
-                                          SettingsCubit.get(context)!
-                                              .selectGrade(newValue!);
-                                        },
-                                      )
+
+                                      GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  PopUpDialogDropDown(
+                                                context: context,
+                                                function: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                widget: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 200.h,
+                                                      child: ListView.builder(
+                                                          itemCount:
+                                                              SettingsCubit.get(
+                                                                      context)!
+                                                                  .namesOfGrades
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return SelectedDropDownItem(
+                                                              manager: manager,
+                                                              functionSelected:
+                                                                  () {
+                                                                SettingsCubit.get(
+                                                                        context)!
+                                                                    .selectGrade(
+                                                                        SettingsCubit.get(context)!
+                                                                            .namesOfGrades[index]);
+                                                              },
+                                                              index: index,
+                                                              name: SettingsCubit
+                                                                      .get(
+                                                                          context)!
+                                                                  .namesOfGrades[index],
+                                                            );
+                                                          }),
+                                                    ),
+                                                    state
+                                                            is UpdateGiverPointsLoading
+                                                        ? const Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                              backgroundColor:
+                                                                  kPrimaryKey,
+                                                            ),
+                                                          )
+                                                        : CustomButtonLarge(
+                                                            text: AppLocalizations
+                                                                    .of(
+                                                                        context)!
+                                                                .save,
+                                                            textColor:
+                                                                Colors.white,
+                                                            function: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            })
+                                                  ],
+                                                ),
+                                                function2: () {},
+                                              ),
+                                            );
+                                            // PopUpDialogDropDown
+                                          },
+                                          child: Container(
+                                              width: double.infinity,
+                                              height: 50.h,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                      color: Colors.grey)),
+                                              child: Center(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceAround,
+                                                  children: [
+                                                    Text(
+                                                      SettingsCubit.get(
+                                                                  context)!
+                                                              .grade ??
+                                                          'اختر درجة القيد ',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .titleSmall,
+                                                    ),
+                                                    const Icon(
+                                                        Icons.arrow_drop_down)
+                                                  ],
+                                                ),
+                                              )))
+                                      // CustomDropDownMenu(
+                                      //   list: SettingsCubit.get(context)!
+                                      //       .namesOfGrades,
+                                      //   value:
+                                      //       SettingsCubit.get(context)!.grade,
+                                      //   onChanged: (String? newValue) {
+                                      //     SettingsCubit.get(context)!
+                                      //         .selectGrade(newValue!);
+                                      //   },
+                                      // )
                                     ],
                                   ),
                                 ),
@@ -227,7 +329,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 24.h,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.mainAssociation,
+                            AppLocalizations.of(context)!.nkata,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                           SizedBox(
@@ -257,9 +359,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                         SizedBox(
                                           height: 200.h,
                                           child: ListView.builder(
-                                              itemCount: 15,
+                                              itemCount:
+                                                  SettingsCubit.get(context)!
+                                                      .namesOfBarAssociations
+                                                      .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedDropDownItem(
+                                                  manager: manager,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
                                                         .selectAssociation(
@@ -288,7 +394,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                         context)!
                                                     .save,
                                                 textColor: Colors.white,
-                                                function: () {})
+                                                function: () {
+                                                  Navigator.pop(context);
+                                                })
                                       ],
                                     ),
                                     function2: () {},
@@ -310,7 +418,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       children: [
                                         Text(
                                           SettingsCubit.get(context)!
-                                              .association,
+                                                  .association ??
+                                              'اختر التخصص الاساسي',
                                           overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
@@ -324,22 +433,99 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 24.h,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.anotherAssociation,
+                            AppLocalizations.of(context)!.mainAssociation,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                           SizedBox(
                             height: 10.h,
                           ),
-                          CustomDropDownMenu(
-                            list: SettingsCubit.get(context)!
-                                .namesOfSpecializationField,
-                            value:
-                                SettingsCubit.get(context)!.specializationField,
-                            onChanged: (String? newValue) {
-                              SettingsCubit.get(context)!
-                                  .selectSpecializationField(newValue!);
-                            },
-                          ),
+                          GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      PopUpDialogDropDown(
+                                    context: context,
+                                    function: () {
+                                      Navigator.pop(context);
+                                    },
+                                    widget: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 200.h,
+                                          child: ListView.builder(
+                                              itemCount: SettingsCubit.get(
+                                                      context)!
+                                                  .namesOfSpecializationField
+                                                  .length,
+                                              itemBuilder: (context, index) {
+                                                return SelectedDropDownItem(
+                                                  manager: manager,
+                                                  functionSelected: () {
+                                                    SettingsCubit.get(context)!
+                                                        .selectSpecializationField(
+                                                            SettingsCubit.get(
+                                                                        context)!
+                                                                    .namesOfSpecializationField[
+                                                                index]);
+                                                  },
+                                                  index: index,
+                                                  name: SettingsCubit.get(
+                                                              context)!
+                                                          .namesOfSpecializationField[
+                                                      index],
+                                                );
+                                              }),
+                                        ),
+                                        CustomButtonLarge(
+                                            text: AppLocalizations.of(context)!
+                                                .save,
+                                            textColor: Colors.white,
+                                            function: () {
+                                              Navigator.pop(context);
+                                            })
+                                      ],
+                                    ),
+                                    function2: () {},
+                                  ),
+                                );
+                                // PopUpDialogDropDown
+                              },
+                              child: Container(
+                                  width: double.infinity,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          SettingsCubit.get(context)!
+                                                  .specializationField ??
+                                              'اختر التخصص الاخر',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        ),
+                                        const Icon(Icons.arrow_drop_down)
+                                      ],
+                                    ),
+                                  ))),
+                          // CustomDropDownMenu(
+                          //   list: SettingsCubit.get(context)!
+                          //       .namesOfSpecializationField,
+                          //   value:
+                          //       SettingsCubit.get(context)!.specializationField,
+                          //   onChanged: (String? newValue) {
+                          //     SettingsCubit.get(context)!
+                          //         .selectSpecializationField(newValue!);
+                          //   },
+                          // ),
                           SizedBox(
                             height: 24.h,
                           ),

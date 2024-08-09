@@ -278,7 +278,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   addFile() async {
     emit(AddFileLoading());
     final response = await authRepository.addFile(
-      userId: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
+      userId: getIt
+          .get<CashHelperSharedPreferences>()
+          .getData(key: ApiKey.id)
+          .toString(),
       dataType: ['3', '3'],
       file: [fileFront!, fileBack!],
     );

@@ -31,6 +31,7 @@ class _MyBalanceScreenState extends State<MyBalanceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         backgroundColor: Colors.transparent,
         title: Text(
           AppLocalizations.of(context)!.balance,

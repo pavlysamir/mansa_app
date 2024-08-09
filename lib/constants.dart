@@ -39,3 +39,5 @@ List<GovernmentDataModel> allBarAssociationsConst = [];
 List<GovernmentDataModel> allGeneralLawConst = [];
 
 List<GovernmentDataModel> allDistrictConst = [];
+
+List<GovernmentDataModel> allGovernmentConst = [];

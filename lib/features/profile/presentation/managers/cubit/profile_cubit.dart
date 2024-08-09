@@ -9,6 +9,7 @@ import 'package:mansa_app/features/home/data/models/user_sorted.dart';
 import 'package:mansa_app/features/profile/data/models/get_given_catagories_count_model.dart';
 import 'package:mansa_app/features/profile/data/models/profile_data_model.dart';
 import 'package:mansa_app/features/profile/data/repo/profile_repo.dart';
+import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:meta/meta.dart';
 
@@ -161,8 +162,18 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
-  getAddress(int index) {
+  getAddressDistric(int index) {
     for (var element in allDistrictConst) {
+      if (element.id == index) {
+        return element.nameAr;
+      } else {
+        return '';
+      }
+    }
+  }
+
+  getAddressGovernment(int index) {
+    for (var element in allGovernmentConst) {
       if (element.id == index) {
         return element.nameAr;
       } else {
@@ -188,6 +199,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       },
       (response) {
         emit(UpdateGiverPointsSuccess(response));
+        updateCount = [];
       },
     );
   }

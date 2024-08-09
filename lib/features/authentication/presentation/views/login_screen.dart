@@ -31,6 +31,7 @@ class LoginScreen extends StatelessWidget {
               content: Text(state.message),
             ),
           );
+          LoginCubit.get(context)!.clearData();
         }
       },
       builder: (context, state) {
@@ -105,6 +106,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       customGoAndDeleteNavigate(
                           context: context, path: AppRouter.kVerifyPhoneScreen);
+                      LoginCubit.get(context)!.clearData();
                     },
                     child: Text(
                       AppLocalizations.of(context)!.doUForgrtPassword,
@@ -149,6 +151,7 @@ class LoginScreen extends StatelessWidget {
                           customGoAndDeleteNavigate(
                               context: context,
                               path: AppRouter.kFistRegisterScreen);
+                          LoginCubit.get(context)!.clearData();
                         },
                         child: Text(AppLocalizations.of(context)!.createAccount,
                             style: Styles.textStyle14.copyWith(
@@ -162,7 +165,12 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Center(
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          customJustGoNavigate(
+                              context: context,
+                              path: AppRouter.kContantUsScreen);
+                          LoginCubit.get(context)!.clearData();
+                        },
                         child: Text(
                           AppLocalizations.of(context)!.contactUs,
                           style: Styles.textStyle14.copyWith(

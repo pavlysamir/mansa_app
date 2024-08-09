@@ -48,15 +48,18 @@ class CustomLowyerDataItem extends StatelessWidget {
                       radius: 20.r,
                       child: user.picture != null &&
                               user.picture!.fileTypeName == 'Profile Picture'
-                          ? CachedNetworkImage(
-                              width: double.infinity,
-                              fit: BoxFit.fitHeight,
-                              imageUrl: user.picture!.url,
-                              placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(
-                                    color: kPrimaryKey,
-                                    strokeWidth: 1,
-                                  )))
+                          ? ClipOval(
+                              clipBehavior: Clip.antiAlias,
+                              child: CachedNetworkImage(
+                                  width: double.infinity,
+                                  fit: BoxFit.fill,
+                                  imageUrl: user.picture!.url,
+                                  placeholder: (context, url) => const Center(
+                                          child: CircularProgressIndicator(
+                                        color: kPrimaryKey,
+                                        strokeWidth: 1,
+                                      ))),
+                            )
                           : const Icon(Icons.person),
                     ),
                     SizedBox(width: 12.w),

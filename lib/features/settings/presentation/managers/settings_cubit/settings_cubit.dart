@@ -131,9 +131,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   void selectGrade(String grade) {
     this.grade = grade;
-    for (var element in getIt.get<CashHelperSharedPreferences>().getData(
-          key: ApiKey.namesOfGrades,
-        )) {
+    for (var element in allGradesRegistration) {
       if (element.nameAr == grade) {
         gradeId = element.id;
       }
@@ -168,6 +166,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   List<AvailibalityWorkModel> allAvalabilityToWork = [];
   List<String> namesOfAvalabilityToWork = [];
   List<int> idsOfAvalabilityToWork = [];
+  int? avalabilityToWorkId;
+
+  late String avalabilityToWorkField;
 
   Future<void> getAllAvalabilityToWork() async {
     // emit(GetAllAvalabalityOfWorkLoading());
@@ -182,6 +183,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           idsOfAvalabilityToWork.add(element.id);
 
           mapAvalabilityToWork[element.id] = false;
+          avalabilityToWorkId = idsOfAvalabilityToWork.first;
         }
 
         //  emit(GetAllAvalabalityOfWorkSuccess());
@@ -201,6 +203,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllGovernmentsFail(errMessage)),
       (allGov) {
         allGovernments = allGov;
+        allGovernmentConst = allGov;
         for (var element in allGovernments) {
           namesOfGovernments.add(element.nameAr);
           idsOfGovernments.add(element.id);
@@ -591,7 +594,12 @@ class SettingsCubit extends Cubit<SettingsState> {
         profileSetingsData = profileSett;
         nameController.text = profileSetingsData!.responseData!.name;
         emailController.text = profileSetingsData!.responseData!.email;
-        phoneController.text = profileSetingsData!.responseData!.mobileNo;
+        phoneController.text =
+            profileSetingsData!.responseData!.mobileNo.startsWith('+2')
+                ? profileSetingsData!.responseData!.mobileNo.substring(2)
+                : profileSetingsData!.responseData!.mobileNo;
+        kedNumberController.text =
+            profileSetingsData!.responseData!.registrationNumber;
         putYourVisionController.text =
             profileSetingsData!.responseData!.description ?? '';
         adressOfficeController.text =
@@ -601,6 +609,27 @@ class SettingsCubit extends Cubit<SettingsState> {
           specializationFieldId = element.specializationFieldId;
           specializationField = element.name;
         }
+
+        for (var element in profileSetingsData!.responseData!.availableWorks) {
+          mapAvalabilityToWork.addAll({element.availabilityWorkId: true});
+
+          availabilityToWordIds.add(element.availabilityWorkId);
+          if (kDebugMode) {
+            print(availabilityToWordIds);
+          }
+          // av = element.name;
+        }
+        districtId = profileSetingsData!.responseData!.districtId;
+        governmentId = profileSetingsData!.responseData!.governorateId;
+        associationId = profileSetingsData!.responseData!.barAssociationsId;
+
+        gradeId = profileSetingsData!.responseData!.registrationGradeId;
+        generalLawBachelorId =
+            profileSetingsData!.responseData!.generalLawBachelorId;
+
+        getIt.get<CashHelperSharedPreferences>().saveData(
+            key: ApiKey.profilePic,
+            value: profileSetingsData!.responseData!.picture!.url);
 
         emit(GetProfileSettingSuccess());
       },
@@ -669,6 +698,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       },
       (response) {
         emit(UpdateGiverPointsSuccess(response));
+        updateCount = [];
       },
     );
   }
@@ -720,11 +750,15 @@ class SettingsCubit extends Cubit<SettingsState> {
     //   registrationNumber: "0", // Populate with actual data
     // );
 
+    List<Map<String, dynamic>> availableWorks = availabilityToWordIds.map((i) {
+      return {"availabilityWorkId": i, "description": " "};
+    }).toList();
+
     final response = await settingsRepo.updateProfileSettings(
         //  lawyerData: lawyerData,
         data: {
           "name": nameController.text,
-          "mobileNo": phoneController.text,
+          "mobileNo": '+2${phoneController.text}',
           "email": emailController.text ?? '',
           "registrationGradeId": 1,
           "generalLawBachelorId": generalLawBachelorId ?? 0,
@@ -737,10 +771,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           "specializationFields": [
             {"specializationFieldId": specializationFieldId, "isPrimary": true}
           ],
-          "availableWorks": [
-            {"availabilityWorkId": availabilityToWordIds[0], "description": " "}
-          ],
-          "picture": {"file": file == null ? '' : file!.path, "fileTypeId": 1}
+          "availableWorks": availableWorks,
+          // "picture": {"file": file == null ? '' : file!.path, "fileTypeId": 1}
         });
     response.fold(
       (errMessage) {
@@ -748,6 +780,40 @@ class SettingsCubit extends Cubit<SettingsState> {
       },
       (response) {
         emit(UpdateLaawyerDataSuccess());
+        file == null ? null : addFile();
+      },
+    );
+  }
+
+  addFile() async {
+    emit(AddFileLoading());
+    final response = await settingsRepo.addFile(
+      userId: getIt
+          .get<CashHelperSharedPreferences>()
+          .getData(key: ApiKey.id)
+          .toString(),
+      dataType: ['1'],
+      file: [file!],
+    );
+
+    response.fold(
+      (errMessage) => emit(AddFileFaluir(errMessage)),
+      (message) {
+        emit(AddFileSuccess());
+      },
+    );
+  }
+
+  getFile() async {
+    emit(GetFileLoading());
+    final response = await settingsRepo.getFile(
+      userId: getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id),
+    );
+
+    response.fold(
+      (errMessage) => emit(GetFileFaluir(errMessage)),
+      (message) {
+        emit(GetFileSuccess());
       },
     );
   }
@@ -758,6 +824,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         phoneController.text.isEmpty ||
         putYourVisionController.text.isEmpty ||
         adressOfficeController.text.isEmpty ||
+        kedNumberController.text.isEmpty ||
         specializationField == 0 ||
         availabilityToWordIds.isEmpty ||
         governmentId == 0 ||
@@ -767,7 +834,9 @@ class SettingsCubit extends Cubit<SettingsState> {
         associationId == 0) {
       emit(CheckFauild());
     } else {
-      updateLawyerData();
+      updateLawyerData().then((value) {
+        getProfileSettingData();
+      });
     }
   }
 }
