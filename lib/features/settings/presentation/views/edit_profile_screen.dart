@@ -38,6 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     settingsCubit!.clearData();
     settingsCubit!.file == null;
+
     super.dispose();
   }
 
@@ -76,7 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 backgroundColor: Colors.red,
-                content: Text('طالرجاء ادخال كافة البيانات'),
+                content: Text('الرجاء ادخال كافة البيانات'),
               ),
             );
           } else if (state is UpdateLaawyerDataSuccess) {
@@ -571,15 +572,93 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          CustomDropDownMenu(
-                            list:
-                                SettingsCubit.get(context)!.namesOfGovernments,
-                            value: SettingsCubit.get(context)!.government,
-                            onChanged: (String? newValue) {
-                              SettingsCubit.get(context)!
-                                  .selectGovernment(newValue!);
-                            },
-                          ),
+
+                          GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      PopUpDialogDropDown(
+                                    context: context,
+                                    function: () {
+                                      Navigator.pop(context);
+                                    },
+                                    widget: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 200.h,
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  SettingsCubit.get(context)!
+                                                      .namesOfGovernments
+                                                      .length,
+                                              itemBuilder: (context, index) {
+                                                return SelectedDropDownItem(
+                                                  manager: manager,
+                                                  functionSelected: () {
+                                                    SettingsCubit.get(context)!
+                                                        .selectGovernment(
+                                                            SettingsCubit.get(
+                                                                        context)!
+                                                                    .namesOfGovernments[
+                                                                index]);
+                                                  },
+                                                  index: index,
+                                                  name: SettingsCubit.get(
+                                                              context)!
+                                                          .namesOfGovernments[
+                                                      index],
+                                                );
+                                              }),
+                                        ),
+                                        state is UpdateGiverPointsLoading
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  backgroundColor: kPrimaryKey,
+                                                ),
+                                              )
+                                            : CustomButtonLarge(
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .save,
+                                                textColor: Colors.white,
+                                                function: () {
+                                                  Navigator.pop(context);
+                                                })
+                                      ],
+                                    ),
+                                    function2: () {},
+                                  ),
+                                );
+                                // PopUpDialogDropDown
+                              },
+                              child: Container(
+                                  width: double.infinity,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          SettingsCubit.get(context)!
+                                                  .government ??
+                                              'اختر درجة القيد ',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        ),
+                                        const Icon(Icons.arrow_drop_down)
+                                      ],
+                                    ),
+                                  ))),
+
                           SizedBox(
                             height: 24.h,
                           ),
@@ -590,14 +669,92 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          CustomDropDownMenu(
-                            list: SettingsCubit.get(context)!.namesOfDistricts,
-                            value: SettingsCubit.get(context)!.district,
-                            onChanged: (String? newValue) {
-                              SettingsCubit.get(context)!
-                                  .selectDistrict(newValue!);
-                            },
-                          ),
+
+                          GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      PopUpDialogDropDown(
+                                    context: context,
+                                    function: () {
+                                      Navigator.pop(context);
+                                    },
+                                    widget: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 200.h,
+                                          child: ListView.builder(
+                                              itemCount:
+                                                  SettingsCubit.get(context)!
+                                                      .namesOfDistricts
+                                                      .length,
+                                              itemBuilder: (context, index) {
+                                                return SelectedDropDownItem(
+                                                  manager: manager,
+                                                  functionSelected: () {
+                                                    SettingsCubit.get(context)!
+                                                        .selectDistrict(
+                                                            SettingsCubit.get(
+                                                                        context)!
+                                                                    .namesOfDistricts[
+                                                                index]);
+                                                  },
+                                                  index: index,
+                                                  name: SettingsCubit.get(
+                                                          context)!
+                                                      .namesOfDistricts[index],
+                                                );
+                                              }),
+                                        ),
+                                        state is UpdateGiverPointsLoading
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  backgroundColor: kPrimaryKey,
+                                                ),
+                                              )
+                                            : CustomButtonLarge(
+                                                text: AppLocalizations.of(
+                                                        context)!
+                                                    .save,
+                                                textColor: Colors.white,
+                                                function: () {
+                                                  Navigator.pop(context);
+                                                })
+                                      ],
+                                    ),
+                                    function2: () {},
+                                  ),
+                                );
+                                // PopUpDialogDropDown
+                              },
+                              child: Container(
+                                  width: double.infinity,
+                                  height: 50.h,
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          SettingsCubit.get(context)!
+                                                  .district ??
+                                              'اختر درجة القيد ',
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall,
+                                        ),
+                                        const Icon(Icons.arrow_drop_down)
+                                      ],
+                                    ),
+                                  ))),
+
                           SizedBox(
                             height: 24.h,
                           ),
@@ -644,7 +801,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           ),
                           CustomDescriptionPostField(
                             controller: SettingsCubit.get(context)!
-                                .putYourVisionController,
+                                .putYourVisionController!,
                             hintText: 'قم بكتابة رؤيتك في القانون ',
                             textInputType: TextInputType.text,
                           ),

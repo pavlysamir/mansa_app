@@ -40,17 +40,17 @@ class UserResponseData {
   final num userId;
   final String name;
   final String mobileNo;
-  final String email;
+  final String? email;
   final int registrationGradeId;
   final int generalLawBachelorId;
   final int barAssociationsId;
-  final int governorateId;
-  final int districtId;
+  final int? governorateId;
+  final int? districtId;
   final String registrationGrade;
   final String? generalLawBachelor;
   final String? barAssociation;
-  final String registrationNumber;
-  final String address;
+  final String? registrationNumber;
+  final String? address;
   final String? description;
   final List<SpecializationField> specializationFields;
   final List<AvailableWork> availableWorks;
@@ -60,17 +60,17 @@ class UserResponseData {
     required this.userId,
     required this.name,
     required this.mobileNo,
-    required this.email,
+    this.email,
     required this.registrationGradeId,
     required this.generalLawBachelorId,
     required this.barAssociationsId,
-    required this.governorateId,
-    required this.districtId,
+    this.governorateId,
+    this.districtId,
     required this.registrationGrade,
     this.generalLawBachelor,
     this.barAssociation,
-    required this.registrationNumber,
-    required this.address,
+    this.registrationNumber,
+    this.address,
     this.description,
     required this.specializationFields,
     required this.availableWorks,

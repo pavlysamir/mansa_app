@@ -42,8 +42,8 @@ class Profile {
   int userId;
   String name;
   String mobileNo;
-  String email;
-  num registrationGradeId;
+  String? email;
+  int registrationGradeId;
   int generalLawBachelorId;
   int barAssociationsId;
   int governorateId;
@@ -62,7 +62,7 @@ class Profile {
     required this.userId,
     required this.name,
     required this.mobileNo,
-    required this.email,
+    this.email,
     required this.registrationGradeId,
     required this.generalLawBachelorId,
     required this.barAssociationsId,

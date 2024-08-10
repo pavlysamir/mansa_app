@@ -14,7 +14,6 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
-import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 import 'package:mansa_app/features/settings/data/repo/settings_repo.dart';
@@ -23,8 +22,6 @@ import 'package:image/image.dart' as img;
 // Import the two conflicting libraries with different aliases
 import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart'
     as edit_lawyer;
-import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart'
-    as profile_setting;
 
 part 'settings_state.dart';
 
@@ -53,7 +50,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   TextEditingController kedNumberController = TextEditingController();
 
-  TextEditingController putYourVisionController = TextEditingController();
+  TextEditingController? putYourVisionController = TextEditingController();
 
   TextEditingController codeController = TextEditingController();
 
@@ -297,7 +294,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String association;
-  int associationId = 0;
+  int? associationId;
 
   void selectAssociation(String association) {
     this.association = association;
@@ -507,7 +504,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     governmentId = allGovernments.first.id;
     emailController.clear();
     phoneController.clear();
-    putYourVisionController.clear();
+    putYourVisionController!.clear();
     adressOfficeController.clear();
 
     mapAvalabilityToWork.forEach(((key, value) {
@@ -586,6 +583,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   ProfileSettingModel? profileSetingsData;
   Future<void> getProfileSettingData() async {
     emit(GetProfileSettingLoading());
+    availabilityToWordIds.clear();
     final response = await settingsRepo.getProfileSettingsData();
 
     response.fold(
@@ -593,14 +591,14 @@ class SettingsCubit extends Cubit<SettingsState> {
       (profileSett) {
         profileSetingsData = profileSett;
         nameController.text = profileSetingsData!.responseData!.name;
-        emailController.text = profileSetingsData!.responseData!.email;
+        emailController.text = profileSetingsData!.responseData!.email ?? '';
         phoneController.text =
             profileSetingsData!.responseData!.mobileNo.startsWith('+2')
                 ? profileSetingsData!.responseData!.mobileNo.substring(2)
                 : profileSetingsData!.responseData!.mobileNo;
         kedNumberController.text =
-            profileSetingsData!.responseData!.registrationNumber;
-        putYourVisionController.text =
+            profileSetingsData!.responseData!.registrationNumber ?? '';
+        putYourVisionController!.text =
             profileSetingsData!.responseData!.description ?? '';
         adressOfficeController.text =
             profileSetingsData!.responseData!.address ?? '';
@@ -614,22 +612,24 @@ class SettingsCubit extends Cubit<SettingsState> {
           mapAvalabilityToWork.addAll({element.availabilityWorkId: true});
 
           availabilityToWordIds.add(element.availabilityWorkId);
-          if (kDebugMode) {
-            print(availabilityToWordIds);
-          }
+
           // av = element.name;
         }
-        districtId = profileSetingsData!.responseData!.districtId;
-        governmentId = profileSetingsData!.responseData!.governorateId;
+        if (kDebugMode) {
+          print('dddddddddddddddd ${availabilityToWordIds}');
+        }
+        districtId = profileSetingsData!.responseData!.districtId ?? 0;
+        governmentId = profileSetingsData!.responseData!.governorateId ?? 0;
         associationId = profileSetingsData!.responseData!.barAssociationsId;
 
         gradeId = profileSetingsData!.responseData!.registrationGradeId;
         generalLawBachelorId =
             profileSetingsData!.responseData!.generalLawBachelorId;
-
-        getIt.get<CashHelperSharedPreferences>().saveData(
-            key: ApiKey.profilePic,
-            value: profileSetingsData!.responseData!.picture!.url);
+        profileSetingsData!.responseData!.picture != null
+            ? getIt.get<CashHelperSharedPreferences>().saveData(
+                key: ApiKey.profilePic,
+                value: profileSetingsData!.responseData!.picture!.url)
+            : null;
 
         getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.userName,
@@ -710,14 +710,6 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> updateLawyerData() async {
     emit(UpdateLaawyerDataLoading());
 
-    List<AvailabilityWork> selectedAvailableWorks = availabilityToWordIds
-        .map((id) => AvailabilityWork(
-              availabilityWorkId: id,
-              description:
-                  "", // Assuming description is optional or can be left empty
-            ))
-        .toList();
-
     // Ensure specializationFieldId is not null before creating SpecializationField objects
     List<edit_lawyer.SpecializationField> specializationFields = [];
     if (specializationFieldId != null) {
@@ -754,24 +746,27 @@ class SettingsCubit extends Cubit<SettingsState> {
     //   registrationNumber: "0", // Populate with actual data
     // );
 
-    List<Map<String, dynamic>> availableWorks = availabilityToWordIds.map((i) {
-      return {"availabilityWorkId": i, "description": " "};
-    }).toList();
+    List<Map<String, dynamic>> availableWorks = [];
+    if (availabilityToWordIds != []) {
+      availableWorks = availabilityToWordIds.map((i) {
+        return {"availabilityWorkId": i, "description": " "};
+      }).toList();
+    }
 
     final response = await settingsRepo.updateProfileSettings(
         //  lawyerData: lawyerData,
         data: {
           "name": nameController.text,
           "mobileNo": '+2${phoneController.text}',
-          "email": emailController.text ?? '',
+          "email": emailController.text,
           "registrationGradeId": 1,
-          "generalLawBachelorId": generalLawBachelorId ?? 0,
+          "generalLawBachelorId": generalLawBachelorId,
           "barAssociationsId": associationId ?? 0,
-          "governorateId": governmentId ?? 0,
-          "districtId": districtId ?? 0,
-          "registrationNumber": "1111",
-          "address": adressOfficeController.text ?? '',
-          "description": putYourVisionController.text ?? '',
+          "governorateId": governmentId,
+          "districtId": districtId,
+          "registrationNumber": kedNumberController.text,
+          "address": adressOfficeController.text,
+          "description": putYourVisionController!.text,
           "specializationFields": [
             {"specializationFieldId": specializationFieldId, "isPrimary": true}
           ],
@@ -823,24 +818,27 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void checkValidateEditeProfile() {
-    if (nameController.text.isEmpty ||
-        emailController.text.isEmpty ||
-        phoneController.text.isEmpty ||
-        putYourVisionController.text.isEmpty ||
-        adressOfficeController.text.isEmpty ||
-        kedNumberController.text.isEmpty ||
-        specializationField == 0 ||
-        availabilityToWordIds.isEmpty ||
-        governmentId == 0 ||
-        districtId == 0 ||
-        gradeId == 0 ||
-        generalLawBachelorId == 0 ||
-        associationId == 0) {
-      emit(CheckFauild());
-    } else {
-      updateLawyerData().then((value) {
-        getProfileSettingData();
-      });
-    }
+    updateLawyerData().then((value) {
+      getProfileSettingData();
+    });
+    // if (nameController.text.isEmpty ||
+    //     emailController.text.isEmpty ||
+    //     phoneController.text.isEmpty ||
+    //     putYourVisionController.text.isEmpty ||
+    //     adressOfficeController.text.isEmpty ||
+    //     kedNumberController.text.isEmpty ||
+    //     specializationField == 0 ||
+    //     availabilityToWordIds.isEmpty ||
+    //     governmentId == 0 ||
+    //     districtId == 0 ||
+    //     gradeId == 0 ||
+    //     generalLawBachelorId == 0 ||
+    //     associationId == 0) {
+    //   emit(CheckFauild());
+    // } else {
+    //   updateLawyerData().then((value) {
+    //     getProfileSettingData();
+    //   });
+    // }
   }
 }
