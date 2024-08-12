@@ -68,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   null
                               ? ClipOval(
                                   child: CachedNetworkImage(
-                                      fit: BoxFit.fill,
+                                      fit: BoxFit.fitHeight,
                                       width: double.infinity,
                                       height: double.infinity,
                                       imageUrl: profileCubit!

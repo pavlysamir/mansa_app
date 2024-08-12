@@ -146,7 +146,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             color: kBlackColor,
                                           ),
                                         ),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.fitHeight,
                                     width: double.infinity,
                                     imageUrl: userPictureUrl),
                               )
