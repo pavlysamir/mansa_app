@@ -52,6 +52,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                               clipBehavior: Clip.antiAlias,
                               child: CachedNetworkImage(
                                   width: double.infinity,
+                                  height: double.infinity,
                                   fit: BoxFit.fill,
                                   imageUrl: user.picture!.url,
                                   placeholder: (context, url) => const Center(
@@ -63,6 +64,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                           : const Icon(Icons.person),
                     ),
                     SizedBox(width: 12.w),
+
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,58 +85,64 @@ class CustomLowyerDataItem extends StatelessWidget {
                                 .headlineMedium!
                                 .copyWith(color: kPrimaryKey),
                           ),
+                          SizedBox(height: 8.h),
+
+                          Align(
+                            alignment: Alignment.left,
+                            child: Row(
+                    children: [
+                                                    if (user.availableWork.length > 0)
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: user.availableWork[0] == 'متاح للعمل'
+                                    ? Colors.green
+                                    : user.availableWork[0] == 'متاح لانجاز مهمة'
+                                        ? kPrimaryKey
+                                        : user.availableWork[0] == 'مطلوب للعمل '
+                                            ? Colors.red
+                                            : kDarktBlue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                user.availableWork[0] ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Colors.white,
+                                    ),
+                              ),
+                            ),
+                                                    SizedBox(width: 5.w),
+                                                    if (user.availableWork.length > 1)
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: user.availableWork[0] == 'متاح للعمل'
+                                    ? Colors.green
+                                    : user.availableWork[0] == 'متاح لانجاز مهمة'
+                                        ? kPrimaryKey
+                                        : user.availableWork[0] == 'مطلوب للعمل '
+                                            ? Colors.red
+                                            : kDarktBlue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                user.availableWork[0] ?? '',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                                                  ],
+                                                ),
+                          )
                         ],
                       ),
                     ),
-                    Row(
-                      children: [
-                        if (user.availableWork.length > 0)
-                          Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: user.availableWork[0] == 'متاح للعمل'
-                                  ? Colors.green
-                                  : user.availableWork[0] == 'متاح لانجاز مهمة'
-                                      ? kPrimaryKey
-                                      : user.availableWork[0] == 'مطلوب للعمل '
-                                          ? Colors.red
-                                          : kDarktBlue,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              user.availableWork[0] ?? '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(
-                                    color: Colors.white,
-                                  ),
-                            ),
-                          ),
-                        SizedBox(width: 5.w),
-                        if (user.availableWork.length > 1)
-                          Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: user.availableWork[0] == 'متاح للعمل'
-                                  ? Colors.green
-                                  : user.availableWork[0] == 'متاح لانجاز مهمة'
-                                      ? kPrimaryKey
-                                      : user.availableWork[0] == 'مطلوب للعمل '
-                                          ? Colors.red
-                                          : kDarktBlue,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              user.availableWork[0] ?? '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          ),
-                      ],
-                    )
+                    
                   ],
                 ),
                 SizedBox(height: 10.h),

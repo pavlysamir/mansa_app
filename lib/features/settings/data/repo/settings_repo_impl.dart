@@ -213,10 +213,11 @@ class SettingsRepoImpl implements SettingsRepo {
   @override
   Future<Either<String, String>> deleteAccount() async {
     try {
-      final response = await api.get(EndPoint.deleteAccount, queryParameters: {
-        'userId':
-            getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id)
-      });
+      final response = await api.delete(EndPoint.deleteAccount,
+          queryParameters: {
+            'userId':
+                getIt.get<CashHelperSharedPreferences>().getData(key: ApiKey.id)
+          });
 
       return Right(response['message']);
     } on ServerException catch (e) {
@@ -321,6 +322,47 @@ class SettingsRepoImpl implements SettingsRepo {
       return Right(response);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
+    }
+  }
+
+  @override
+  Future<Either<String, void>> updateFile(
+      {required String userId,
+      required List<String> dataType,
+      required List<File> file}) async {
+    try {
+      // Create FormData
+      FormData formData = FormData();
+
+      // Add userId field
+      formData.fields.add(MapEntry("file.userid", userId));
+
+      // Add files and their types
+      for (int i = 0; i < file.length; i++) {
+        formData.fields.add(MapEntry("file.file[$i].fileTypeId", dataType[i]));
+        formData.files.add(
+          MapEntry(
+            "file.file[$i].file",
+            await MultipartFile.fromFile(file[i].path,
+                filename: file[i].path.split('/').last),
+          ),
+        );
+      }
+
+      // Sending the request
+      final response = await Dio()
+          .put('http://16.171.141.127/File/UpdateFile', data: formData);
+
+      // Check the response and return accordingly
+      if (response.statusCode == 200) {
+        return Right(response.data);
+      } else {
+        return Left('Failed to upload files');
+      }
+    } on ServerException catch (e) {
+      return Left(e.errModel.errorMessage!);
+    } catch (e) {
+      return Left('An unexpected error occurred');
     }
   }
 }

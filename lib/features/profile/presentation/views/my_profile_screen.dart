@@ -70,6 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   child: CachedNetworkImage(
                                       fit: BoxFit.fill,
                                       width: double.infinity,
+                                      height: double.infinity,
                                       imageUrl: profileCubit!
                                           .myProfileData!
                                           .responseData

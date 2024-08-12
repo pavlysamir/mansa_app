@@ -41,6 +41,12 @@ abstract class SettingsRepo {
     required List<File> file,
   });
 
+  Future<Either<String, void>> updateFile({
+    required String userId,
+    required List<String> dataType,
+    required List<File> file,
+  });
+
   Future<Either<String, void>> getFile({
     required int userId,
   });

@@ -42,11 +42,11 @@ class UserResponseData {
   final String mobileNo;
   final String? email;
   final int registrationGradeId;
-  final int generalLawBachelorId;
-  final int barAssociationsId;
+  final int? generalLawBachelorId;
+  final int? barAssociationsId;
   final int? governorateId;
   final int? districtId;
-  final String registrationGrade;
+  final String? registrationGrade;
   final String? generalLawBachelor;
   final String? barAssociation;
   final String? registrationNumber;
@@ -62,11 +62,11 @@ class UserResponseData {
     required this.mobileNo,
     this.email,
     required this.registrationGradeId,
-    required this.generalLawBachelorId,
-    required this.barAssociationsId,
+    this.generalLawBachelorId,
+    this.barAssociationsId,
     this.governorateId,
     this.districtId,
-    required this.registrationGrade,
+    this.registrationGrade,
     this.generalLawBachelor,
     this.barAssociation,
     this.registrationNumber,

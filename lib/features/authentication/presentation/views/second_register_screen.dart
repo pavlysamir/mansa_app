@@ -14,7 +14,6 @@ import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
 import 'package:mansa_app/core/utils/widgets/selected_drop_down_manager.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
-import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/features/authentication/presentation/widgets/custom_smooth_indicaror.dart';
 
 class SecondRegisterScreen extends StatelessWidget {
@@ -170,14 +169,14 @@ class SecondRegisterScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ))),
-                              CustomDropDownMenu(
-                                list: RegisterCubit.get(context)!.namesOfGrades,
-                                value: RegisterCubit.get(context)!.grade,
-                                onChanged: (String? newValue) {
-                                  RegisterCubit.get(context)!
-                                      .selectGrade(newValue!);
-                                },
-                              )
+                              // CustomDropDownMenu(
+                              //   list: RegisterCubit.get(context)!.namesOfGrades,
+                              //   value: RegisterCubit.get(context)!.grade,
+                              //   onChanged: (String? newValue) {
+                              //     RegisterCubit.get(context)!
+                              //         .selectGrade(newValue!);
+                              //   },
+                              // )
                             ],
                           ),
                         ),

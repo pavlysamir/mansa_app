@@ -41,6 +41,7 @@ class CircularProfileImage extends StatelessWidget {
                                 child: CachedNetworkImage(
                                     fit: BoxFit.fill,
                                     width: double.infinity,
+                                    height: double.infinity,
                                     imageUrl: getIt
                                         .get<CashHelperSharedPreferences>()
                                         .getData(key: ApiKey.profilePic)),

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/core/Theme/Teme_data.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/service_locator.dart';
-import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/features/authentication/data/auth_repo/auth_repo_impl.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/login/login_cubit.dart';
 import 'package:mansa_app/features/authentication/presentation/manager/register/register_cubit.dart';
@@ -55,8 +55,7 @@ class MansaApp extends StatelessWidget {
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              locale: SettingsCubit.get(context)!.getLocale(),
+              locale: isEnglish ? const Locale('en') : const Locale('ar'),
               localizationsDelegates: const [
                 AppLocalizations.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -64,8 +63,9 @@ class MansaApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: L10n.all,
+              debugShowCheckedModeBanner: false,
               routerConfig: AppRouter.router,
-              theme: SettingsCubit.get(context)!.getTheme(),
+              theme: isDark ? AppTheme.darkTheme : AppTheme.lightTheme,
             );
           },
         ),

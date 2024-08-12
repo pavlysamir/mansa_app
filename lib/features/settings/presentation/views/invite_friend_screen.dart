@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/core/Assets/assets.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/features/settings/presentation/managers/settings_cubit/settings_cubit.dart';
 
@@ -47,7 +50,9 @@ class InviteFriendScreen extends StatelessWidget {
               ),
               BlocBuilder<SettingsCubit, SettingsState>(
                 builder: (context, state) {
-                  SettingsCubit.get(context)!.codeController.text = 'M145222';
+                  SettingsCubit.get(context)!.codeController.text = getIt
+                      .get<CashHelperSharedPreferences>()
+                      .getData(key: ApiKey.referCode);
 
                   return Row(
                     children: [

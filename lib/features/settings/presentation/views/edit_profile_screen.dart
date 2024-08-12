@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
-import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_form_field.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';

@@ -205,7 +205,8 @@ class SettingsCubit extends Cubit<SettingsState> {
           namesOfGovernments.add(element.nameAr);
           idsOfGovernments.add(element.id);
         }
-        government = namesOfGovernments.first;
+        // print('sssssssssssssss$namesOfGovernments');
+        government = namesOfGovernments[0];
         // governmentId = allGovernments.first.id;
         // emit(GetAllGovernmentsSuccess());
       },
@@ -229,7 +230,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           namesOfDistricts.add(element.nameAr);
           idsOfDistricts.add(element.id);
         }
-        district = namesOfDistricts.first;
+        district = namesOfDistricts[0];
         // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
       },
@@ -237,7 +238,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String government;
-  int governmentId = 0;
+  int? governmentId;
 
   void selectGovernment(String government) {
     this.government = government;
@@ -253,7 +254,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   late String district;
-  int districtId = 0;
+  int? districtId;
 
   void selectDistrict(String district) {
     this.district = district;
@@ -314,7 +315,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   List<String> namesOfGeneralLawBachelor = [];
   List<int> idsOfGeneralLawBachelor = [];
   late String generalLawBachelor;
-  int generalLawBachelorId = 0;
+  int? generalLawBachelorId;
 
   // Properties for GrantingUniversity
   List<GovernmentDataModel> allGrantingUniversity = [];
@@ -484,10 +485,11 @@ class SettingsCubit extends Cubit<SettingsState> {
     await getAllAvalabilityToWork();
     await getAllDistricts();
     await getAllGovernmentsk();
+    // hnrg3 n3mlooo
     await getAllBarAssociations();
-    await getAllGeneralLawBachelor();
+    // await getAllGeneralLawBachelor();
     await getAllGrantingUniversity();
-    await getAllPostgraduateStudy();
+    // await getAllPostgraduateStudy();
     await getAllSpecializationField();
 
     emit(TriggerFunctionSuccess());
@@ -506,6 +508,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     phoneController.clear();
     putYourVisionController!.clear();
     adressOfficeController.clear();
+    file = null;
 
     mapAvalabilityToWork.forEach(((key, value) {
       mapAvalabilityToWork[key] = false;
@@ -618,8 +621,8 @@ class SettingsCubit extends Cubit<SettingsState> {
         if (kDebugMode) {
           print('dddddddddddddddd ${availabilityToWordIds}');
         }
-        districtId = profileSetingsData!.responseData!.districtId ?? 0;
-        governmentId = profileSetingsData!.responseData!.governorateId ?? 0;
+        districtId = profileSetingsData!.responseData!.districtId;
+        governmentId = profileSetingsData!.responseData!.governorateId;
         associationId = profileSetingsData!.responseData!.barAssociationsId;
 
         gradeId = profileSetingsData!.responseData!.registrationGradeId;
@@ -761,7 +764,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           "email": emailController.text,
           "registrationGradeId": 1,
           "generalLawBachelorId": generalLawBachelorId,
-          "barAssociationsId": associationId ?? 0,
+          "barAssociationsId": associationId,
           "governorateId": governmentId,
           "districtId": districtId,
           "registrationNumber": kedNumberController.text,
@@ -779,14 +782,33 @@ class SettingsCubit extends Cubit<SettingsState> {
       },
       (response) {
         emit(UpdateLaawyerDataSuccess());
-        file == null ? null : addFile();
+        // file == null ? null : addFile();
       },
     );
   }
 
-  addFile() async {
+  Future<void> addFile() async {
     emit(AddFileLoading());
     final response = await settingsRepo.addFile(
+      userId: getIt
+          .get<CashHelperSharedPreferences>()
+          .getData(key: ApiKey.id)
+          .toString(),
+      dataType: ['1'],
+      file: [file!],
+    );
+
+    response.fold(
+      (errMessage) => emit(AddFileFaluir(errMessage)),
+      (message) {
+        emit(AddFileSuccess());
+      },
+    );
+  }
+
+  Future<void> updateFile() async {
+    emit(AddFileLoading());
+    final response = await settingsRepo.updateFile(
       userId: getIt
           .get<CashHelperSharedPreferences>()
           .getData(key: ApiKey.id)
@@ -818,7 +840,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   void checkValidateEditeProfile() {
-    updateLawyerData().then((value) {
+    updateLawyerData().then((value) async {
+      file == null ? null : await updateFile();
+    }).then((value) {
       getProfileSettingData();
     });
     // if (nameController.text.isEmpty ||
@@ -840,5 +864,27 @@ class SettingsCubit extends Cubit<SettingsState> {
     //     getProfileSettingData();
     //   });
     // }
+  }
+
+  bool isLoading = false;
+
+  deleteAccount() async {
+    emit(DeleteAccountLoading());
+    isLoading = true;
+
+    final response = await settingsRepo.deleteAccount();
+
+    response.fold(
+      (errMessage) {
+        isLoading = false;
+        emit(DeleteAccountFaluir(errMessage));
+      },
+      (message) async {
+        await getIt.get<CashHelperSharedPreferences>().clearData();
+        isLoading = false;
+
+        emit(DeleteAccountSuccess(message));
+      },
+    );
   }
 }

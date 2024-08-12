@@ -98,6 +98,8 @@ class ApiKey {
   static String email = "email";
   static String password = "password";
   static String mobNumber = "mobileNumber";
+  static String referCode = "referCode";
+
   static String specialization = "specialization";
 
   static String otp = "OTP";

@@ -162,3 +162,17 @@ final class GetFileFaluir extends SettingsState {
 }
 
 final class GetFileSuccess extends SettingsState {}
+
+final class DeleteAccountLoading extends SettingsState {}
+
+final class DeleteAccountFaluir extends SettingsState {
+  final String errorMessage;
+
+  DeleteAccountFaluir(this.errorMessage);
+}
+
+final class DeleteAccountSuccess extends SettingsState {
+  final String message;
+
+  DeleteAccountSuccess(this.message);
+}
