@@ -553,6 +553,26 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
   }
 
+
+    Future<void> initializeLanguage() async {
+    // Retrieve the saved language preference when the app starts.
+    final bool? savedIsEnglish =
+        getIt.get<CashHelperSharedPreferences>().getData(
+              key: 'isEnglishh',
+            );
+
+    final bool? savedIsDark = getIt.get<CashHelperSharedPreferences>().getData(
+          key: 'isDark',
+        );
+
+    // Update the isEnglish variable.
+    if (savedIsEnglish != null) {
+      isEnglish = savedIsEnglish;
+    } else if (savedIsDark != null) {
+      isEnglish = savedIsDark;
+    }
+  }
+
   Locale getLocale() {
     if (getIt.get<CashHelperSharedPreferences>().getData(
               key: 'isEnglishh',

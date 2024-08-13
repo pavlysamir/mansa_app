@@ -1,8 +1,6 @@
 {
     "createAccount": "create account",
-    "@createAccount": {
-      "description": "create account"
-    },
+    
 
     "name": "Name *",
     "phoneNumber": "Phone number *",

@@ -43,6 +43,7 @@ class MansaApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>())
+            ..initializeLanguage()
             ..triggerGetFunctions(),
         ),
         BlocProvider(

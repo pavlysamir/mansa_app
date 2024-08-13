@@ -7,7 +7,6 @@ import 'package:mansa_app/mansa_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   setUpServiceLocator();
   await getIt.get<CashHelperSharedPreferences>().init();
   Bloc.observer = SimpleBlocObserver();
