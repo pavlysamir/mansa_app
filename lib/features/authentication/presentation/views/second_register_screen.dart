@@ -110,20 +110,28 @@ class SecondRegisterScreen extends StatelessWidget {
                                                       .length,
                                                   itemBuilder:
                                                       (context, index) {
-                                                    return SelectedDropDownItem(
-                                                      manager: manager,
-                                                      functionSelected: () {
-                                                        RegisterCubit.get(
-                                                                context)!
-                                                            .selectGrade(
-                                                                RegisterCubit.get(
-                                                                        context)!
-                                                                    .namesOfGrades[index]);
+                                                    return BlocBuilder<
+                                                        RegisterCubit,
+                                                        RegisterState>(
+                                                      builder:
+                                                          (context, state) {
+                                                        return SelectedDropDownItem(
+                                                          manager: manager,
+                                                          functionSelected: () {
+                                                            RegisterCubit.get(
+                                                                    context)!
+                                                                .selectGrade(
+                                                                    RegisterCubit.get(
+                                                                            context)!
+                                                                        .namesOfGrades[index]);
+                                                          },
+                                                          index: index,
+                                                          name: RegisterCubit.get(
+                                                                      context)!
+                                                                  .namesOfGrades[
+                                                              index],
+                                                        );
                                                       },
-                                                      index: index,
-                                                      name: RegisterCubit.get(
-                                                              context)!
-                                                          .namesOfGrades[index],
                                                     );
                                                   }),
                                             ),

@@ -3,7 +3,7 @@ class User {
   final String name;
   final String mobileNum;
   final String email;
-  final String description;
+  final String? description;
   final String registrationGrade;
   final List<String> availableWork;
   final Picture? picture;
@@ -12,7 +12,7 @@ class User {
     required this.userId,
     required this.name,
     required this.registrationGrade,
-    required this.description,
+    this.description,
     required this.availableWork,
     required this.mobileNum,
     required this.email,

@@ -259,25 +259,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   border: Border.all(
                                                       color: Colors.grey)),
                                               child: Center(
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Text(
-                                                      SettingsCubit.get(
-                                                                  context)!
-                                                              .grade ??
-                                                          'اختر درجة القيد ',
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .titleSmall,
-                                                    ),
-                                                    const Icon(
-                                                        Icons.arrow_drop_down)
-                                                  ],
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        SettingsCubit.get(
+                                                                    context)!
+                                                                .grade ??
+                                                            'اختر درجة القيد ',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .titleSmall,
+                                                      ),
+                                                      const Icon(
+                                                          Icons.arrow_drop_down)
+                                                    ],
+                                                  ),
                                                 ),
                                               )))
                                       // CustomDropDownMenu(
@@ -412,21 +416,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(color: Colors.grey)),
                                   child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          SettingsCubit.get(context)!
-                                                  .association ??
-                                              'اختر التخصص الاساسي',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        const Icon(Icons.arrow_drop_down)
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            SettingsCubit.get(context)!
+                                                    .association ??
+                                                'اختر التخصص الاساسي',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          const Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
                                     ),
                                   ))),
                           SizedBox(
@@ -499,21 +507,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(color: Colors.grey)),
                                   child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          SettingsCubit.get(context)!
-                                                  .specializationField ??
-                                              'اختر التخصص الاخر',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        const Icon(Icons.arrow_drop_down)
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            SettingsCubit.get(context)!
+                                                    .specializationField ??
+                                                'اختر التخصص الاخر',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          const Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
                                     ),
                                   ))),
                           // CustomDropDownMenu(
@@ -640,21 +652,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(color: Colors.grey)),
                                   child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          SettingsCubit.get(context)!
-                                                  .government ??
-                                              'اختر درجة القيد ',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        const Icon(Icons.arrow_drop_down)
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            SettingsCubit.get(context)!
+                                                    .government ??
+                                                'اختر درجة القيد ',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          const Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
                                     ),
                                   ))),
 
@@ -736,21 +752,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(color: Colors.grey)),
                                   child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          SettingsCubit.get(context)!
-                                                  .district ??
-                                              'اختر درجة القيد ',
-                                          overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall,
-                                        ),
-                                        const Icon(Icons.arrow_drop_down)
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            SettingsCubit.get(context)!
+                                                    .district ??
+                                                'اختر درجة القيد ',
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall,
+                                          ),
+                                          const Icon(Icons.arrow_drop_down)
+                                        ],
+                                      ),
                                     ),
                                   ))),
 

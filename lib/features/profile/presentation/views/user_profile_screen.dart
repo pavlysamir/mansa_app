@@ -120,9 +120,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   text: AppLocalizations.of(context)!.save,
                                   textColor: Colors.white,
                                   function: () {
-                                    profileCubit!.updateGiverCountPoints(
+                                    profileCubit!
+                                        .updateGiverCountPoints(
                                       lowyerId: widget.user.userId,
-                                    );
+                                    )
+                                        .then((value) {
+                                      profileCubit!.getUserProfileData(
+                                        id: widget.user.userId,
+                                      );
+                                    });
                                     Navigator.pop(context);
                                   },
                                 ),

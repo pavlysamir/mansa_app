@@ -7,6 +7,9 @@ import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
+import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
+import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
+import 'package:mansa_app/core/utils/widgets/selected_drop_down_manager.dart';
 import 'package:mansa_app/features/search/presentation/managers/cubit/search_cubit.dart';
 import 'package:mansa_app/features/search/presentation/widgets/Custom_Search_Bar.dart';
 import 'package:mansa_app/features/search/presentation/widgets/custom_buttom_filter.dart';
@@ -20,6 +23,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late SearchCubit _searchCubit;
+  final SelectedDropDownManager manager = SelectedDropDownManager();
 
   @override
   void initState() {
@@ -55,7 +59,8 @@ class _SearchScreenState extends State<SearchScreen> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            forceMaterialTransparency: true,
+            backgroundColor: Colors.white,
             title: Text(
               AppLocalizations.of(context)!.search,
               style: Theme.of(context).textTheme.displayMedium,
@@ -159,34 +164,199 @@ class _SearchScreenState extends State<SearchScreen> {
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                             SizedBox(height: 14.h),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: CustomDropDownMenu(
-                                list: _searchCubit.namesOfGovernments,
-                                value: _searchCubit.government,
-                                onChanged: (String? newValue) {
-                                  _searchCubit.selectGovernment(newValue!);
+                            GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        PopUpDialogDropDown(
+                                      context: context,
+                                      function: () {
+                                        Navigator.pop(context);
+                                      },
+                                      widget: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 200.h,
+                                            child: ListView.builder(
+                                                itemCount: _searchCubit
+                                                    .namesOfGovernments.length,
+                                                itemBuilder: (context, index) {
+                                                  return BlocBuilder<
+                                                      SearchCubit, SearchState>(
+                                                    builder: (context, state) {
+                                                      return SelectedDropDownItem(
+                                                        manager: manager,
+                                                        functionSelected: () {
+                                                          _searchCubit
+                                                              .selectGovernment(
+                                                                  _searchCubit
+                                                                          .namesOfGovernments[
+                                                                      index]);
+                                                        },
+                                                        index: index,
+                                                        name: _searchCubit
+                                                                .namesOfGovernments[
+                                                            index],
+                                                      );
+                                                    },
+                                                  );
+                                                }),
+                                          ),
+                                          CustomButtonLarge(
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .save,
+                                              textColor: Colors.white,
+                                              function: () {
+                                                Navigator.pop(context);
+                                              })
+                                        ],
+                                      ),
+                                      function2: () {},
+                                    ),
+                                  );
+                                  // PopUpDialogDropDown
                                 },
-                              ),
-                            ),
+                                child: Container(
+                                    width: double.infinity,
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(color: Colors.grey)),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              _searchCubit.government ??
+                                                  'اختر درجة القيد ',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            ),
+                                            const Icon(Icons.arrow_drop_down)
+                                          ],
+                                        ),
+                                      ),
+                                    ))),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 50),
+                            //   child: CustomDropDownMenu(
+                            //     list: _searchCubit.namesOfGovernments,
+                            //     value: _searchCubit.government,
+                            //     onChanged: (String? newValue) {
+                            //       _searchCubit.selectGovernment(newValue!);
+                            //     },
+                            //   ),
+                            // ),
                             SizedBox(height: 14.h),
                             Text(
                               AppLocalizations.of(context)!.district,
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                             SizedBox(height: 14.h),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 50),
-                              child: CustomDropDownMenu(
-                                list: _searchCubit.namesOfDistricts,
-                                value: _searchCubit.district,
-                                onChanged: (String? newValue) {
-                                  _searchCubit.selectDistrict(newValue!);
+
+                            GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        PopUpDialogDropDown(
+                                      context: context,
+                                      function: () {
+                                        Navigator.pop(context);
+                                      },
+                                      widget: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 200.h,
+                                            child: ListView.builder(
+                                                itemCount: _searchCubit
+                                                    .namesOfDistricts.length,
+                                                itemBuilder: (context, index) {
+                                                  return BlocBuilder<
+                                                      SearchCubit, SearchState>(
+                                                    builder: (context, state) {
+                                                      return SelectedDropDownItem(
+                                                        manager: manager,
+                                                        functionSelected: () {
+                                                          _searchCubit
+                                                              .selectDistrict(
+                                                                  _searchCubit
+                                                                          .namesOfDistricts[
+                                                                      index]);
+                                                        },
+                                                        index: index,
+                                                        name: _searchCubit
+                                                                .namesOfDistricts[
+                                                            index],
+                                                      );
+                                                    },
+                                                  );
+                                                }),
+                                          ),
+                                          CustomButtonLarge(
+                                              text:
+                                                  AppLocalizations.of(context)!
+                                                      .save,
+                                              textColor: Colors.white,
+                                              function: () {
+                                                Navigator.pop(context);
+                                              })
+                                        ],
+                                      ),
+                                      function2: () {},
+                                    ),
+                                  );
+                                  // PopUpDialogDropDown
                                 },
-                              ),
-                            ),
+                                child: Container(
+                                    width: double.infinity,
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(color: Colors.grey)),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              _searchCubit.district ??
+                                                  'اختر درجة القيد ',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleSmall,
+                                            ),
+                                            const Icon(Icons.arrow_drop_down)
+                                          ],
+                                        ),
+                                      ),
+                                    ))),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 50),
+                            //   child: CustomDropDownMenu(
+                            //     list: _searchCubit.namesOfDistricts,
+                            //     value: _searchCubit.district,
+                            //     onChanged: (String? newValue) {
+                            //       _searchCubit.selectDistrict(newValue!);
+                            //     },
+                            //   ),
+                            // ),
                             SizedBox(height: 20.h),
                           ],
                         ),

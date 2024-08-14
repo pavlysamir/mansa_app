@@ -155,7 +155,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                 SizedBox(height: 10.h),
                 const Divider(),
                 SizedBox(height: 10.h),
-                Text(user.description,
+                Text(user.description ?? ' لا توجد وصف ',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: Theme.of(context).textTheme.titleSmall!)
