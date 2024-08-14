@@ -16,4 +16,5 @@ class AssetsData {
   static const kady = 'assets/images/kady.png';
   static const address = 'assets/images/address.png';
   static const call = 'assets/images/Call.png';
+  static const arabic = 'assets/images/arabic.png';
 }

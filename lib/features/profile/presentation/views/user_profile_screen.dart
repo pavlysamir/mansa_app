@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
+import 'package:mansa_app/core/api/end_ponits.dart';
+import 'package:mansa_app/core/utils/service_locator.dart';
+import 'package:mansa_app/core/utils/shared_preferences_cash_helper.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/features/home/data/models/user_data_model.dart';
@@ -64,67 +67,73 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           ),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: CustomButtonLarge(
-              text: AppLocalizations.of(context)!.supportWithGroubs,
-              function: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => PopUpDialogReturnPoints(
-                    context: context,
+            child: widget.user.userId ==
+                    getIt
+                        .get<CashHelperSharedPreferences>()
+                        .getData(key: ApiKey.id)
+                ? const SizedBox()
+                : CustomButtonLarge(
+                    text: AppLocalizations.of(context)!.supportWithGroubs,
                     function: () {
-                      Navigator.pop(context);
-                    },
-                    widget: Column(
-                      children: [
-                        if (profileCubit != null &&
-                            profileCubit!.categoryData.isNotEmpty)
-                          Column(
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            PopUpDialogReturnPoints(
+                          context: context,
+                          function: () {
+                            Navigator.pop(context);
+                          },
+                          widget: Column(
                             children: [
-                              const CustomCounterUserPoint(
-                                categoryId: 2,
-                                categoryName: 'الذهبيه',
-                                count: 0,
-                              ),
-                              SizedBox(height: 10.h),
-                              const CustomCounterUserPoint(
-                                categoryId: 1,
-                                categoryName: 'الفضية',
-                                count: 0,
-                              ),
-                              SizedBox(height: 10.h),
-                              const CustomCounterUserPoint(
-                                categoryId: 3,
-                                categoryName: 'البرونزية',
-                                count: 0,
-                              ),
-                              SizedBox(height: 10.h),
+                              if (profileCubit != null &&
+                                  profileCubit!.categoryData.isNotEmpty)
+                                Column(
+                                  children: [
+                                    const CustomCounterUserPoint(
+                                      categoryId: 1,
+                                      categoryName: 'الذهبيه',
+                                      count: 0,
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    const CustomCounterUserPoint(
+                                      categoryId: 2,
+                                      categoryName: 'الفضية',
+                                      count: 0,
+                                    ),
+                                    SizedBox(height: 10.h),
+                                    const CustomCounterUserPoint(
+                                      categoryId: 3,
+                                      categoryName: 'البرونزية',
+                                      count: 0,
+                                    ),
+                                    SizedBox(height: 10.h),
+                                  ],
+                                ),
+                              if (state is UpdateGiverPointsLoading)
+                                const Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: kPrimaryKey,
+                                  ),
+                                )
+                              else
+                                CustomButtonLarge(
+                                  text: AppLocalizations.of(context)!.save,
+                                  textColor: Colors.white,
+                                  function: () {
+                                    profileCubit!.updateGiverCountPoints(
+                                      lowyerId: widget.user.userId,
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                ),
                             ],
                           ),
-                        if (state is UpdateGiverPointsLoading)
-                          const Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: kPrimaryKey,
-                            ),
-                          )
-                        else
-                          CustomButtonLarge(
-                            text: AppLocalizations.of(context)!.save,
-                            textColor: Colors.white,
-                            function: () {
-                              profileCubit!.updateGiverCountPoints(
-                                lowyerId: widget.user.userId,
-                              );
-                              Navigator.pop(context);
-                            },
-                          ),
-                      ],
-                    ),
-                    function2: () {},
+                          function2: () {},
+                        ),
+                      );
+                    },
+                    textColor: Colors.white,
                   ),
-                );
-              },
-              textColor: Colors.white,
-            ),
           ),
           body: state is GetProfileDataLoading
               ? const Center(
@@ -221,7 +230,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                               padding: const EdgeInsets.all(6),
                                               decoration: BoxDecoration(
                                                 color: availableWork.name ==
-                                                        'متاح للعمل'
+                                                        'متاح للعمل بشكل دائم'
                                                     ? Colors.green
                                                     : availableWork.name ==
                                                             'متاح لانجاز مهمة'

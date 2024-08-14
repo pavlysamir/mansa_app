@@ -25,34 +25,34 @@ class MansaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => RegisterCubit(getIt.get<AuthRepoImpl>())
-            ..getAllGradesRegistration(),
-        ),
-        BlocProvider(
-          create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
-        ),
-        BlocProvider(
-          create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
-        ),
-        BlocProvider(
-          create: (context) =>
-              SearchCubit(getIt.get<SearchRepoImpl>())..triggerGetFunctions(),
-        ),
-        BlocProvider(
-          create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>())
-            ..initializeLanguage()
-            ..triggerGetFunctions(),
-        ),
-        BlocProvider(
-            create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>()))
-      ],
-      child: ScreenUtilInit(
-        designSize: const Size(390, 844),
-        minTextAdapt: true,
-        splitScreenMode: true,
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => RegisterCubit(getIt.get<AuthRepoImpl>())
+              ..getAllGradesRegistration(),
+          ),
+          BlocProvider(
+            create: (context) => LoginCubit(getIt.get<AuthRepoImpl>()),
+          ),
+          BlocProvider(
+            create: (context) => HomeCubit(getIt.get<HomeRepoImpl>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SearchCubit(getIt.get<SearchRepoImpl>())..triggerGetFunctions(),
+          ),
+          BlocProvider(
+            create: (context) => SettingsCubit(getIt.get<SettingsRepoImpl>())
+              ..initializeLanguage()
+              ..triggerGetFunctions(),
+          ),
+          BlocProvider(
+              create: (context) => ProfileCubit(getIt.get<ProfileRepoImpl>()))
+        ],
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return MaterialApp.router(

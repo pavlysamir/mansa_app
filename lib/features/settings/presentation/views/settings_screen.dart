@@ -109,7 +109,7 @@ class SettingsScreen extends StatelessWidget {
                           title:
                               AppLocalizations.of(context)!.doUWantChangeLang,
                           subTitle: '',
-                          img: AssetsData.deleteAccount,
+                          img: AssetsData.arabic,
                           colorButton1: Colors.white,
                           colorButton2: kPrimaryKey,
                           textColortcolor1: kBlackColor,
@@ -118,38 +118,38 @@ class SettingsScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.color_lens_outlined),
-                    title: Text(
-                      AppLocalizations.of(context)!.changeTheme,
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
-                    ),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => PopUpDialog(
-                          function2: () {
-                            Navigator.pop(context);
-                          },
-                          context: context,
-                          function: () {
-                            SettingsCubit.get(context)!.changeTheme();
-                            Navigator.pop(context);
-                          },
-                          title:
-                              AppLocalizations.of(context)!.doUWantChangetheme,
-                          subTitle: '',
-                          img: AssetsData.deleteAccount,
-                          colorButton1: Colors.white,
-                          colorButton2: kPrimaryKey,
-                          textColortcolor1: kBlackColor,
-                          textColortcolor2: Colors.white,
-                        ),
-                      );
-                    },
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.color_lens_outlined),
+                  //   title: Text(
+                  //     AppLocalizations.of(context)!.changeTheme,
+                  //     style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  //           decoration: TextDecoration.underline,
+                  //         ),
+                  //   ),
+                  //   onTap: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) => PopUpDialog(
+                  //         function2: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         context: context,
+                  //         function: () {
+                  //           SettingsCubit.get(context)!.changeTheme();
+                  //           Navigator.pop(context);
+                  //         },
+                  //         title:
+                  //             AppLocalizations.of(context)!.doUWantChangetheme,
+                  //         subTitle: '',
+                  //         img: AssetsData.deleteAccount,
+                  //         colorButton1: Colors.white,
+                  //         colorButton2: kPrimaryKey,
+                  //         textColortcolor1: kBlackColor,
+                  //         textColortcolor2: Colors.white,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                   BlocConsumer<SettingsCubit, SettingsState>(
                     listener: (context, state) {
                       if (state is DeleteAccountSuccess) {

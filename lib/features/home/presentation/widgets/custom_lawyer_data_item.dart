@@ -93,16 +93,16 @@ class CustomLowyerDataItem extends StatelessWidget {
                                   Container(
                                     padding: const EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                      color:
-                                          user.availableWork[0] == 'متاح للعمل'
-                                              ? Colors.green
+                                      color: user.availableWork[0] ==
+                                              'متاح للعمل بشكل دائم'
+                                          ? Colors.green
+                                          : user.availableWork[0] ==
+                                                  'متاح لانجاز مهمة'
+                                              ? kPrimaryKey
                                               : user.availableWork[0] ==
-                                                      'متاح لانجاز مهمة'
-                                                  ? kPrimaryKey
-                                                  : user.availableWork[0] ==
-                                                          'مطلوب للعمل '
-                                                      ? Colors.red
-                                                      : kDarktBlue,
+                                                      'مطلوب للعمل '
+                                                  ? Colors.red
+                                                  : kDarktBlue,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Text(
@@ -120,20 +120,20 @@ class CustomLowyerDataItem extends StatelessWidget {
                                   Container(
                                     padding: const EdgeInsets.all(6),
                                     decoration: BoxDecoration(
-                                      color:
-                                          user.availableWork[0] == 'متاح للعمل'
-                                              ? Colors.green
-                                              : user.availableWork[0] ==
-                                                      'متاح لانجاز مهمة'
-                                                  ? kPrimaryKey
-                                                  : user.availableWork[0] ==
-                                                          'مطلوب للعمل '
-                                                      ? Colors.red
-                                                      : kDarktBlue,
+                                      color: user.availableWork[1] ==
+                                              'متاح للعمل بشكل دائم'
+                                          ? Colors.green
+                                          : user.availableWork[1] ==
+                                                  'متاح لانجاز مهمة'
+                                              ? kPrimaryKey
+                                              : user.availableWork[1] ==
+                                                      'مطلوب للعمل '
+                                                  ? Colors.red
+                                                  : kDarktBlue,
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Text(
-                                      user.availableWork[0] ?? '',
+                                      user.availableWork[1] ?? '',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
@@ -151,7 +151,9 @@ class CustomLowyerDataItem extends StatelessWidget {
                 SizedBox(height: 10.h),
                 const Divider(),
                 SizedBox(height: 10.h),
-                Text("القانون هو الحضارة، وبغيابه نعود إلى البربرية",
+                Text(user.description,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: Theme.of(context).textTheme.titleSmall!)
               ],
             ),

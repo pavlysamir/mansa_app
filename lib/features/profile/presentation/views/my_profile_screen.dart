@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                               .availableWorks[
                                                                   index]
                                                               .name ==
-                                                          'متاح للعمل'
+                                                          'متاح للعمل بشكل دائم'
                                                       ? Colors.green
                                                       : profileCubit!
                                                                   .myProfileData!

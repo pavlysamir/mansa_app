@@ -91,7 +91,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         SizedBox(height: 20.h),
                         SizedBox(
                           height: 50.h,
-                          child: CustomSearchBar(),
+                          child: const CustomSearchBar(),
                         ),
                         SizedBox(height: 14.h),
                         const Divider(),

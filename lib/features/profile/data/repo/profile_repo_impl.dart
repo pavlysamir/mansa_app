@@ -94,7 +94,7 @@ class ProfileRepoImpl implements ProfileRepo {
       final response = await api.put(EndPoint.updateCategoryCount,
           data: {"toLawyerId": lowyerId, "categories": data});
 
-      return Right(response['message']);
+      return Right(response['message'] ?? "");
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }
