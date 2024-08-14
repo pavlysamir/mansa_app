@@ -280,7 +280,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               },
                             ),
                       SizedBox(
-                        height: 32.h,
+                        height: 18.h,
                       ),
                       CustomUserdataCointaner(
                         myProfileData:

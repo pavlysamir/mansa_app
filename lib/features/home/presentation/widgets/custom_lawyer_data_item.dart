@@ -112,6 +112,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                                           .titleSmall!
                                           .copyWith(
                                             color: Colors.white,
+                                            fontSize: 10,
                                           ),
                                     ),
                                   ),
@@ -139,7 +140,7 @@ class CustomLowyerDataItem extends StatelessWidget {
                                           .titleSmall!
                                           .copyWith(
                                             color: Colors.white,
-                                            fontSize: 12,
+                                            fontSize: 10,
                                           ),
                                     ),
                                   ),
