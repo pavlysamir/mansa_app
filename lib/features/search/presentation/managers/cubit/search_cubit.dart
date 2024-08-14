@@ -122,7 +122,7 @@ class SearchCubit extends Cubit<SearchState> {
           namesOfGovernments.add(element.nameAr);
           idsOfGovernments.add(element.id);
         }
-        government = namesOfGovernments.first;
+        // government = namesOfGovernments.first;
         // governmentId = allGovernments.first.id;
         // emit(GetAllGovernmentsSuccess());
       },
@@ -145,43 +145,61 @@ class SearchCubit extends Cubit<SearchState> {
           namesOfDistricts.add(element.nameAr);
           idsOfDistricts.add(element.id);
         }
-        district = namesOfDistricts.first;
+        // district = namesOfDistricts.first;
         // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
       },
     );
   }
 
-  late String government;
+  String? government;
   int? governmentId;
 
   void selectGovernment(String government) {
-    this.government = government;
-    for (var element in allGovernments) {
-      if (element.nameAr == government) {
-        governmentId = element.id;
+    if (this.government != government) {
+      this.government = government;
+      for (var element in allGovernments) {
+        if (element.nameAr == government) {
+          governmentId = element.id;
+        }
       }
+      if (kDebugMode) {
+        print('${this.government}  ${governmentId.toString()}');
+      }
+      emit(SelectedGovernment());
+    } else {
+      this.government = null;
+      governmentId = null;
+      if (kDebugMode) {
+        print('${this.government}  ${governmentId.toString()}');
+      }
+      emit(SelectedGovernment());
     }
-    if (kDebugMode) {
-      print('${this.government}  ${governmentId.toString()}');
-    }
-    emit(SelectedGovernment());
   }
 
-  late String district;
+  String? district;
   int? districtId;
 
   void selectDistrict(String district) {
-    this.district = district;
-    for (var element in allDistricts) {
-      if (element.nameAr == district) {
-        districtId = element.id;
+    if (this.district != district) {
+      this.district = district;
+      for (var element in allDistricts) {
+        if (element.nameAr == district) {
+          districtId = element.id;
+        }
       }
+      if (kDebugMode) {
+        print('${this.district}  ${districtId.toString()}');
+      }
+      emit(SelectedDistrict());
+    } else {
+      districtId = null;
+      this.district = null;
+      if (kDebugMode) {
+        print('${this.district}  ${districtId.toString()}');
+      }
+      emit(SelectedDistrict());
     }
-    if (kDebugMode) {
-      print('${this.district}  ${districtId.toString()}');
-    }
-    emit(SelectedDistrict());
   }
 
   Future<void> triggerGetFunctions() async {
@@ -235,8 +253,7 @@ class SearchCubit extends Cubit<SearchState> {
     searchController.clear();
     kedDegreeIds.clear();
     availabilityToWordIds.clear();
-    government = namesOfGovernments.first;
-    district = namesOfDistricts.first;
+
     mapGradRegistration.forEach((key, value) {
       mapGradRegistration[key] = false;
     });

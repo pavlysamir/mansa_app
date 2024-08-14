@@ -48,3 +48,48 @@ class SelectedDropDownItem extends StatelessWidget {
     );
   }
 }
+
+class SelectedSearchDropDownItem extends StatelessWidget {
+  const SelectedSearchDropDownItem({
+    super.key,
+    required this.index,
+    required this.functionSelected,
+    required this.name,
+    required this.manager,
+  });
+
+  final int index;
+  final Function() functionSelected;
+  final String name;
+  final SelectedSearchDropDownManager manager;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Expanded(
+          flex: 3,
+          child: Text(
+            name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Checkbox(
+            checkColor: Colors.white,
+            activeColor: kPrimaryKey,
+            value: manager.isIndexSelected(index),
+            onChanged: (value) {
+              manager.toggleIndex(index);
+              functionSelected();
+            },
+          ),
+        )
+      ],
+    );
+  }
+}

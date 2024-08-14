@@ -52,14 +52,14 @@ class SearchRepoImpl implements SearchRepo {
   Future<Either<String, List<GovernmentDataModel>>> getAllDistrict() async {
     try {
       final response = await api.get(
-        EndPoint.getAllGovernorate,
+        EndPoint.getAllDistricts,
       );
-      List<GovernmentDataModel> allGovernments = [];
+      List<GovernmentDataModel> allDistricts = [];
       for (var element in response) {
-        allGovernments.add(GovernmentDataModel.fromJson(element));
+        allDistricts.add(GovernmentDataModel.fromJson(element));
       }
 
-      return Right(allGovernments);
+      return Right(allDistricts);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }
@@ -69,14 +69,14 @@ class SearchRepoImpl implements SearchRepo {
   Future<Either<String, List<GovernmentDataModel>>> getAllGovernment() async {
     try {
       final response = await api.get(
-        EndPoint.getAllDistricts,
+        EndPoint.getAllGovernorate,
       );
-      List<GovernmentDataModel> allDistricts = [];
+      List<GovernmentDataModel> allGovernments = [];
       for (var element in response) {
-        allDistricts.add(GovernmentDataModel.fromJson(element));
+        allGovernments.add(GovernmentDataModel.fromJson(element));
       }
 
-      return Right(allDistricts);
+      return Right(allGovernments);
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }

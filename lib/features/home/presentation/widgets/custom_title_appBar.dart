@@ -35,19 +35,18 @@ class CustomTitleAppBar extends StatelessWidget {
               : const Icon(Icons.person),
         ),
         SizedBox(width: 12.w),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.welcom,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(color: kDarktBlue),
-            ),
-            SizedBox(
-              width: 130.w,
-              child: Text(
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.welcom,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium!
+                    .copyWith(color: kDarktBlue),
+              ),
+              Text(
                 getIt
                     .get<CashHelperSharedPreferences>()
                     .getData(key: ApiKey.userName),
@@ -58,8 +57,8 @@ class CustomTitleAppBar extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
+            ],
+          ),
         )
       ],
     );

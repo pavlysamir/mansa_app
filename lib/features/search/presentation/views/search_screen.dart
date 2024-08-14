@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/utils/app_router.dart';
 import 'package:mansa_app/core/utils/widgets/custom_button_large.dart';
-import 'package:mansa_app/core/utils/widgets/custom_drop_down_menu.dart';
 import 'package:mansa_app/core/utils/widgets/custom_go_navigator.dart';
 import 'package:mansa_app/core/utils/widgets/pop_up_dialog.dart';
 import 'package:mansa_app/core/utils/widgets/selcted_item_listView_drop_down.dart';
@@ -23,7 +22,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late SearchCubit _searchCubit;
-  final SelectedDropDownManager manager = SelectedDropDownManager();
+  final SelectedSearchDropDownManager manager = SelectedSearchDropDownManager();
 
   @override
   void initState() {
@@ -185,7 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   return BlocBuilder<
                                                       SearchCubit, SearchState>(
                                                     builder: (context, state) {
-                                                      return SelectedDropDownItem(
+                                                      return SelectedSearchDropDownItem(
                                                         manager: manager,
                                                         functionSelected: () {
                                                           _searchCubit
@@ -235,7 +234,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           children: [
                                             Text(
                                               _searchCubit.government ??
-                                                  'اختر درجة القيد ',
+                                                  'اختر المحافظة ',
                                               overflow: TextOverflow.ellipsis,
                                               style: Theme.of(context)
                                                   .textTheme
@@ -285,7 +284,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   return BlocBuilder<
                                                       SearchCubit, SearchState>(
                                                     builder: (context, state) {
-                                                      return SelectedDropDownItem(
+                                                      return SelectedSearchDropDownItem(
                                                         manager: manager,
                                                         functionSelected: () {
                                                           _searchCubit
@@ -335,7 +334,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           children: [
                                             Text(
                                               _searchCubit.district ??
-                                                  'اختر درجة القيد ',
+                                                  'اختر المدينه ',
                                               overflow: TextOverflow.ellipsis,
                                               style: Theme.of(context)
                                                   .textTheme
