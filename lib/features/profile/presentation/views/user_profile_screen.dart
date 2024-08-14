@@ -248,6 +248,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                     .textTheme
                                                     .titleSmall!
                                                     .copyWith(
+                                                      fontSize: 12,
                                                       color: Colors.white,
                                                     ),
                                               ),

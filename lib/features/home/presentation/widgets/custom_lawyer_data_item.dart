@@ -137,7 +137,10 @@ class CustomLowyerDataItem extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
-                                          .copyWith(color: Colors.white),
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
                                     ),
                                   ),
                               ],
