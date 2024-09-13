@@ -248,7 +248,7 @@ class SettingsRepoImpl implements SettingsRepo {
       final response = await api.put(EndPoint.updateCategoryCount,
           data: {"toLawyerId": lowyerId, "categories": data});
 
-      return Right(response['message']);
+      return Right(response['message'] ?? '');
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     }
@@ -292,8 +292,9 @@ class SettingsRepoImpl implements SettingsRepo {
       }
 
       // Sending the request
-      final response = await Dio()
-          .post('http://16.171.141.127/File/AddFile', data: formData);
+      final response = await Dio().post(
+          'https://kerolos02-001-site1.ctempurl.com/File/AddFile',
+          data: formData);
 
       // Check the response and return accordingly
       if (response.statusCode == 200) {
@@ -350,19 +351,20 @@ class SettingsRepoImpl implements SettingsRepo {
       }
 
       // Sending the request
-      final response = await Dio()
-          .put('http://16.171.141.127/File/UpdateFile', data: formData);
+      final response = await Dio().put(
+          'https://kerolos02-001-site1.ctempurl.com/File/UpdateFile',
+          data: formData);
 
       // Check the response and return accordingly
       if (response.statusCode == 200) {
         return Right(response.data);
       } else {
-        return Left('Failed to upload files');
+        return const Left('Failed to upload files');
       }
     } on ServerException catch (e) {
       return Left(e.errModel.errorMessage!);
     } catch (e) {
-      return Left('An unexpected error occurred');
+      return const Left('An unexpected error occurred');
     }
   }
 }

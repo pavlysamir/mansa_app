@@ -87,6 +87,7 @@ class CustomReturnPointUserItem extends StatelessWidget {
                                 PopUpDialogReturnPoints(
                               context: context,
                               function: () {
+                                SettingsCubit.get(context)!.updateCount.clear();
                                 Navigator.pop(context);
                               },
                               widget: Column(

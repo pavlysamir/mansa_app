@@ -81,6 +81,11 @@ class _CustomCounterPointState extends State<CustomCounterUserPoint> {
                                 backgroundColor: Colors.transparent,
                                 child: IconButton(
                                   onPressed: () {
+                                    ProfileCubit.get(context)!
+                                        .updateCount
+                                        .removeWhere((element) =>
+                                            element['categoryId'] ==
+                                            widget.categoryId);
                                     setState(() {
                                       _counter++;
                                     });
@@ -119,6 +124,11 @@ class _CustomCounterPointState extends State<CustomCounterUserPoint> {
                                 child: IconButton(
                                   iconSize: 23.h,
                                   onPressed: () {
+                                    ProfileCubit.get(context)!
+                                        .updateCount
+                                        .removeWhere((element) =>
+                                            element['categoryId'] ==
+                                            widget.categoryId);
                                     setState(() {
                                       _counter--;
                                     });

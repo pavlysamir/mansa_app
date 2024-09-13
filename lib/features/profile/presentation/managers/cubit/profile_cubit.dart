@@ -89,7 +89,7 @@ class ProfileCubit extends Cubit<ProfileState> {
       (profileData) async {
         userProfileData = profileData;
 
-        await getGivenCatagoriesCount();
+        // await getGivenCatagoriesCount();
         await getCurrentUserSorted(id: id);
 
         emit(GetProfileDataSuccess());

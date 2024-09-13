@@ -9,6 +9,7 @@ import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_
 class CustomUserdataCointaner extends StatelessWidget {
   const CustomUserdataCointaner({super.key, required this.myProfileData});
   final ProfileResponse myProfileData;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
@@ -56,13 +57,13 @@ class CustomUserdataCointaner extends StatelessWidget {
                             : '${ProfileCubit.get(context)!.getAddressGovernment(myProfileData.profileData.governorateId)} ,${ProfileCubit.get(context)!.getAddressDistric(myProfileData.profileData.districtId)}  '
                         //myProfileData.profileData.address ?? 'عنوان  '
                         ),
-                myProfileData.profileData.specializationFields == []
+                myProfileData.profileData.specializationFields.isEmpty
                     ? const SizedBox()
                     : CustomUserdataRow(
-                        isNull:
-                            myProfileData.profileData.specializationFields == []
-                                ? true
-                                : false,
+                        isNull: myProfileData
+                                .profileData.specializationFields.isEmpty
+                            ? true
+                            : false,
                         img: AssetsData.kady,
                         text: myProfileData.profileData.specializationFields ==
                                 []

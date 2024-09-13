@@ -1,5 +1,5 @@
 class EndPoint {
-  static String baseUrl = "http://16.171.141.127/";
+  static String baseUrl = "https://kerolos02-001-site1.ctempurl.com/";
 
   static String getAllGradesRegistration =
       "api/BaseLookup/GetAllRegistrationGrade";

@@ -57,6 +57,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   var editProfileKey = GlobalKey<FormState>();
 
   String? base64BackImage;
+
   File? file;
 
   Future<void> pickCameraImage() async {
@@ -75,6 +76,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         List<int> compressedBytes = img.encodeJpg(resizedImage, quality: 30);
 
         base64BackImage = base64Encode(compressedBytes);
+
         file = File(image.path);
         if (kDebugMode) {
           print(file!.path);
@@ -553,8 +555,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     });
   }
 
-
-    Future<void> initializeLanguage() async {
+  Future<void> initializeLanguage() async {
     // Retrieve the saved language preference when the app starts.
     final bool? savedIsEnglish =
         getIt.get<CashHelperSharedPreferences>().getData(

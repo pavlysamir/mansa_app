@@ -253,6 +253,10 @@ class SearchCubit extends Cubit<SearchState> {
     searchController.clear();
     kedDegreeIds.clear();
     availabilityToWordIds.clear();
+    districtId = null;
+    district = null;
+    governmentId = null;
+    government = null;
 
     mapGradRegistration.forEach((key, value) {
       mapGradRegistration[key] = false;

@@ -74,8 +74,16 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                                 backgroundColor: Colors.transparent,
                                 child: IconButton(
                                   onPressed: () {
+                                    SettingsCubit.get(context)!
+                                        .updateCount
+                                        .removeWhere((element) =>
+                                            element['categoryId'] ==
+                                            widget.catagoryData.id);
                                     setState(() {
                                       _counter++;
+                                      print(SettingsCubit.get(context)!
+                                          .updateCount
+                                          .toString());
                                     });
                                     SettingsCubit.get(context)!
                                         .updateCount
@@ -116,8 +124,15 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                                   onPressed: () {
                                     setState(() {
                                       _counter--;
+                                      print(SettingsCubit.get(context)!
+                                          .updateCount
+                                          .toString());
                                     });
-
+                                    SettingsCubit.get(context)!
+                                        .updateCount
+                                        .removeWhere((element) =>
+                                            element['categoryId'] ==
+                                            widget.catagoryData.id);
                                     SettingsCubit.get(context)!
                                         .updateCount
                                         .add({

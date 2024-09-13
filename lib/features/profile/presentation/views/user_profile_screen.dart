@@ -32,6 +32,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void initState() {
     super.initState();
     profileCubit = ProfileCubit.get(context);
+    profileCubit!.getGivenCatagoriesCount();
     profileCubit!.getUserProfileData(id: widget.user.userId);
   }
 
