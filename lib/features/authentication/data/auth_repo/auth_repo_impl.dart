@@ -237,8 +237,9 @@ class AuthRepoImpl implements AuthRepo {
       }
 
       // Sending the request
-      final response = await Dio()
-          .post('http://16.171.141.127/File/AddFile', data: formData);
+      final response = await Dio().post(
+          'https://kerolos02-001-site1.ctempurl.com/File/AddFile',
+          data: formData);
 
       // Check the response and return accordingly
       if (response.statusCode == 200) {

@@ -11,7 +11,6 @@ import 'package:mansa_app/features/profile/data/models/profile_data_model.dart';
 import 'package:mansa_app/features/profile/data/repo/profile_repo.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../../constants.dart';
 part 'profile_state.dart';
 
