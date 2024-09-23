@@ -91,18 +91,24 @@ class CustomContentUsContainer extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Image.asset(img),
-          SizedBox(
-            height: 25.h,
-          ),
-          TextButton(
-              onPressed: function,
-              child: Text(
-                text,
-                style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: kPrimaryKey, decoration: TextDecoration.underline),
-              ))
-        ]));
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(img),
+              SizedBox(
+                height: 25.h,
+              ),
+              Center(
+                child: TextButton(
+                    onPressed: function,
+                    child: Text(
+                      text,
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: kPrimaryKey,
+                          decoration: TextDecoration.underline),
+                    )),
+              )
+            ]));
   }
 }

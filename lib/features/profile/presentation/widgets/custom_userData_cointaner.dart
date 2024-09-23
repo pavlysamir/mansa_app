@@ -45,16 +45,18 @@ class CustomUserdataCointaner extends StatelessWidget {
                             : ProfileCubit.get(context)!.getBacaloryName(
                                 myProfileData.profileData.generalLawBachelorId),
                       ),
-                myProfileData.profileData.districtId == 0
+                myProfileData.profileData.districtId == 0 ||
+                        myProfileData.profileData.governorateId == 0
                     ? const SizedBox()
                     : CustomUserdataRow(
-                        isNull: myProfileData.profileData.districtId == 0
+                        isNull: myProfileData.profileData.districtId == 0 ||
+                                myProfileData.profileData.governorateId == 0
                             ? true
                             : false,
                         img: AssetsData.address,
                         text: myProfileData.profileData.districtId == 0
                             ? 'العنوان'
-                            : '${ProfileCubit.get(context)!.getAddressGovernment(myProfileData.profileData.governorateId)} ,${ProfileCubit.get(context)!.getAddressDistric(myProfileData.profileData.districtId)}  '
+                            : '${ProfileCubit.get(context)!.getAddressGovernment(myProfileData.profileData.governorateId)} ,${ProfileCubit.get(context)!.getAddressDistric(myProfileData.profileData.districtId)}'
                         //myProfileData.profileData.address ?? 'عنوان  '
                         ),
                 myProfileData.profileData.specializationFields.isEmpty
