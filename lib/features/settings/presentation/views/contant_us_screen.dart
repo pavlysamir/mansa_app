@@ -31,14 +31,8 @@ class ContantUsScreen extends StatelessWidget {
                 text: AppLocalizations.of(context)!.contantUsWithWhats,
                 img: AssetsData.whatsApp,
                 function: () async {
-                  Uri mail = Uri.parse('tel:+2001271507452');
-                  if (await launchUrl(mail)) {
-                    //email app opened
-                  } else {
-                    if (kDebugMode) {
-                      print('not working');
-                    }
-                  }
+                  Uri whatsApp = Uri.parse('https://wa.me/+201282189092');
+                  launchUrl(whatsApp);
                 },
               ),
               SizedBox(
