@@ -12,7 +12,8 @@ import 'package:mansa_app/features/authentication/presentation/manager/login/log
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key, this.isFromLoginScreen = false});
+  final bool isFromLoginScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,20 @@ class ResetPasswordScreen extends StatelessWidget {
               content: Text('تم '),
             ),
           );
-          customGoAndDeleteNavigate(
-              context: context, path: AppRouter.kLoginScreen);
+          if (isFromLoginScreen) {
+            customGoAndDeleteNavigate(
+                context: context, path: AppRouter.kLoginScreen);
+          } else {
+            customGoAndDeleteNavigate(
+                context: context, path: AppRouter.kHomeLayout);
+          }
+        } else if (state is EditNewPasswordFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(state.message),
+            ),
+          );
         }
       },
       builder: (context, state) {

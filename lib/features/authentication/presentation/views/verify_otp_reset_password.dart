@@ -13,7 +13,9 @@ import 'package:mansa_app/features/authentication/presentation/manager/login/log
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhoneOtpResetPasswordScreen extends StatelessWidget {
-  const VerifyPhoneOtpResetPasswordScreen({super.key});
+  const VerifyPhoneOtpResetPasswordScreen(
+      {super.key, this.isFromLogin = false});
+  final bool isFromLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,7 @@ class VerifyPhoneOtpResetPasswordScreen extends StatelessWidget {
                                 .then((value) {
                               customGoAndDeleteNavigate(
                                   context: context,
+                                  data: isFromLogin,
                                   path: AppRouter.kResetPasswordScreen);
                             });
                           }

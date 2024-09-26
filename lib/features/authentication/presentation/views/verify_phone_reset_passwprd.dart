@@ -14,7 +14,8 @@ import 'package:mansa_app/features/authentication/presentation/manager/login/log
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VerifyPhoneResetPasswprd extends StatelessWidget {
-  const VerifyPhoneResetPasswprd({super.key});
+  const VerifyPhoneResetPasswprd({super.key, this.isFromLogin = false});
+  final bool isFromLogin;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,9 @@ class VerifyPhoneResetPasswprd extends StatelessWidget {
             ),
           );
           customGoAndDeleteNavigate(
-              context: context, path: AppRouter.kVerifyOtpResetPasswordScreen);
+              context: context,
+              path: AppRouter.kVerifyOtpResetPasswordScreen,
+              data: isFromLogin);
         }
         if (state is ForgetPasswordFailure) {
           ScaffoldMessenger.of(context).showSnackBar(

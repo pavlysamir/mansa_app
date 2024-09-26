@@ -23,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
           appBar: AppBar(
             forceMaterialTransparency: true,
             backgroundColor: Colors.transparent,
+            automaticallyImplyLeading: false,
             title: Text(
               AppLocalizations.of(context)!.settings,
               style: Theme.of(context).textTheme.displayMedium,
@@ -71,6 +72,21 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () {
                       customJustGoNavigate(
                           context: context, path: AppRouter.kEditProfileScreen);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.lock_outline),
+                    title: Text(
+                      AppLocalizations.of(context)!.resetPassword,
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                            decoration: TextDecoration.underline,
+                          ),
+                    ),
+                    onTap: () {
+                      customJustGoNavigate(
+                          context: context,
+                          path: AppRouter.kVerifyPhoneScreen,
+                          data: true);
                     },
                   ),
                   ListTile(

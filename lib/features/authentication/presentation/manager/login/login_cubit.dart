@@ -104,6 +104,7 @@ class LoginCubit extends Cubit<LoginState> {
       (errMessage) => emit(EditNewPasswordFailure(message: errMessage)),
       (login) {
         emit(EditNewPasswordSuccess());
+        resetPasswordController.clear();
       },
     );
   }

@@ -88,7 +88,9 @@ abstract class AppRouter {
         ),
         GoRoute(
           path: kVerifyPhoneScreen,
-          builder: (context, state) => const VerifyPhoneResetPasswprd(),
+          builder: (context, state) => VerifyPhoneResetPasswprd(
+            isFromLogin: state.extra as bool,
+          ),
         ),
         GoRoute(
           path: kVerifyOtpResetPasswordScreen,
@@ -97,7 +99,8 @@ abstract class AppRouter {
         ),
         GoRoute(
           path: kResetPasswordScreen,
-          builder: (context, state) => const ResetPasswordScreen(),
+          builder: (context, state) =>
+              ResetPasswordScreen(isFromLoginScreen: state.extra as bool),
         ),
         GoRoute(
           path: kSearchScreen,
