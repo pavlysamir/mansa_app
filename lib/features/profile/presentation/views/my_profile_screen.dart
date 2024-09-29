@@ -116,8 +116,8 @@ class ProfileScreen extends StatelessWidget {
                                         physics:
                                             const NeverScrollableScrollPhysics(),
                                         scrollDirection: Axis.horizontal,
-                                        itemCount: profileCubit!
-                                            .giverCategoriesCount!
+                                        itemCount: profileCubit
+                                            ?.giverCategoriesCount!
                                             .responseData
                                             .length,
                                         itemBuilder: (context, index) {

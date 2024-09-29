@@ -216,6 +216,10 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
+  TextEditingController searchController = TextEditingController();
+
+  List<String> filteredDistrictItems = [];
+
   List<GovernmentDataModel> allDistricts = [];
   List<String> namesOfDistricts = [];
   List<int> idsOfDistricts = [];
@@ -235,10 +239,27 @@ class SettingsCubit extends Cubit<SettingsState> {
           idsOfDistricts.add(element.id);
         }
         district = namesOfDistricts[0];
+        filteredDistrictItems = namesOfDistricts;
         // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
       },
     );
+  }
+
+  // Function to filter the search results based on input
+  void filterSearchResults(String query) {
+    List<String> searchResults = [];
+    if (query.isEmpty) {
+      searchResults = namesOfDistricts;
+    } else {
+      searchResults = namesOfDistricts
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+
+    filteredDistrictItems = searchResults;
+
+    emit(SearchInDistricSuccessfully());
   }
 
   late String government;

@@ -176,3 +176,5 @@ final class DeleteAccountSuccess extends SettingsState {
 
   DeleteAccountSuccess(this.message);
 }
+
+final class SearchInDistricSuccessfully extends SettingsState {}

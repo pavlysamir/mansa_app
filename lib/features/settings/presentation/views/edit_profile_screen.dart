@@ -29,6 +29,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     settingsCubit = SettingsCubit.get(context);
     settingsCubit!.getProfileSettingData();
+    // Initially show all items
+    settingsCubit!.filteredDistrictItems = settingsCubit!.namesOfDistricts;
+    // Add listener for search input changes
+    settingsCubit!.searchController.addListener(() {
+      settingsCubit!.filterSearchResults(settingsCubit!.searchController.text);
+    });
   }
 
   @override
@@ -697,12 +703,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     },
                                     widget: Column(
                                       children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: TextField(
+                                            controller:
+                                                settingsCubit!.searchController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Search',
+                                              border: OutlineInputBorder(),
+                                              prefixIcon: Icon(Icons.search),
+                                            ),
+                                          ),
+                                        ),
                                         SizedBox(
                                           height: 200.h,
                                           child: ListView.builder(
                                               itemCount:
                                                   SettingsCubit.get(context)!
-                                                      .namesOfDistricts
+                                                      .filteredDistrictItems
                                                       .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedDropDownItem(
@@ -717,8 +735,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   },
                                                   index: index,
                                                   name: SettingsCubit.get(
-                                                          context)!
-                                                      .namesOfDistricts[index],
+                                                              context)!
+                                                          .filteredDistrictItems[
+                                                      index],
                                                 );
                                               }),
                                         ),
