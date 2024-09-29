@@ -123,8 +123,9 @@ class CustomReturnPointUserItem extends StatelessWidget {
                                                 []) {
                                               SettingsCubit.get(context)!
                                                   .updateGiverCountPoints(
-                                                lowyerId: user.userData.userId,
-                                              )
+                                                      lowyerId:
+                                                          user.userData.userId,
+                                                      isRedeem: false)
                                                   .then((value) {
                                                 SettingsCubit.get(context)!
                                                     .getMyBalanceData();

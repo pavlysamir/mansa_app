@@ -119,7 +119,7 @@ class SearchCubit extends Cubit<SearchState> {
       (allGov) {
         allGovernments = allGov;
         for (var element in allGovernments) {
-          namesOfGovernments.add(element.nameAr);
+          namesOfGovernments.add(element.nameAr ?? '');
           idsOfGovernments.add(element.id);
         }
         // government = namesOfGovernments.first;
@@ -142,7 +142,7 @@ class SearchCubit extends Cubit<SearchState> {
       (allDis) {
         allDistricts = allDis;
         for (var element in allDistricts) {
-          namesOfDistricts.add(element.nameAr);
+          namesOfDistricts.add(element.nameAr ?? '');
           idsOfDistricts.add(element.id);
         }
         // district = namesOfDistricts.first;

@@ -1,7 +1,7 @@
 class GovernmentDataModel {
   final int id;
-  final String nameAr;
-  final String nameEn;
+  final String? nameAr;
+  final String? nameEn;
   String? internalCode;
   final int internalRef;
   final bool isActive;
@@ -15,8 +15,8 @@ class GovernmentDataModel {
 
   GovernmentDataModel({
     required this.id,
-    required this.nameAr,
-    required this.nameEn,
+    this.nameAr,
+    this.nameEn,
     this.internalCode,
     required this.internalRef,
     required this.isActive,

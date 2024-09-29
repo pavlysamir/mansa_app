@@ -20,6 +20,8 @@ import 'package:mansa_app/features/settings/presentation/managers/settings_cubit
 import 'package:mansa_app/l10n/l10n.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+GlobalKey globalKey = GlobalKey();
+
 class MansaApp extends StatelessWidget {
   const MansaApp({super.key});
 
@@ -56,6 +58,7 @@ class MansaApp extends StatelessWidget {
         child: BlocBuilder<SettingsCubit, SettingsState>(
           builder: (context, state) {
             return MaterialApp.router(
+              key: globalKey,
               locale: isEnglish ? const Locale('en') : const Locale('ar'),
               localizationsDelegates: const [
                 AppLocalizations.delegate,

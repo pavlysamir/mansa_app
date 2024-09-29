@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
@@ -243,10 +244,15 @@ class SettingsRepoImpl implements SettingsRepo {
 
   @override
   Future<Either<String, String>> updateCountPonts(
-      {required num lowyerId, required List<Map> data}) async {
+      {required num lowyerId,
+      required bool isRedeem,
+      required List<Map> data}) async {
     try {
-      final response = await api.put(EndPoint.updateCategoryCount,
-          data: {"toLawyerId": lowyerId, "categories": data});
+      final response = await api.put(EndPoint.updateCategoryCount, data: {
+        "toLawyerId": lowyerId,
+        "isRedeem": isRedeem,
+        "categories": data
+      });
 
       return Right(response['message'] ?? '');
     } on ServerException catch (e) {

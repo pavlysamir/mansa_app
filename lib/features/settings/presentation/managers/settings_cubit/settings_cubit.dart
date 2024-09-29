@@ -203,8 +203,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       (allGov) {
         allGovernments = allGov;
         allGovernmentConst = allGov;
+        print('sssssssssssssss${allGovernmentConst.length}');
         for (var element in allGovernments) {
-          namesOfGovernments.add(element.nameAr);
+          namesOfGovernments.add(element.nameAr ?? '');
           idsOfGovernments.add(element.id);
         }
         // print('sssssssssssssss$namesOfGovernments');
@@ -228,8 +229,9 @@ class SettingsCubit extends Cubit<SettingsState> {
       (allDis) {
         allDistricts = allDis;
         allDistrictConst = allDis;
+
         for (var element in allDistricts) {
-          namesOfDistricts.add(element.nameAr);
+          namesOfDistricts.add(element.nameAr ?? '');
           idsOfDistricts.add(element.id);
         }
         district = namesOfDistricts[0];
@@ -285,7 +287,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         allBarAssociations = allAssoci;
         allBarAssociationsConst = allAssoci;
         for (var element in allBarAssociations) {
-          namesOfBarAssociations.add(element.nameAr);
+          namesOfBarAssociations.add(element.nameAr ?? '');
           idsOfBarAssociations.add(element.id);
         }
         association = namesOfBarAssociations.first;
@@ -350,7 +352,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         allGeneralLawBachelor = allBachelors;
         allGeneralLawConst = allBachelors;
         for (var element in allGeneralLawBachelor) {
-          namesOfGeneralLawBachelor.add(element.nameAr);
+          namesOfGeneralLawBachelor.add(element.nameAr ?? '');
           idsOfGeneralLawBachelor.add(element.id);
         }
         if (namesOfGeneralLawBachelor.isNotEmpty) {
@@ -385,7 +387,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (allUniversities) {
         allGrantingUniversity = allUniversities;
         for (var element in allGrantingUniversity) {
-          namesOfGrantingUniversity.add(element.nameAr);
+          namesOfGrantingUniversity.add(element.nameAr ?? '');
           idsOfGrantingUniversity.add(element.id);
         }
         if (namesOfGrantingUniversity.isNotEmpty) {
@@ -420,7 +422,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (allStudies) {
         allPostgraduateStudy = allStudies;
         for (var element in allPostgraduateStudy) {
-          namesOfPostgraduateStudy.add(element.nameAr);
+          namesOfPostgraduateStudy.add(element.nameAr ?? '');
           idsOfPostgraduateStudy.add(element.id);
         }
         if (namesOfPostgraduateStudy.isNotEmpty) {
@@ -455,7 +457,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (allFields) {
         allSpecializationField = allFields;
         for (var element in allSpecializationField) {
-          namesOfSpecializationField.add(element.nameAr);
+          namesOfSpecializationField.add(element.nameAr ?? '');
           idsOfSpecializationField.add(element.id);
         }
         if (namesOfSpecializationField.isNotEmpty) {
@@ -713,11 +715,13 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future<void> updateGiverCountPoints({
     required num lowyerId,
+    required bool isRedeem,
   }) async {
     emit(UpdateGiverPointsLoading());
 
     final response = await settingsRepo.updateCountPonts(
       lowyerId: lowyerId,
+      isRedeem: isRedeem,
       data: updateCount,
     );
     response.fold(

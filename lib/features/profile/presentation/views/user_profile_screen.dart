@@ -123,8 +123,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   function: () {
                                     profileCubit!
                                         .updateGiverCountPoints(
-                                      lowyerId: widget.user.userId,
-                                    )
+                                            lowyerId: widget.user.userId,
+                                            isRedeem: true)
                                         .then((value) {
                                       profileCubit!.getUserProfileData(
                                         id: widget.user.userId,

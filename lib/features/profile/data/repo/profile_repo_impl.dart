@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mansa_app/core/api/api_consumer.dart';
 import 'package:mansa_app/core/api/end_ponits.dart';
 import 'package:mansa_app/core/errors/exceptions.dart';
@@ -26,8 +27,10 @@ class ProfileRepoImpl implements ProfileRepo {
 
       PrrofileResponseData profileData =
           PrrofileResponseData.fromJson(response);
-      print(
-          '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${profileData.responseData.profileData.name}');
+      if (kDebugMode) {
+        print(
+            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!${profileData.responseData.profileData.name}');
+      }
       getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.userName,
             value: profileData.responseData.profileData.name,
@@ -89,10 +92,15 @@ class ProfileRepoImpl implements ProfileRepo {
 
   @override
   Future<Either<String, String>> updateCountPonts(
-      {required num lowyerId, required List<Map> data}) async {
+      {required num lowyerId,
+      required bool isRedeem,
+      required List<Map> data}) async {
     try {
-      final response = await api.put(EndPoint.updateCategoryCount,
-          data: {"toLawyerId": lowyerId, "categories": data});
+      final response = await api.put(EndPoint.updateCategoryCount, data: {
+        "toLawyerId": lowyerId,
+        "isRedeem": isRedeem,
+        "categories": data
+      });
 
       return Right(response['message'] ?? "");
     } on ServerException catch (e) {

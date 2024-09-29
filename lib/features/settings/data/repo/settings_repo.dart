@@ -5,7 +5,6 @@ import 'package:mansa_app/features/authentication/data/models/grades_registratio
 import 'package:mansa_app/features/search/data/models/availability_work_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 import 'package:mansa_app/features/settings/data/models/balance_model.dart';
-import 'package:mansa_app/features/settings/data/models/edit_lawyer_data.dart';
 import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 import 'package:mansa_app/features/settings/data/models/profile_setting_model.dart';
 
@@ -25,7 +24,7 @@ abstract class SettingsRepo {
   Future<Either<String, BalanceModel>> getMybalance();
   Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints();
   Future<Either<String, String>> updateCountPonts(
-      {required num lowyerId, required List<Map> data});
+      {required num lowyerId, required bool isRedeem, required List<Map> data});
 
   Future<Either<String, String>> deleteAccount();
 

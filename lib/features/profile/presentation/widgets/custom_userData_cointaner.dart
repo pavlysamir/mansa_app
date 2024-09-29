@@ -56,7 +56,7 @@ class CustomUserdataCointaner extends StatelessWidget {
                         img: AssetsData.address,
                         text: myProfileData.profileData.districtId == 0
                             ? 'العنوان'
-                            : '${ProfileCubit.get(context)!.getAddressGovernment(myProfileData.profileData.governorateId)} ,${ProfileCubit.get(context)!.getAddressDistric(myProfileData.profileData.districtId)}'
+                            : '${ProfileCubit.get(context)!.getAddressGovernment(myProfileData.profileData.governorateId)} ,${ProfileCubit.get(context)!.getAddressDistric(3)}'
                         //myProfileData.profileData.address ?? 'عنوان  '
                         ),
                 myProfileData.profileData.specializationFields.isEmpty

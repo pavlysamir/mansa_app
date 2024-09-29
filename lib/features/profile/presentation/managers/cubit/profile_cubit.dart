@@ -73,6 +73,10 @@ class ProfileCubit extends Cubit<ProfileState> {
                 .get<CashHelperSharedPreferences>()
                 .getData(key: ApiKey.id));
 
+        print(myProfileData!.responseData.profileData.governorateId.toString());
+        // await getAddressGovernment(
+        //     profileData.responseData.profileData.governorateId);
+
         emit(GetProfileDataSuccess());
       },
     );
@@ -134,10 +138,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     for (var element in allBarAssociationsConst) {
       if (element.id == index) {
         return element.nameAr;
-      } else {
-        return '';
       }
     }
+    return '';
   }
 
   List<String> names = [];
@@ -164,31 +167,31 @@ class ProfileCubit extends Cubit<ProfileState> {
     for (var element in allDistrictConst) {
       if (element.id == index) {
         return element.nameAr;
-      } else {
-        return '';
       }
     }
+    return '';
   }
 
   getAddressGovernment(int index) {
     for (var element in allGovernmentConst) {
       if (element.id == index) {
         return element.nameAr;
-      } else {
-        return '';
       }
     }
+    return '';
   }
 
   List<Map> updateCount = [];
 
   Future<void> updateGiverCountPoints({
     required num lowyerId,
+    required bool isRedeem,
   }) async {
     emit(UpdateGiverPointsLoading());
 
     final response = await profileRepo.updateCountPonts(
       lowyerId: lowyerId,
+      isRedeem: isRedeem,
       data: updateCount,
     );
     response.fold(
