@@ -181,6 +181,15 @@ class ProfileCubit extends Cubit<ProfileState> {
     return '';
   }
 
+  getRegistrationGrade(int? index) {
+    for (var element in allGradesRegistrationConst) {
+      if (element.id == index) {
+        return element.nameAr;
+      }
+    }
+    return '';
+  }
+
   List<Map> updateCount = [];
 
   Future<void> updateGiverCountPoints({

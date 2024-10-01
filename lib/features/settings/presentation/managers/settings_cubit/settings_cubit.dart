@@ -102,6 +102,7 @@ class SettingsCubit extends Cubit<SettingsState> {
       (errMessage) => emit(GetAllGradesRegistrationFail(errMessage)),
       (allGrades) {
         allGradesRegistration = allGrades;
+        allGradesRegistrationConst = allGrades;
         // saveListInSharedPreferences(
         //     key: ApiKey.allgradesRegisters, list: allGradesRegistration);
         for (var element in allGradesRegistration) {

@@ -10,16 +10,17 @@ String? conditionOfValidationEmail(value) {
 }
 
 String? conditionOfValidationPassWord(value) {
-  RegExp regex =
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+  // RegExp regex =
+  //     RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
   var passNonNullValue = value ?? "";
   if (passNonNullValue.isEmpty) {
-    return ("كلمة المرور مطلوبة");
+    return ("Password is required");
   } else if (passNonNullValue.length < 8) {
-    return ("كلمة المرور يجب أن تكون أكثر من 7 أحرف");
-  } else if (!regex.hasMatch(passNonNullValue)) {
-    return ("يجب أن تحتوي كلمة المرور على أرقام وعلوية وسفلية ورموز خاصة");
+    return ("Password must be more than 8 characters");
   }
+  // else if (!regex.hasMatch(passNonNullValue)) {
+  //   return ("Password should contain upper case, lower case, special character and number");
+  // }
   return null;
 }
 

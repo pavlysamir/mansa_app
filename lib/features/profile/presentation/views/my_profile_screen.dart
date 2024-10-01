@@ -91,7 +91,8 @@ class ProfileScreen extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Text('درجة القيد - التخصص الأ ساسي ',
+                          Text(
+                              '${profileCubit?.getRegistrationGrade(profileCubit?.myProfileData?.responseData.profileData.registrationGradeId)} - ${profileCubit?.myProfileData?.responseData.profileData.specializationFields == [] ? '' : profileCubit?.getSpacializationName(profileCubit?.myProfileData?.responseData.profileData.specializationFields ?? [])} ',
                               style:
                                   Theme.of(context).textTheme.headlineLarge!),
                           SizedBox(
@@ -141,7 +142,7 @@ class ProfileScreen extends StatelessWidget {
                           SizedBox(
                             height: 10.h,
                           ),
-                          profileCubit!.myProfileData!.responseData.profileData
+                          profileCubit?.myProfileData!.responseData.profileData
                                       .availableWorks ==
                                   []
                               ? const SizedBox()

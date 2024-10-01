@@ -30,6 +30,13 @@ class ThirdRegisterScreen extends StatelessWidget {
           );
           customGoAndDeleteNavigate(
               context: context, path: AppRouter.kLoginScreen);
+        } else if (state is SignUpFaluir) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('${state.errorMessage} من فضلك حاول مره اخرى'),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -183,7 +190,7 @@ class ThirdRegisterScreen extends StatelessWidget {
                   SizedBox(
                     height: 30.h,
                   ),
-                  state is SignUpLoading
+                  state is SignUpLoading || state is AddFileLoading
                       ? const Center(
                           child: CircularProgressIndicator(
                             color: kPrimaryKey,

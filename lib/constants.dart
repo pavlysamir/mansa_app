@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mansa_app/features/authentication/data/models/grades_registration_model.dart';
 import 'package:mansa_app/features/search/data/models/government_data_model.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -39,3 +40,5 @@ List<GovernmentDataModel> allGeneralLawConst = [];
 List<GovernmentDataModel> allDistrictConst = [];
 
 List<GovernmentDataModel> allGovernmentConst = [];
+
+List<GradesRegistrationModel> allGradesRegistrationConst = [];

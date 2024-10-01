@@ -102,38 +102,38 @@ class SettingsScreen extends StatelessWidget {
                           context: context, path: AppRouter.kContantUsScreen);
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.language_outlined),
-                    title: Text(
-                      AppLocalizations.of(context)!.changeLang,
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                            decoration: TextDecoration.underline,
-                          ),
-                    ),
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => PopUpDialog(
-                          function2: () {
-                            Navigator.pop(context);
-                          },
-                          context: context,
-                          function: () {
-                            SettingsCubit.get(context)!.changeLanguage();
-                            Navigator.pop(context);
-                          },
-                          title:
-                              AppLocalizations.of(context)!.doUWantChangeLang,
-                          subTitle: '',
-                          img: AssetsData.arabic,
-                          colorButton1: Colors.white,
-                          colorButton2: kPrimaryKey,
-                          textColortcolor1: kBlackColor,
-                          textColortcolor2: Colors.white,
-                        ),
-                      );
-                    },
-                  ),
+                  // ListTile(
+                  //   leading: const Icon(Icons.language_outlined),
+                  //   title: Text(
+                  //     AppLocalizations.of(context)!.changeLang,
+                  //     style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  //           decoration: TextDecoration.underline,
+                  //         ),
+                  //   ),
+                  //   onTap: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (BuildContext context) => PopUpDialog(
+                  //         function2: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         context: context,
+                  //         function: () {
+                  //           SettingsCubit.get(context)!.changeLanguage();
+                  //           Navigator.pop(context);
+                  //         },
+                  //         title:
+                  //             AppLocalizations.of(context)!.doUWantChangeLang,
+                  //         subTitle: '',
+                  //         img: AssetsData.arabic,
+                  //         colorButton1: Colors.white,
+                  //         colorButton2: kPrimaryKey,
+                  //         textColortcolor1: kBlackColor,
+                  //         textColortcolor2: Colors.white,
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                   // ListTile(
                   //   leading: const Icon(Icons.color_lens_outlined),
                   //   title: Text(
