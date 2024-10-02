@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:mansa_app/core/errors/error_model.dart';
 
 class ServerException implements Exception {
-  final ErrorModel errModel;
+  final ErrorModel? errModel;
 
-  ServerException({required this.errModel});
+  ServerException({this.errModel});
 }
 
 void handleDioExceptions(DioException? e) {
