@@ -6,7 +6,7 @@ class CustomMedalGroubsContainer extends StatelessWidget {
   const CustomMedalGroubsContainer(
       {super.key, required this.category, required this.img});
 
-  final CategoryMedalData category;
+  final CategoryMedalData? category;
   final String img;
 
   @override
@@ -33,9 +33,9 @@ class CustomMedalGroubsContainer extends StatelessWidget {
           child: Column(
             children: [
               Image.asset(img),
-              Text(category.categoryName,
+              Text(category?.categoryName ?? '',
                   style: Theme.of(context).textTheme.bodyMedium!),
-              Text('${category.count}',
+              Text('${category?.count}',
                   style: Theme.of(context).textTheme.displayLarge),
             ],
           ),

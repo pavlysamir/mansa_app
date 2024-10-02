@@ -123,10 +123,11 @@ class ProfileScreen extends StatelessWidget {
                                             .length,
                                         itemBuilder: (context, index) {
                                           return CustomMedalGroubsContainer(
-                                            img: profileCubit!
-                                                .medalImages[index],
-                                            category: profileCubit!
-                                                .categoryData[index],
+                                            img: profileCubit
+                                                    ?.medalImages[index] ??
+                                                '',
+                                            category: profileCubit
+                                                ?.categoryData[index],
                                           );
                                         }),
                                   )),
@@ -150,8 +151,8 @@ class ProfileScreen extends StatelessWidget {
                                   shrinkWrap: true,
                                   // physics: const NeverScrollableScrollPhysics(),
                                   // scrollDirection: Axis.horizontal,
-                                  itemCount: profileCubit!
-                                      .myProfileData!
+                                  itemCount: profileCubit
+                                      ?.myProfileData!
                                       .responseData
                                       .profileData
                                       .availableWorks
@@ -170,8 +171,8 @@ class ProfileScreen extends StatelessWidget {
                                                   padding:
                                                       const EdgeInsets.all(6),
                                                   decoration: BoxDecoration(
-                                                    color: profileCubit!
-                                                                .myProfileData!
+                                                    color: profileCubit
+                                                                ?.myProfileData!
                                                                 .responseData
                                                                 .profileData
                                                                 .availableWorks[
@@ -179,18 +180,18 @@ class ProfileScreen extends StatelessWidget {
                                                                 .name ==
                                                             'متاح للعمل بشكل دائم'
                                                         ? Colors.green
-                                                        : profileCubit!
-                                                                    .myProfileData!
-                                                                    .responseData
+                                                        : profileCubit
+                                                                    ?.myProfileData
+                                                                    ?.responseData
                                                                     .profileData
                                                                     .availableWorks[
                                                                         index]
                                                                     .name ==
                                                                 'متاح لانجاز مهمة'
                                                             ? kPrimaryKey
-                                                            : profileCubit!
-                                                                        .myProfileData!
-                                                                        .responseData
+                                                            : profileCubit
+                                                                        ?.myProfileData
+                                                                        ?.responseData
                                                                         .profileData
                                                                         .availableWorks[
                                                                             index]
@@ -204,12 +205,14 @@ class ProfileScreen extends StatelessWidget {
                                                   ),
                                                   child: Text(
                                                     //user.availableWork[0] ?? '',
-                                                    profileCubit!
-                                                        .myProfileData!
-                                                        .responseData
-                                                        .profileData
-                                                        .availableWorks[index]
-                                                        .name,
+                                                    profileCubit
+                                                            ?.myProfileData
+                                                            ?.responseData
+                                                            .profileData
+                                                            .availableWorks[
+                                                                index]
+                                                            .name ??
+                                                        '',
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleSmall!
@@ -221,9 +224,9 @@ class ProfileScreen extends StatelessWidget {
                                                 SizedBox(width: 5.w),
                                                 Expanded(
                                                   child: Text(
-                                                    profileCubit!
-                                                            .myProfileData!
-                                                            .responseData
+                                                    profileCubit
+                                                            ?.myProfileData
+                                                            ?.responseData
                                                             .profileData
                                                             .availableWorks[
                                                                 index]
@@ -253,7 +256,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           CustomUserdataCointaner(
                             myProfileData:
-                                profileCubit!.myProfileData!.responseData,
+                                profileCubit?.myProfileData!.responseData,
                           ),
                           SizedBox(
                             height: 32.h,

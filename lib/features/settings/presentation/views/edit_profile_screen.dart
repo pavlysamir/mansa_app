@@ -58,23 +58,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           style: Theme.of(context).textTheme.displayMedium,
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child:
-            //  state is GetSearchedUsersLoading
-            //     ?
-            //  const Center(
-            //     child: CircularProgressIndicator(
-            //     color: kPrimaryKey,
-            //   ))
-            // :
-            CustomButtonLarge(
-          text: AppLocalizations.of(context)!.save,
-          function: () {
-            SettingsCubit.get(context)!.checkValidateEditeProfile();
-          },
-          textColor: Colors.white,
-        ),
+      bottomNavigationBar: BlocBuilder<SettingsCubit, SettingsState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: state is UpdateLaawyerDataLoading
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: kPrimaryKey,
+                  ))
+                : CustomButtonLarge(
+                    text: AppLocalizations.of(context)!.save,
+                    function: () {
+                      SettingsCubit.get(context)!.checkValidateEditeProfile();
+                    },
+                    textColor: Colors.white,
+                  ),
+          );
+        },
       ),
       body: BlocConsumer<SettingsCubit, SettingsState>(
         listener: (context, state) {
@@ -730,7 +731,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                         .selectDistrict(
                                                             SettingsCubit.get(
                                                                         context)!
-                                                                    .namesOfDistricts[
+                                                                    .filteredDistrictItems[
                                                                 index]);
                                                   },
                                                   index: index,

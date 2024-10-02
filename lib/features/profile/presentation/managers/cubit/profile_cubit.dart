@@ -134,7 +134,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     AssetsData.goldenMedal
   ];
 
-  getNkabaName(int index) {
+  getNkabaName(int? index) {
     for (var element in allBarAssociationsConst) {
       if (element.id == index) {
         return element.nameAr;
@@ -153,7 +153,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     return names.join('-');
   }
 
-  getBacaloryName(int index) {
+  getBacaloryName(int? index) {
     for (var element in allGeneralLawConst) {
       if (element.id == index) {
         return element.nameAr;
@@ -172,7 +172,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     return '';
   }
 
-  getAddressGovernment(int index) {
+  getAddressGovernment(int? index) {
     for (var element in allGovernmentConst) {
       if (element.id == index) {
         return element.nameAr;

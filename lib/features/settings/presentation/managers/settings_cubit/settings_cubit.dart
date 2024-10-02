@@ -320,7 +320,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  late String association;
+  String? association;
   int? associationId;
 
   void selectAssociation(String association) {
