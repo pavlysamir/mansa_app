@@ -26,7 +26,7 @@ class SearchRepoImpl implements SearchRepo {
 
       return Right(allGradesRegistration);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -44,7 +44,7 @@ class SearchRepoImpl implements SearchRepo {
 
       return Right(allAvailibalityWork);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -61,7 +61,7 @@ class SearchRepoImpl implements SearchRepo {
 
       return Right(allDistricts);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -78,7 +78,7 @@ class SearchRepoImpl implements SearchRepo {
 
       return Right(allGovernments);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -106,7 +106,7 @@ class SearchRepoImpl implements SearchRepo {
 
       return Right(ApiResponse.fromJson(response));
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 }

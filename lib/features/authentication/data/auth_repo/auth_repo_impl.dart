@@ -29,7 +29,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(allGradesRegistration);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -75,7 +75,7 @@ class AuthRepoImpl implements AuthRepo {
           e.response?.data['errorMessage'] ?? 'Unknown error occurred';
       return Left(errorMessage);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage ?? 'Server error');
+      return Left(e.errModel?.errorMessage ?? 'Server error');
     } catch (e) {
       return Left('An unexpected error occurred');
     }
@@ -92,7 +92,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(response['message']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -107,7 +107,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(response['message']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -119,7 +119,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(response);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -145,7 +145,7 @@ class AuthRepoImpl implements AuthRepo {
           .saveData(key: ApiKey.id, value: response['data']);
       return Right(response['data']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -176,7 +176,7 @@ class AuthRepoImpl implements AuthRepo {
 
   //     return Right(response);
   //   } on ServerException catch (e) {
-  //     return Left(e.errModel.errorMessage!);
+  //     return Left(e.errModel?.errorMessage?? '');
   //   }
   // }
 
@@ -190,7 +190,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(response['message']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -208,7 +208,7 @@ class AuthRepoImpl implements AuthRepo {
 
       return Right(response['message']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -248,7 +248,7 @@ class AuthRepoImpl implements AuthRepo {
         return Left('Failed to upload files');
       }
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     } catch (e) {
       return Left('An unexpected error occurred');
     }

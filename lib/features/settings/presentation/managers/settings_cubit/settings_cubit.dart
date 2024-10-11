@@ -210,7 +210,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           idsOfGovernments.add(element.id);
         }
         // print('sssssssssssssss$namesOfGovernments');
-        government = namesOfGovernments[0];
+        government = 'اختر المحافظة';
         // governmentId = allGovernments.first.id;
         // emit(GetAllGovernmentsSuccess());
       },
@@ -524,8 +524,8 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> clearData() async {
     nameController.clear();
     availabilityToWordIds.clear();
-    government = namesOfGovernments.first;
-    district = namesOfDistricts.first;
+    government = "اختر المحافظة";
+    district = "اختر المدينه";
     grade = namesOfGrades.first;
     gradeId = allGradesRegistration.first.id;
     districtId = allDistricts.first.id;

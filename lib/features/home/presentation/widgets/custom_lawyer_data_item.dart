@@ -46,8 +46,9 @@ class CustomLowyerDataItem extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 20.r,
-                      child: user.picture != null &&
-                              user.picture!.fileTypeName == 'Profile Picture'
+                      child: user.picture != null
+                          // &&
+                          //         user.picture!.fileTypeName == 'Profile Picture'
                           ? ClipOval(
                               clipBehavior: Clip.antiAlias,
                               child: CachedNetworkImage(
@@ -55,6 +56,8 @@ class CustomLowyerDataItem extends StatelessWidget {
                                   height: double.infinity,
                                   fit: BoxFit.fill,
                                   imageUrl: user.picture!.url,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.person),
                                   placeholder: (context, url) => const Center(
                                           child: CircularProgressIndicator(
                                         color: kPrimaryKey,

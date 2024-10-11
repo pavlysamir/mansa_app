@@ -22,7 +22,7 @@ class HomeRepoImpl implements HomeRepo {
 
       return Right(ApiResponse.fromJson(response));
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -38,7 +38,7 @@ class HomeRepoImpl implements HomeRepo {
 
       return Right(UserSortedModel.fromJson(response['data']));
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 }

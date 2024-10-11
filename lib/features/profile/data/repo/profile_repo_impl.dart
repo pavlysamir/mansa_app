@@ -55,7 +55,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(profileData);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -73,7 +73,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(categorisCount);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -86,7 +86,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(UserSortedModel.fromJson(response['data']));
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -104,7 +104,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(response['message'] ?? "");
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -120,7 +120,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(givenUsersResponseModel);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -139,7 +139,7 @@ class ProfileRepoImpl implements ProfileRepo {
 
       return Right(profileData);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 }

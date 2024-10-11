@@ -10,18 +10,18 @@ class ServerException implements Exception {
 void handleDioExceptions(DioException? e) {
   switch (e?.type ?? 'unknown') {
     case DioExceptionType.connectionTimeout:
-      throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+      throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
     case DioExceptionType.sendTimeout:
-      throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+      throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
     case DioExceptionType.receiveTimeout:
-      throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+      throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
     case DioExceptionType.badCertificate:
-      throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+      throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
     case DioExceptionType.cancel:
-      throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+      throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
     case DioExceptionType.connectionError:
       if (e?.response != null) {
-        throw ServerException(errModel: ErrorModel.fromJson(e?.response!.data));
+        throw ServerException(errModel: ErrorModel.fromJson(e?.response?.data));
       } else {
         // Handle the case where response is null
         throw ServerException(
@@ -37,25 +37,25 @@ void handleDioExceptions(DioException? e) {
       switch (e?.response?.statusCode) {
         case 400: // Bad request
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 401: //unauthorized
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 403: //forbidden
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 404: //not found
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 409: //cofficient
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 422: //  Unprocessable Entity
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
         case 504: // Server exception
           throw ServerException(
-              errModel: ErrorModel.fromJson(e?.response!.data));
+              errModel: ErrorModel.fromJson(e?.response?.data));
       }
   }
 }

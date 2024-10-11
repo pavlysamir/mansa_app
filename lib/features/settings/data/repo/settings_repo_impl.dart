@@ -34,7 +34,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allGradesRegistration);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -52,7 +52,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allAvailibalityWork);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -69,7 +69,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allDistricts);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -86,7 +86,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allGovernments);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -104,7 +104,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allBarAssociations);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -122,7 +122,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allGeneralLawBachelor);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -140,7 +140,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allGrantingUniversity);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -158,7 +158,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allPostgraduateStudy);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -176,7 +176,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(allSpecializationField);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -192,7 +192,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(profileSettingsData);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -207,7 +207,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(myBalanceData);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -222,7 +222,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(response['message']);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -238,7 +238,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(givenUsersResponseModel);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage! ?? '');
     }
   }
 
@@ -256,7 +256,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(response['message'] ?? '');
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -269,7 +269,7 @@ class SettingsRepoImpl implements SettingsRepo {
 
       return Right(response);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -309,7 +309,7 @@ class SettingsRepoImpl implements SettingsRepo {
         return Left('Failed to upload files');
       }
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     } catch (e) {
       return Left('An unexpected error occurred');
     }
@@ -328,7 +328,7 @@ class SettingsRepoImpl implements SettingsRepo {
       );
       return Right(response);
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     }
   }
 
@@ -368,7 +368,7 @@ class SettingsRepoImpl implements SettingsRepo {
         return const Left('Failed to upload files');
       }
     } on ServerException catch (e) {
-      return Left(e.errModel.errorMessage!);
+      return Left(e.errModel?.errorMessage ?? '');
     } catch (e) {
       return const Left('An unexpected error occurred');
     }
