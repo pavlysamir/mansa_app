@@ -160,9 +160,12 @@ class SettingsCubit extends Cubit<SettingsState> {
   void addClickAvailabilityToWorkToList(int id) {
     if (mapAvalabilityToWork[id] == true) {
       availabilityToWordIds.add(id);
+
       print(availabilityToWordIds.toString());
     } else {
       availabilityToWordIds.remove(id);
+
+      //Scontrollers[id].text = "";
       print(availabilityToWordIds.toString());
     }
   }
@@ -649,6 +652,7 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> getProfileSettingData() async {
     emit(GetProfileSettingLoading());
     availabilityToWordIds.clear();
+
     final response = await settingsRepo.getProfileSettingsData();
 
     response.fold(
