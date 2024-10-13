@@ -140,4 +140,6 @@ class ApiKey {
   static String allgradesRegisters = "allgradesRegisters";
   static String allCountRegisters = "allCountRegisters";
   static String namesOfGrades = "namesOfGrades";
+
+  static String contantType = "Content-Type";
 }

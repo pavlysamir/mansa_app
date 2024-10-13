@@ -18,6 +18,7 @@ class ApiInterceptor extends Interceptor {
     if (token != null) {
       options.headers[ApiKey.authorizationHeader] = 'Bearer $token';
     }
+    //options.headers[ApiKey.contantType] = 'application/json-patch+json';
 
     super.onRequest(options, handler);
   }

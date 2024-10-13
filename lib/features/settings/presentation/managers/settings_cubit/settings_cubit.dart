@@ -143,6 +143,12 @@ class SettingsCubit extends Cubit<SettingsState> {
   }
 
   List<int> availabilityToWordIds = [];
+  List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
 
   void clickAvalabilityToWork(int id) {
     mapAvalabilityToWork[id] = !mapAvalabilityToWork[id]!;
@@ -239,7 +245,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           namesOfDistricts.add(element.nameAr ?? '');
           idsOfDistricts.add(element.id);
         }
-        district = namesOfDistricts[0];
+        district = 'اختر المدينه';
         filteredDistrictItems = namesOfDistricts;
         // districtId = allDistricts.first.id;
         //   emit(GetAllDistrictsSuccess());
@@ -491,16 +497,27 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  // Method to select SpecializationField
+  List<int> selectedSpacializationField = [];
+  List<bool> isPrimary = [];
+  //Method to select SpecializationField
   void selectSpecializationField(String specializationField) {
     this.specializationField = specializationField;
     for (var element in allSpecializationField) {
       if (element.nameAr == specializationField) {
         specializationFieldId = element.id;
+        if (selectedSpacializationField.contains(element.id)) {
+          selectedSpacializationField.remove(element.id);
+          isPrimary.isNotEmpty ? isPrimary[0] = true : null;
+        } else if (selectedSpacializationField.length < 4) {
+          selectedSpacializationField.add(element.id);
+          isPrimary.isEmpty ? isPrimary.add(true) : isPrimary.add(false);
+        } else {
+          null;
+        }
       }
     }
     if (kDebugMode) {
-      print('${this.specializationField}  ${specializationFieldId.toString()}');
+      print('$selectedSpacializationField');
     }
     emit(SelectedSpecializationField());
   }
@@ -761,46 +778,30 @@ class SettingsCubit extends Cubit<SettingsState> {
     emit(UpdateLaawyerDataLoading());
 
     // Ensure specializationFieldId is not null before creating SpecializationField objects
-    List<edit_lawyer.SpecializationField> specializationFields = [];
-    if (specializationFieldId != null) {
-      specializationFields.add(
-        edit_lawyer.SpecializationField(
-          specializationFieldId: specializationFieldId!,
-          isPrimary: true, // Set isPrimary as needed
-        ),
-      );
+    List<Map<String, dynamic>> specializationFields = [];
+    if (selectedSpacializationField != []) {
+      for (int i = 0; i < selectedSpacializationField.length; i++) {
+        specializationFields.add({
+          "specializationFieldId": selectedSpacializationField[i],
+          "isPrimary": isPrimary[i]
+        });
+      }
     } else {
       // Handle the case where specializationFieldId is null, if necessary
       print('Warning: specializationFieldId is null');
     }
 
-    // LawyerData lawyerData = LawyerData(
-    //   name: nameController.text,
-    //   email: emailController.text ?? '',
-    //   mobileNo: phoneController.text,
-    //   description: putYourVisionController.text ?? '',
-    //   address: adressOfficeController.text ?? '',
-    //   specializationFields:
-    //       specializationFields, // Populate with actual data as needed
-    //   availableWorks: selectedAvailableWorks,
-    //   picture: edit_lawyer.Picture(
-    //     file: file == null ? '' : file!.path,
-    //     fileTypeId: 1,
-    //   ),
-    //   registrationGradeId: 1, // Populate with actual data
-    //   generalLawBachelorId:
-    //       generalLawBachelorId ?? 0, // Populate with actual data
-    //   barAssociationsId: associationId ?? 0, // Populate with actual data
-    //   governorateId: governmentId ?? 0, // Populate with actual data
-    //   districtId: districtId ?? 0, // Populate with actual data
-    //   registrationNumber: "0", // Populate with actual data
-    // );
-
     List<Map<String, dynamic>> availableWorks = [];
     if (availabilityToWordIds != []) {
-      availableWorks = availabilityToWordIds.map((i) {
-        return {"availabilityWorkId": i, "description": " "};
-      }).toList();
+      for (int i = 0; i < availabilityToWordIds.length; i++) {
+        availableWorks.add({
+          "availabilityWorkId": availabilityToWordIds[i],
+          "description": controllers[i].text
+        });
+      }
+      // availableWorks = availabilityToWordIds.map((i) {
+      //   return {"availabilityWorkId": i, "description": controllers[i].text};
+      // }).toList();
     }
 
     final response = await settingsRepo.updateProfileSettings(
@@ -809,17 +810,15 @@ class SettingsCubit extends Cubit<SettingsState> {
           "name": nameController.text,
           "mobileNo": '+2${phoneController.text}',
           "email": emailController.text,
-          "registrationGradeId": 1,
-          "generalLawBachelorId": generalLawBachelorId,
+          "registrationGradeId": gradeId ?? 0,
+          //"generalLawBachelorId": generalLawBachelorId ?? 0,
           "barAssociationsId": associationId,
           "governorateId": governmentId,
           "districtId": districtId,
           "registrationNumber": kedNumberController.text,
           "address": adressOfficeController.text,
           "description": putYourVisionController!.text,
-          "specializationFields": [
-            {"specializationFieldId": specializationFieldId, "isPrimary": true}
-          ],
+          "specializationFields": specializationFields,
           "availableWorks": availableWorks,
           // "picture": {"file": file == null ? '' : file!.path, "fileTypeId": 1}
         });

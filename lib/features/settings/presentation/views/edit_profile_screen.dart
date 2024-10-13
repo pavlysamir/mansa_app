@@ -23,6 +23,8 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   SettingsCubit? settingsCubit;
   final SelectedDropDownManager manager = SelectedDropDownManager();
+  final SelectedMultipleDropDownManager managerMultiple =
+      SelectedMultipleDropDownManager();
 
   @override
   void initState() {
@@ -96,7 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           } else if (state is UpdateLaawyerDatatsFail) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                backgroundColor: Colors.green,
+                backgroundColor: Colors.red,
                 content: Text('الرجاء المحاوله مره اخرى'),
               ),
             );
@@ -474,8 +476,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   .namesOfSpecializationField
                                                   .length,
                                               itemBuilder: (context, index) {
-                                                return SelectedDropDownItem(
-                                                  manager: manager,
+                                                return SelectedMultipleDropDownItem(
+                                                  manager: managerMultiple,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
                                                         .selectSpecializationField(
@@ -818,6 +820,75 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 id: SettingsCubit.get(context)!
                                     .idsOfAvalabilityToWork[index],
                                 function: () {
+                                  SettingsCubit.get(context)!
+                                                  .mapAvalabilityToWork[
+                                              SettingsCubit.get(context)!
+                                                      .idsOfAvalabilityToWork[
+                                                  index]] !=
+                                          true
+                                      ? showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              PopUpDialogDropDown(
+                                            context: context,
+                                            function: () {
+                                              Navigator.pop(context);
+                                            },
+                                            widget: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  ' ضع شرح للحالة',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium,
+                                                ),
+                                                SizedBox(
+                                                  height: 14.h,
+                                                ),
+                                                CustomDescriptionPostField(
+                                                  controller: SettingsCubit.get(
+                                                          context)!
+                                                      .controllers[index],
+                                                  hintText: 'بحد اقصى 20 كلمه ',
+                                                  textInputType:
+                                                      TextInputType.text,
+                                                ),
+                                                SizedBox(
+                                                  height: 14.h,
+                                                ),
+                                                state
+                                                        is UpdateGiverPointsLoading
+                                                    ? const Center(
+                                                        child:
+                                                            CircularProgressIndicator(
+                                                          backgroundColor:
+                                                              kPrimaryKey,
+                                                        ),
+                                                      )
+                                                    : CustomButtonLarge(
+                                                        text:
+                                                            AppLocalizations.of(
+                                                                    context)!
+                                                                .save,
+                                                        textColor: Colors.white,
+                                                        function: () {
+                                                          // SettingsCubit.get(
+                                                          //         context)!
+                                                          //     .clickAvalabilityToWork(
+                                                          //         SettingsCubit.get(
+                                                          //                 context)!
+                                                          //             .idsOfAvalabilityToWork[index]);
+                                                          Navigator.pop(
+                                                              context);
+                                                        })
+                                              ],
+                                            ),
+                                            function2: () {},
+                                          ),
+                                        )
+                                      : const SizedBox();
                                   SettingsCubit.get(context)!
                                       .clickAvalabilityToWork(
                                           SettingsCubit.get(context)!
