@@ -93,12 +93,12 @@ class ProfileRepoImpl implements ProfileRepo {
   @override
   Future<Either<String, String>> updateCountPonts(
       {required num lowyerId,
-      required bool isRedeem,
+      //required bool isRedeem,
       required List<Map> data}) async {
     try {
       final response = await api.put(EndPoint.updateCategoryCount, data: {
         "toLawyerId": lowyerId,
-        "isRedeem": isRedeem,
+        //  "isRedeem": isRedeem,
         "categories": data
       });
 
@@ -109,10 +109,12 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints() async {
+  Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints(
+      int userId) async {
     try {
       final response = await api.get(
         EndPoint.getUsersGivenPoints,
+        queryParameters: {'givenUserId': userId},
       );
 
       GivenUsersResponseModel givenUsersResponseModel =

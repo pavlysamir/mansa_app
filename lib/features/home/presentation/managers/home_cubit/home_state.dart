@@ -24,3 +24,13 @@ final class GetAllUsersFailure extends HomeState {
   final String message;
   GetAllUsersFailure({required this.message});
 }
+
+final class GetUserGivenPointsLoading extends HomeState {}
+
+final class GetUserGivenPointsSuccess extends HomeState {}
+
+final class GetUserGivenPointsFail extends HomeState {
+  final String errorMessage;
+
+  GetUserGivenPointsFail(this.errorMessage);
+}

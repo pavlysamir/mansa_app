@@ -7,7 +7,7 @@ import 'package:mansa_app/features/settings/presentation/managers/settings_cubit
 
 class CustomCounterPoint extends StatefulWidget {
   const CustomCounterPoint({super.key, required this.catagoryData});
-  final CategoryData catagoryData;
+  final CategoryData? catagoryData;
 
   @override
   State<CustomCounterPoint> createState() => _CustomCounterPointState();
@@ -19,7 +19,7 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
   @override
   void initState() {
     super.initState();
-    _counter = widget.catagoryData.count;
+    _counter = widget.catagoryData?.count ?? 0;
   }
 
   @override
@@ -55,7 +55,7 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                     child: Row(
                       children: [
                         Text(
-                          widget.catagoryData.categoryName,
+                          widget.catagoryData?.categoryName ?? '',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         const Spacer(),
@@ -78,7 +78,7 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                                         .updateCount
                                         .removeWhere((element) =>
                                             element['categoryId'] ==
-                                            widget.catagoryData.id);
+                                            widget.catagoryData?.id);
                                     setState(() {
                                       _counter++;
                                       print(SettingsCubit.get(context)!
@@ -88,7 +88,7 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                                     SettingsCubit.get(context)!
                                         .updateCount
                                         .add({
-                                      'categoryId': widget.catagoryData.id,
+                                      'categoryId': widget.catagoryData?.id,
                                       'newCount': _counter,
                                     });
                                   },
@@ -132,11 +132,11 @@ class _CustomCounterPointState extends State<CustomCounterPoint> {
                                         .updateCount
                                         .removeWhere((element) =>
                                             element['categoryId'] ==
-                                            widget.catagoryData.id);
+                                            widget.catagoryData?.id);
                                     SettingsCubit.get(context)!
                                         .updateCount
                                         .add({
-                                      'categoryId': widget.catagoryData.id,
+                                      'categoryId': widget.catagoryData?.id,
                                       'newCount': -1,
                                     });
                                   },

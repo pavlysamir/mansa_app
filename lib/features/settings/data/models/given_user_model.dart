@@ -75,7 +75,7 @@ class GivenUser {
   Map<String, dynamic> toJson() {
     return {
       'userData': userData.toJson(),
-      'categories': categories.map((x) => x.toJson()).toList(),
+      'categories': categories?.map((x) => x.toJson()).toList(),
     };
   }
 }

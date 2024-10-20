@@ -94,6 +94,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
         // await getGivenCatagoriesCount();
         await getCurrentUserSorted(id: id);
+        await getGivenUserPoints(id);
 
         emit(GetProfileDataSuccess());
       },
@@ -148,9 +149,21 @@ class ProfileCubit extends Cubit<ProfileState> {
   getSpacializationName(List<SpecializationField> specializationFields) {
     names = [];
     for (var element in specializationFields) {
-      names.add(element.name);
+      if (element.isPrimary) {
+        names.add(element.name);
+      }
     }
     return names.join('-');
+  }
+
+  List<String> allNames = [];
+
+  getAllSpacializationName(List<SpecializationField> specializationFields) {
+    allNames = [];
+    for (var element in specializationFields) {
+      allNames.add(element.name);
+    }
+    return allNames.join('-');
   }
 
   getBacaloryName(int? index) {
@@ -194,13 +207,13 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future<void> updateGiverCountPoints({
     required num lowyerId,
-    required bool isRedeem,
+    // required bool isRedeem,
   }) async {
     emit(UpdateGiverPointsLoading());
 
     final response = await profileRepo.updateCountPonts(
       lowyerId: lowyerId,
-      isRedeem: isRedeem,
+      // isRedeem: isRedeem,
       data: updateCount,
     );
     response.fold(
@@ -217,19 +230,34 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   GivenUsersResponseModel? givenUsersResponseModel;
   List<GivenUser> usersGivenPoints = [];
+  List<CategoryData> categoryDataGiven = [];
 
-  Future<void> getGivenUserPoints() async {
+  Future<void> getGivenUserPoints(int userId) async {
     emit(GetUserGivenPointsLoading());
-    final response = await profileRepo.getGivenUserPoints();
+    final response = await profileRepo.getGivenUserPoints(userId);
 
     response.fold(
       (errMessage) => emit(GetUserGivenPointsFail(errMessage)),
       (usersGiven) {
         givenUsersResponseModel = usersGiven;
         usersGivenPoints = usersGiven.responseData.givenUsers;
+        if (usersGiven.responseData.givenUsers.isNotEmpty) {
+          categoryDataGiven = usersGiven.responseData.givenUsers[0].categories;
+        } else {
+          categoryDataGiven = [];
+        }
 
         emit(GetUserGivenPointsSuccess());
       },
     );
+  }
+
+  bool isGivenUser(int id) {
+    for (var element in categoryDataGiven) {
+      if (element.id == id) {
+        return true;
+      }
+    }
+    return false;
   }
 }

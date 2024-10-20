@@ -150,6 +150,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     TextEditingController(),
   ];
 
+  List<Map<String, dynamic>> avaialabaleToWorkControllers = [];
   void clickAvalabilityToWork(int id) {
     mapAvalabilityToWork[id] = !mapAvalabilityToWork[id]!;
 
@@ -160,13 +161,18 @@ class SettingsCubit extends Cubit<SettingsState> {
   void addClickAvailabilityToWorkToList(int id) {
     if (mapAvalabilityToWork[id] == true) {
       availabilityToWordIds.add(id);
+      avaialabaleToWorkControllers.add(
+          {"availabilityWorkId": id, "description": controllers[id - 1].text});
 
       print(availabilityToWordIds.toString());
+      print(controllers[id - 1].text);
     } else {
       availabilityToWordIds.remove(id);
+      avaialabaleToWorkControllers.removeAt(id - 1);
 
       //Scontrollers[id].text = "";
       print(availabilityToWordIds.toString());
+      print(avaialabaleToWorkControllers.length);
     }
   }
 
@@ -559,6 +565,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     mapAvalabilityToWork.forEach(((key, value) {
       mapAvalabilityToWork[key] = false;
     }));
+    avaialabaleToWorkControllers.clear();
 
     emit(ClearData());
   }
@@ -652,6 +659,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> getProfileSettingData() async {
     emit(GetProfileSettingLoading());
     availabilityToWordIds.clear();
+    avaialabaleToWorkControllers.clear();
+    selectedSpacializationField.clear();
+    isPrimary.clear();
 
     final response = await settingsRepo.getProfileSettingsData();
 
@@ -673,12 +683,19 @@ class SettingsCubit extends Cubit<SettingsState> {
             profileSetingsData!.responseData!.address ?? '';
         for (var element
             in profileSetingsData!.responseData!.specializationFields) {
+          selectedSpacializationField.add(element.specializationFieldId);
+          isPrimary.add(element.isPrimary);
           specializationFieldId = element.specializationFieldId;
           specializationField = element.name;
         }
 
         for (var element in profileSetingsData!.responseData!.availableWorks) {
+          controllers.add(TextEditingController(text: element.description));
           mapAvalabilityToWork.addAll({element.availabilityWorkId: true});
+          avaialabaleToWorkControllers.add({
+            "availabilityWorkId": element.availabilityWorkId,
+            "description": element.description,
+          });
 
           availabilityToWordIds.add(element.availabilityWorkId);
 
@@ -795,18 +812,19 @@ class SettingsCubit extends Cubit<SettingsState> {
       print('Warning: specializationFieldId is null');
     }
 
-    List<Map<String, dynamic>> availableWorks = [];
-    if (availabilityToWordIds != []) {
-      for (int i = 0; i < availabilityToWordIds.length; i++) {
-        availableWorks.add({
-          "availabilityWorkId": availabilityToWordIds[i],
-          "description": controllers[i].text
-        });
-      }
-      // availableWorks = availabilityToWordIds.map((i) {
-      //   return {"availabilityWorkId": i, "description": controllers[i].text};
-      // }).toList();
-    }
+    // List<Map<String, dynamic>> availableWorks = [];
+    // if (availabilityToWordIds != []) {
+    //   for (int i = 0; i < availabilityToWordIds.length; i++) {
+    //     print(controllers[i].text);
+    //     availableWorks.add({
+    //       "availabilityWorkId": availabilityToWordIds[i],
+    //       "description": controllers[i].text
+    //     });
+    //   }
+    //   // availableWorks = availabilityToWordIds.map((i) {
+    //   //   return {"availabilityWorkId": i, "description": controllers[i].text};
+    //   // }).toList();
+    // }
 
     final response = await settingsRepo.updateProfileSettings(
         //  lawyerData: lawyerData,
@@ -823,7 +841,7 @@ class SettingsCubit extends Cubit<SettingsState> {
           "address": adressOfficeController.text,
           "description": putYourVisionController!.text,
           "specializationFields": specializationFields,
-          "availableWorks": availableWorks,
+          "availableWorks": avaialabaleToWorkControllers,
           // "picture": {"file": file == null ? '' : file!.path, "fileTypeId": 1}
         });
     response.fold(

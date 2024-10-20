@@ -93,14 +93,14 @@ class CustomReturnPointUserItem extends StatelessWidget {
                               widget: Column(
                                 children: [
                                   ListView.builder(
-                                    itemCount: user.categories.length,
+                                    itemCount: user.categories?.length,
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
                                       return Column(
                                         children: [
                                           CustomCounterPoint(
                                             catagoryData:
-                                                user.categories[index],
+                                                user.categories?[index],
                                           ),
                                           SizedBox(height: 10.h),
                                         ],

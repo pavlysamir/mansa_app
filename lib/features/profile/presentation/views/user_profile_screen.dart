@@ -15,6 +15,7 @@ import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_c
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mansa_app/features/profile/presentation/widgets/custom_userData_cointaner.dart';
 import 'package:mansa_app/features/profile/presentation/widgets/custom_Counter_user_point.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -32,8 +33,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void initState() {
     super.initState();
     profileCubit = ProfileCubit.get(context);
-    profileCubit!.getGivenCatagoriesCount();
-    profileCubit!.getUserProfileData(id: widget.user.userId);
+    //  profileCubit?.getGivenCatagoriesCount();
+    profileCubit?.getUserProfileData(id: widget.user.userId);
+
+    // profileCubit?.getGivenUserPoints(widget.user.userId);
   }
 
   @override
@@ -49,9 +52,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           );
         } else if (state is UpdateGiverPointsSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               backgroundColor: Colors.green,
-              content: Text('تم'),
+              content: Text(state.message),
             ),
           );
         }
@@ -86,30 +89,28 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           },
                           widget: Column(
                             children: [
-                              if (profileCubit != null &&
-                                  profileCubit!.categoryData.isNotEmpty)
-                                Column(
-                                  children: [
-                                    const CustomCounterUserPoint(
-                                      categoryId: 1,
-                                      categoryName: 'الذهبيه',
-                                      count: 0,
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    const CustomCounterUserPoint(
-                                      categoryId: 2,
-                                      categoryName: 'الفضية',
-                                      count: 0,
-                                    ),
-                                    SizedBox(height: 10.h),
-                                    const CustomCounterUserPoint(
-                                      categoryId: 3,
-                                      categoryName: 'البرونزية',
-                                      count: 0,
-                                    ),
-                                    SizedBox(height: 10.h),
-                                  ],
-                                ),
+                              Column(
+                                children: [
+                                  CustomCounterUserPoint(
+                                    categoryId: 1,
+                                    categoryName: 'الذهبيه',
+                                    count: profileCubit!.isGivenUser(1) ? 1 : 0,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  CustomCounterUserPoint(
+                                    categoryId: 2,
+                                    categoryName: 'الفضيه',
+                                    count: profileCubit!.isGivenUser(2) ? 1 : 0,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                  CustomCounterUserPoint(
+                                    categoryId: 3,
+                                    categoryName: 'البرونزيه',
+                                    count: profileCubit!.isGivenUser(3) ? 1 : 0,
+                                  ),
+                                  SizedBox(height: 10.h),
+                                ],
+                              ),
                               if (state is UpdateGiverPointsLoading)
                                 const Center(
                                   child: CircularProgressIndicator(
@@ -123,12 +124,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   function: () {
                                     profileCubit!
                                         .updateGiverCountPoints(
-                                            lowyerId: widget.user.userId,
-                                            isRedeem: true)
+                                      lowyerId: widget.user.userId,
+                                    )
                                         .then((value) {
                                       profileCubit!.getUserProfileData(
                                         id: widget.user.userId,
                                       );
+                                      profileCubit?.getUserProfileData(
+                                          id: widget.user.userId);
                                     });
                                     Navigator.pop(context);
                                   },
@@ -185,7 +188,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       SizedBox(
                         height: 18.h,
                       ),
-                      Text('درجة القيد - التخصص الأ ساسي ',
+                      Text(
+                          '${profileCubit?.getRegistrationGrade(profileCubit?.myProfileData?.responseData.profileData.registrationGradeId)} - ${profileCubit?.myProfileData?.responseData.profileData.specializationFields == [] ? '' : profileCubit?.getSpacializationName(profileCubit?.myProfileData?.responseData.profileData.specializationFields ?? [])} ',
                           style: Theme.of(context).textTheme.headlineLarge!),
                       SizedBox(
                         height: 24.h,
@@ -194,12 +198,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 16.h),
                         child: CustomHomeContainerOlders(
                           city: ProfileCubit.get(context)!
-                                  .userSortedModel!
-                                  .city ??
+                                  .userSortedModel
+                                  ?.city ??
                               0,
                           registrationGrade: ProfileCubit.get(context)!
-                              .userSortedModel!
-                              .registrationGrade,
+                                  .userSortedModel
+                                  ?.registrationGrade ??
+                              0,
                           controller1:
                               ProfileCubit.get(context)!.olderOfAppController,
                           controller2:
@@ -223,7 +228,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               itemCount: profileData?.availableWorks.length,
                               itemBuilder: (context, index) {
                                 final availableWork =
-                                    profileData!.availableWorks[index];
+                                    profileData?.availableWorks[index];
                                 return SizedBox(
                                   height: 40.h,
                                   child: Padding(
@@ -236,13 +241,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             Container(
                                               padding: const EdgeInsets.all(6),
                                               decoration: BoxDecoration(
-                                                color: availableWork.name ==
+                                                color: availableWork?.name ==
                                                         'متاح للعمل بشكل دائم'
                                                     ? Colors.green
-                                                    : availableWork.name ==
+                                                    : availableWork?.name ==
                                                             'متاح لانجاز مهمة'
                                                         ? kPrimaryKey
-                                                        : availableWork.name ==
+                                                        : availableWork?.name ==
                                                                 'مطلوب للعمل '
                                                             ? Colors.red
                                                             : kDarktBlue,
@@ -250,7 +255,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                     BorderRadius.circular(10),
                                               ),
                                               child: Text(
-                                                availableWork.name,
+                                                availableWork?.name ?? '',
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .titleSmall!
@@ -264,8 +269,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             Expanded(
                                               child: Text(
                                                 profileCubit!
-                                                        .userProfileData!
-                                                        .responseData
+                                                        .userProfileData
+                                                        ?.responseData
                                                         .profileData
                                                         .availableWorks[index]
                                                         .description ??
@@ -291,7 +296,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ),
                       CustomUserdataCointaner(
                         myProfileData:
-                            profileCubit!.userProfileData!.responseData,
+                            profileCubit!.userProfileData?.responseData,
                       ),
                       SizedBox(
                         height: 32.h,

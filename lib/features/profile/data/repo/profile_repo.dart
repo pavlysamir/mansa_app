@@ -18,7 +18,10 @@ abstract class ProfileRepo {
       {required int id});
 
   Future<Either<String, String>> updateCountPonts(
-      {required num lowyerId, required bool isRedeem, required List<Map> data});
+      {required num lowyerId,
+      //required bool isRedeem,
+      required List<Map> data});
 
-  Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints();
+  Future<Either<String, GivenUsersResponseModel>> getGivenUserPoints(
+      int userId);
 }

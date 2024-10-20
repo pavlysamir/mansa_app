@@ -41,9 +41,11 @@ class CustomUserdataCointaner extends StatelessWidget {
                       : false,
                   img: AssetsData.mizan,
                   text: myProfileData?.profileData.generalLawBachelorId == 0
-                      ? 'ليسانس حقوق عام '
-                      : ProfileCubit.get(context)!.getBacaloryName(
-                          myProfileData?.profileData.generalLawBachelorId),
+                      ? 'ليسانس حقوق عام'
+                      : ProfileCubit.get(context)?.getBacaloryName(
+                              myProfileData?.profileData.generalLawBachelorId ??
+                                  0) ??
+                          '',
                 ),
                 // myProfileData.profileData.districtId == 0 ||
                 //         myProfileData.profileData.governorateId == 0
@@ -67,15 +69,15 @@ class CustomUserdataCointaner extends StatelessWidget {
                 //     ? const SizedBox()
                 //     :
                 CustomUserdataRow(
-                  isNull:
-                      myProfileData?.profileData.specializationFields.length ==
-                              0
-                          ? true
-                          : false,
+                  isNull: (myProfileData
+                              ?.profileData.specializationFields.isEmpty ??
+                          true)
+                      ? true
+                      : false,
                   img: AssetsData.kady,
                   text: myProfileData?.profileData.specializationFields == []
                       ? 'التخصص'
-                      : ProfileCubit.get(context)!.getSpacializationName(
+                      : ProfileCubit.get(context)!.getAllSpacializationName(
                           myProfileData?.profileData.specializationFields ??
                               []),
                 ),

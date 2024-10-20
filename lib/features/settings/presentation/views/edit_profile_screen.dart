@@ -874,12 +874,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                                 .save,
                                                         textColor: Colors.white,
                                                         function: () {
-                                                          // SettingsCubit.get(
-                                                          //         context)!
-                                                          //     .clickAvalabilityToWork(
-                                                          //         SettingsCubit.get(
-                                                          //                 context)!
-                                                          //             .idsOfAvalabilityToWork[index]);
+                                                          SettingsCubit.get(
+                                                                  context)!
+                                                              .clickAvalabilityToWork(
+                                                                  SettingsCubit.get(
+                                                                          context)!
+                                                                      .idsOfAvalabilityToWork[index]);
                                                           Navigator.pop(
                                                               context);
                                                         })
@@ -888,11 +888,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                             function2: () {},
                                           ),
                                         )
-                                      : const SizedBox();
-                                  SettingsCubit.get(context)!
-                                      .clickAvalabilityToWork(
-                                          SettingsCubit.get(context)!
+                                      : SettingsCubit.get(context)!
+                                          .clickAvalabilityToWork(SettingsCubit
+                                                  .get(context)!
                                               .idsOfAvalabilityToWork[index]);
+                                  // SettingsCubit.get(context)!
+                                  //     .clickAvalabilityToWork(
+                                  //         SettingsCubit.get(context)!
+                                  //             .idsOfAvalabilityToWork[index]);
                                 },
                                 text: SettingsCubit.get(context)!
                                     .namesOfAvalabilityToWork[index],

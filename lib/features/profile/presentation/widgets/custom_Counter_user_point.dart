@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mansa_app/constants.dart';
 import 'package:mansa_app/features/profile/presentation/managers/cubit/profile_cubit.dart';
+import 'package:mansa_app/features/settings/data/models/given_user_model.dart';
 
 class CustomCounterUserPoint extends StatefulWidget {
   const CustomCounterUserPoint({
@@ -13,8 +14,8 @@ class CustomCounterUserPoint extends StatefulWidget {
   });
   // final CategoryData catagoryData;
   final String categoryName;
-  final int count;
-  final int categoryId;
+  final num count;
+  final num categoryId;
 
   @override
   State<CustomCounterUserPoint> createState() => _CustomCounterPointState();
@@ -101,13 +102,11 @@ class _CustomCounterPointState extends State<CustomCounterUserPoint> {
                                   ),
                                 ),
                               ),
-                        Text(
-                          '$_counter',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .copyWith(color: kDarktBlue),
-                        ),
+                        Text('$_counter',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(color: kDarktBlue)),
                         _counter == 0
                             ? CircleAvatar(
                                 backgroundColor: Colors.transparent,
