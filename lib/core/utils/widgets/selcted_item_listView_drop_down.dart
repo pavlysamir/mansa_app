@@ -9,15 +9,18 @@ class SelectedDropDownItem extends StatelessWidget {
     required this.functionSelected,
     required this.name,
     required this.manager,
+    required this.selectedIndex,
   });
 
   final int index;
   final Function() functionSelected;
   final String name;
   final SelectedDropDownManager manager;
+  final int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
+    manager.selectedIndex = selectedIndex ?? null;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -101,15 +104,18 @@ class SelectedMultipleDropDownItem extends StatelessWidget {
     required this.functionSelected,
     required this.name,
     required this.manager,
+    required this.selectedIndices,
   });
 
   final int index;
   final Function() functionSelected;
   final String name;
   final SelectedMultipleDropDownManager manager;
+  final List<int>? selectedIndices;
 
   @override
   Widget build(BuildContext context) {
+    manager.selectedIndices = selectedIndices ?? [];
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

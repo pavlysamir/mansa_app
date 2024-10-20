@@ -214,6 +214,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                           itemBuilder:
                                                               (context, index) {
                                                             return SelectedDropDownItem(
+                                                              selectedIndex:
+                                                                  SettingsCubit.get(
+                                                                          context)!
+                                                                      .gradeId,
                                                               manager: manager,
                                                               functionSelected:
                                                                   () {
@@ -378,6 +382,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                       .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedDropDownItem(
+                                                  selectedIndex:
+                                                      SettingsCubit.get(
+                                                              context)!
+                                                          .associationId,
                                                   manager: manager,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
@@ -477,6 +485,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedMultipleDropDownItem(
+                                                  selectedIndices: SettingsCubit
+                                                          .get(context)!
+                                                      .selectedSpacializationField,
                                                   manager: managerMultiple,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
@@ -614,6 +625,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                       .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedDropDownItem(
+                                                  selectedIndex:
+                                                      SettingsCubit.get(
+                                                              context)!
+                                                          .governmentId,
                                                   manager: manager,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
@@ -741,6 +756,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                               context)!
                                                           .filteredDistrictItems[
                                                       index],
+                                                  selectedIndex:
+                                                      SettingsCubit.get(
+                                                              context)!
+                                                          .districtId,
                                                 );
                                               }),
                                         ),

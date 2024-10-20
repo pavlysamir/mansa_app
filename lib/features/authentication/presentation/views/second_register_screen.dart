@@ -116,6 +116,7 @@ class SecondRegisterScreen extends StatelessWidget {
                                                       builder:
                                                           (context, state) {
                                                         return SelectedDropDownItem(
+                                                          selectedIndex: null,
                                                           manager: manager,
                                                           functionSelected: () {
                                                             RegisterCubit.get(

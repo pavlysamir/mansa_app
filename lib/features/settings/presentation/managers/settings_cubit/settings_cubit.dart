@@ -658,10 +658,11 @@ class SettingsCubit extends Cubit<SettingsState> {
   ProfileSettingModel? profileSetingsData;
   Future<void> getProfileSettingData() async {
     emit(GetProfileSettingLoading());
+    print(selectedSpacializationField);
     availabilityToWordIds.clear();
     avaialabaleToWorkControllers.clear();
-    selectedSpacializationField.clear();
-    isPrimary.clear();
+    // selectedSpacializationField.clear();
+    // isPrimary.clear();
 
     final response = await settingsRepo.getProfileSettingsData();
 
