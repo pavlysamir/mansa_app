@@ -129,6 +129,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     for (var element in allGradesRegistration) {
       if (element.nameAr == grade) {
         gradeId = element.id;
+        selectedGradeId = idsGrades.indexOf(element.id);
       }
     }
     if (kDebugMode) {
@@ -282,6 +283,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     for (var element in allGovernments) {
       if (element.nameAr == government) {
         governmentId = element.id;
+        selectedGovernmentId = idsOfGovernments.indexOf(element.id);
       }
     }
     if (kDebugMode) {
@@ -299,6 +301,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     for (var element in allDistricts) {
       if (element.nameAr == district) {
         districtId = element.id;
+        selectedDistrictId = idsOfDistricts.indexOf(element.id);
       }
     }
     if (kDebugMode) {
@@ -341,6 +344,7 @@ class SettingsCubit extends Cubit<SettingsState> {
     for (var element in allBarAssociations) {
       if (element.nameAr == association) {
         associationId = element.id;
+        selectedAssociationId = idsOfBarAssociations.indexOf(element.id);
       }
     }
     if (kDebugMode) {
@@ -506,6 +510,8 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   List<int> selectedSpacializationField = [];
   List<bool> isPrimary = [];
+  List<int> getSelectedSpacializationField = [];
+
   //Method to select SpecializationField
   void selectSpecializationField(String specializationField) {
     this.specializationField = specializationField;
@@ -514,10 +520,14 @@ class SettingsCubit extends Cubit<SettingsState> {
         specializationFieldId = element.id;
         if (selectedSpacializationField.contains(element.id)) {
           selectedSpacializationField.remove(element.id);
+          getSelectedSpacializationField
+              .remove(idsOfSpecializationField.indexOf(element.id));
           isPrimary.isNotEmpty ? isPrimary[0] = true : null;
         } else if (selectedSpacializationField.length < 4) {
           selectedSpacializationField.add(element.id);
           isPrimary.isEmpty ? isPrimary.add(true) : isPrimary.add(false);
+          getSelectedSpacializationField
+              .add(idsOfSpecializationField.indexOf(element.id));
         } else {
           null;
         }
@@ -659,7 +669,8 @@ class SettingsCubit extends Cubit<SettingsState> {
     print(selectedSpacializationField);
     availabilityToWordIds.clear();
     avaialabaleToWorkControllers.clear();
-    // selectedSpacializationField.clear();
+    idsGrades.clear();
+    selectedSpacializationField.clear();
     // isPrimary.clear();
 
     final response = await settingsRepo.getProfileSettingsData();
@@ -723,8 +734,13 @@ class SettingsCubit extends Cubit<SettingsState> {
         selectedGovernmentId = idsOfGovernments.indexOf(governmentId!);
         selectedAssociationId = idsOfBarAssociations.indexOf(associationId!);
         selectedGradeId = idsGrades.indexOf(gradeId!);
-        // selectedGeneralLawBachelorId =
-        //     idsOfSpecializationField.indexOf(generalLawBachelorId!);
+
+        for (var element in selectedSpacializationField) {
+          getSelectedSpacializationField
+              .add(idsOfSpecializationField.indexOf(element));
+        }
+        print(selectedSpacializationField);
+        print('aaaaaaaaaaaaaaaaaaaaa$getSelectedSpacializationField');
 
         emit(GetProfileSettingSuccess());
       },

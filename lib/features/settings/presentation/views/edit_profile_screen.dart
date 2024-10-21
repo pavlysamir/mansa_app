@@ -217,7 +217,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                               selectedIndex:
                                                                   SettingsCubit.get(
                                                                           context)!
-                                                                      .gradeId,
+                                                                      .selectedGradeId,
                                                               manager: manager,
                                                               functionSelected:
                                                                   () {
@@ -382,10 +382,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                       .length,
                                               itemBuilder: (context, index) {
                                                 return SelectedDropDownItem(
-                                                  selectedIndex:
-                                                      SettingsCubit.get(
-                                                              context)!
-                                                          .associationId,
+                                                  selectedIndex: SettingsCubit
+                                                          .get(context)!
+                                                      .selectedAssociationId,
                                                   manager: manager,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
@@ -487,7 +486,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                 return SelectedMultipleDropDownItem(
                                                   selectedIndices: SettingsCubit
                                                           .get(context)!
-                                                      .selectedSpacializationField,
+                                                      .getSelectedSpacializationField,
                                                   manager: managerMultiple,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!

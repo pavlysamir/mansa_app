@@ -82,17 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         context: context, path: AppRouter.kSearchScreen);
                   },
                 ),
-                SizedBox(width: 10.w),
-                IconButton(
-                  icon: Icon(
-                    IconlyLight.notification,
-                    size: 24.r,
-                  ),
-                  onPressed: () {
-                    customJustGoNavigate(
-                        context: context, path: AppRouter.kNotificationScreen);
-                  },
-                ),
+                // SizedBox(width: 10.w),
+                // IconButton(
+                //   icon: Icon(
+                //     IconlyLight.notification,
+                //     size: 24.r,
+                //   ),
+                //   onPressed: () {
+                //     customJustGoNavigate(
+                //         context: context, path: AppRouter.kNotificationScreen);
+                //   },
+                // ),
                 SizedBox(width: 10.w),
               ],
             ),
