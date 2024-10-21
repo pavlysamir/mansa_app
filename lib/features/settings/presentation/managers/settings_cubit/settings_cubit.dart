@@ -94,6 +94,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   List<GradesRegistrationModel> allGradesRegistration = [];
   List<String> namesOfGrades = [];
+  List<int> idsGrades = [];
   Future<void> getAllGradesRegistration() async {
     // emit(GetAllSubjectsRegistrationLoading());
     final response = await settingsRepo.getAllGradesRegistration();
@@ -107,6 +108,7 @@ class SettingsCubit extends Cubit<SettingsState> {
         //     key: ApiKey.allgradesRegisters, list: allGradesRegistration);
         for (var element in allGradesRegistration) {
           namesOfGrades.add(element.nameAr);
+          idsGrades.add(element.id);
         }
         getIt
             .get<CashHelperSharedPreferences>()
@@ -118,16 +120,9 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  void saveListInSharedPreferences(
-      {required List<dynamic> list, required String key}) async {
-    final listValue = jsonEncode(list.map((item) => item.toJson()).toList());
-    await getIt
-        .get<CashHelperSharedPreferences>()
-        .saveData(key: key, value: listValue);
-  }
-
   late String grade;
   int? gradeId;
+  int? selectedGradeId;
 
   void selectGrade(String grade) {
     this.grade = grade;
@@ -280,6 +275,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   late String government;
   int? governmentId;
+  int? selectedGovernmentId;
 
   void selectGovernment(String government) {
     this.government = government;
@@ -296,6 +292,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   late String district;
   int? districtId;
+  int? selectedDistrictId;
 
   void selectDistrict(String district) {
     this.district = district;
@@ -337,6 +334,7 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   String? association;
   int? associationId;
+  int? selectedAssociationId;
 
   void selectAssociation(String association) {
     this.association = association;
@@ -721,6 +719,12 @@ class SettingsCubit extends Cubit<SettingsState> {
         getIt.get<CashHelperSharedPreferences>().saveData(
             key: ApiKey.userName,
             value: profileSetingsData!.responseData!.name);
+        selectedDistrictId = idsOfDistricts.indexOf(districtId!);
+        selectedGovernmentId = idsOfGovernments.indexOf(governmentId!);
+        selectedAssociationId = idsOfBarAssociations.indexOf(associationId!);
+        selectedGradeId = idsGrades.indexOf(gradeId!);
+        // selectedGeneralLawBachelorId =
+        //     idsOfSpecializationField.indexOf(generalLawBachelorId!);
 
         emit(GetProfileSettingSuccess());
       },

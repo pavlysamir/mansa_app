@@ -628,7 +628,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   selectedIndex:
                                                       SettingsCubit.get(
                                                               context)!
-                                                          .governmentId,
+                                                          .selectedGovernmentId,
                                                   manager: manager,
                                                   functionSelected: () {
                                                     SettingsCubit.get(context)!
@@ -759,7 +759,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                                   selectedIndex:
                                                       SettingsCubit.get(
                                                               context)!
-                                                          .districtId,
+                                                          .selectedDistrictId,
                                                 );
                                               }),
                                         ),
